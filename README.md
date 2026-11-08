@@ -14,7 +14,8 @@ guest's journey, as set out in the PRD's *Version 2: one guest, five stages* sec
 | 5 · On the day | What's next and where is it? | PCC app screens |
 
 Event times will come from PCC's scheduling app; until it can be read, the prototype uses
-sample data. Until the rework lands, everything below describes the copied Version 1.
+sample data. Live at https://interactive-map-prototype-v2.vercel.app (Vercel project
+`interactive-map-prototype-v2`). Until the rework lands, everything below describes the copied Version 1.
 
 ---
 
