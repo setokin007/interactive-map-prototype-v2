@@ -31,15 +31,15 @@
       "destination": "/App-Today.dc.html"
     },
     {
-      "source": "/app/map",
+      "source": "/app-map",
       "destination": "/App-Map.dc.html"
     },
     {
-      "source": "/app/replan",
+      "source": "/app-replan",
       "destination": "/App-Late.dc.html"
     },
     {
-      "source": "/app/alert",
+      "source": "/app-alert",
       "destination": "/App-Alert.dc.html"
     }
   ],

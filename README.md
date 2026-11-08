@@ -13,7 +13,7 @@ journey, as set out in the PRD's *Version 2: one guest, five stages* section.
 | 2 · Comparing | What would my day look like? | Shape your day in three taps: party, date and hours, where staying | `/#shape` | same page |
 | 3 · Booking | Which package fits that day? | Package matched to the shaped day, then the confirmation email | `/#book`; full comparison at `/packages` | same page; `design/your-day-and-tickets.dc.html` |
 | 4 · Booked, preparing | How do I make the most of it? | My Day: booking loaded from the email link or confirmation number, "Before you come", the full builder | `/myday` | `design/plan-my-day.dc.html` |
-| 5 · On the day | What's next and where is it? | PCC app screens (iOS and Android): Today, Map, Running behind, Schedule change | `/app`, `/app/map`, `/app/replan`, `/app/alert` | `design/app-*.dc.html` |
+| 5 · On the day | What's next and where is it? | PCC app screens (iOS and Android): Today, Map, Running behind, Schedule change | `/app`, `/app-map`, `/app-replan`, `/app-alert` | `design/app-*.dc.html` |
 
 Decisions behind it (PRD, Nov 8):
 
