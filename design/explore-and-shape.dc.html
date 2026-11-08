@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shape your day · Polynesian Cultural Center</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&amp;family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4EF}
+a{color:#215968}a:hover{color:#153A45}
+button{font-family:inherit}
+[hidden]{display:none !important}
+button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2px}
+#explore,#shape,#your-day,#book{scroll-margin-top:16px}
+.villages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.villages{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.villages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.taps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:960px){.taps{grid-template-columns:minmax(0,1fr)}}
+.result{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.result-day{flex:999 1 520px;min-width:0}
+.result-pkg{flex:1 1 320px;min-width:0;position:sticky;top:16px}
+@media (max-width:900px){.result-pkg{position:static}}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F6F4EF; color: #27201B; font-family: Lato, 'Helvetica Neue', Arial, sans-serif;">
+
+<nav aria-label="Site" style="background: #FFFFFF; border-bottom: 1px solid #E3DED4;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 0 24px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
+<a href="#" style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; color: #27201B; text-decoration: none; letter-spacing: -0.01em;">Polynesian Cultural Center</a>
+<span style="flex-grow: 1;"></span>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px;">
+<a href="#explore" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Explore</a>
+<a href="#shape" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Shape your day</a>
+<a href="Discover.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Packages</a>
+<a href="Main.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Already booked? My Day</a>
+</div>
+</div>
+</nav>
+
+<main style="max-width: 1240px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 56px;">
+
+<!-- STAGE 1 · DREAMING: asks nothing -->
+<section id="explore" aria-labelledby="explore-h" style="display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Lāʻie, Oʻahu · North Shore</span>
+<h1 id="explore-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.01em;">Six island nations. One day. Plan to stay.</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #4A4336;">Walk from Samoa to Hawaiʻi across 42 acres of villages, lagoon and gardens. Most guests spend about five hours in the villages before dinner and the evening show, and still wish they had more.</p>
+</div>
+<div class="stats" role="list" aria-label="The day at a glance">
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">6</span><span style="font-size: 14px; color: #5E5642;">island villages</span></div>
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">42</span><span style="font-size: 14px; color: #5E5642;">acres to explore</span></div>
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">~5 h</span><span style="font-size: 14px; color: #5E5642;">in the villages</span></div>
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">30+</span><span style="font-size: 14px; color: #5E5642;">presentations and activities a day</span></div>
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">100+</span><span style="font-size: 14px; color: #5E5642;">performers in HĀ at night</span></div>
+</div>
+<div style="position: relative; width: 100%; aspect-ratio: 2601 / 704; border-radius: 16px; overflow: hidden; background: #E3DED4; border: 1px solid #E3DED4;">
+<img src="../assets/gate-map.webp" alt="Illustrated map of the Center: the Hukilau Marketplace and Pacific Theater at the entrance, the lagoon through the middle, and the six island villages around it" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
+<sc-for list="{{mapPins}}" as="pin" hint-placeholder-count="6">
+<span aria-hidden="true" style="{{pin.style}}">{{pin.label}}</span>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; color: #5E5642;">{{mapCaption}}</p>
+<div class="villages" role="list" aria-label="The six island villages">
+<sc-for list="{{villages}}" as="v" hint-placeholder-count="6">
+<article role="listitem" style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
+<img src="{{v.img}}" alt="{{v.alt}}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #E3DED4;">
+<div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span aria-hidden="true" style="{{v.badge}}">{{v.code}}</span>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{v.name}}</h3>
+</div>
+<span style="font-family: Fraunces, Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: #215968;">{{v.greeting}}</span>
+<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #4A4336;">{{v.promise}}</p>
+</div>
+</article>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 15px; color: #5E5642;">Plus Huki, the canoe celebration on the lagoon, a royal lūʻau and HĀ: Breath of Life after dark. The rest we'll save for your visit.</p>
+</section>
+
+<!-- STAGE 2 · COMPARING: three taps -->
+<section id="shape" aria-labelledby="shape-h" style="display: flex; flex-direction: column; gap: 20px; padding: 28px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Shape your day</span>
+<h2 id="shape-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.1;">What would your day look like? Three taps.</h2>
+<p style="margin: 0; font-size: 16px; color: #5E5642;">We'll suggest a day with that date's real times. You can change any stop.</p>
+</div>
+<div class="taps">
+
+<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step1Num}}">1</span> Who's coming?</legend>
+<sc-for list="{{parties}}" as="o" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+</sc-for>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step2Num}}">2</span> When, and for how long?</legend>
+<div role="group" aria-label="Date" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="8">
+<button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
+</sc-for>
+</div>
+<span style="font-size: 12px; color: #5E5642;">Closed Sundays and Wednesdays in this sample.</span>
+<div role="group" aria-label="How long" style="display: flex; flex-direction: column; gap: 6px;">
+<sc-for list="{{hours}}" as="o" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+</sc-for>
+</div>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step3Num}}">3</span> Where are you staying?</legend>
+<sc-for list="{{stays}}" as="o" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+</sc-for>
+</fieldset>
+</div>
+
+<sc-if value="{{notReady}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 20px; border: 1px dashed #C9C0AE; border-radius: 14px; text-align: center; color: #5E5642; font-size: 16px;">{{waitingText}}</div>
+</sc-if>
+</section>
+
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<section id="your-day" aria-labelledby="day-h" class="result">
+<div class="result-day" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Suggested for {{partyName}}</span>
+<h2 id="day-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1;">{{dayTitle}}</h2>
+<p style="margin: 0; font-size: 15px; color: #5E5642;">{{daySub}}</p>
+</div>
+<div role="note" style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; background: #E6EFF1; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #153A45;">
+<span aria-hidden="true" style="font-weight: 700;">i</span>
+<span>{{arrivalNote}}</span>
+</div>
+<ol aria-label="Your suggested day" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0;">
+<sc-for list="{{stops}}" as="st" hint-placeholder-count="7">
+<li style="display: flex; flex-direction: column;">
+<sc-if value="{{st.walk}}" hint-placeholder-val="{{ false }}">
+<span style="margin-left: 90px; padding: 4px 0 4px 14px; border-left: 2px dotted #C9C0AE; font-size: 12px; color: #5E5642;">{{st.walk}}</span>
+</sc-if>
+<div style="{{st.rowStyle}}">
+<span style="width: 76px; flex-shrink: 0; white-space: nowrap; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; padding-top: 2px;">{{st.time}}</span>
+<span aria-hidden="true" style="{{st.badge}}">{{st.code}}</span>
+<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+<span style="font-weight: 700; font-size: 16px;">{{st.title}}</span>
+<span style="font-size: 13px; color: #5E5642;">{{st.meta}}</span>
+<sc-if value="{{st.why}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #215968;">{{st.why}}</span>
+</sc-if>
+</div>
+<sc-if value="{{st.canSwap}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{st.swap}}" aria-label="{{st.swapAria}}" style="flex-shrink: 0; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">Swap</button>
+</sc-if>
+<sc-if value="{{st.lockLabel}}" hint-placeholder-val="{{ false }}">
+<span style="flex-shrink: 0; align-self: center; font-size: 12px; font-weight: 700; color: #5E5642; padding: 4px 10px; border-radius: 999px; background: #EFEBE2;">{{st.lockLabel}}</span>
+</sc-if>
+</div>
+</li>
+</sc-for>
+</ol>
+<sc-if value="{{swapMsg}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{swapMsg}}</p>
+</sc-if>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5E5642;">{{sourceNote}}</p>
+</div>
+
+<aside id="book" class="result-pkg" aria-labelledby="pkg-h" style="display: flex; flex-direction: column; gap: 14px; padding: 22px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 18px; box-shadow: 0 10px 30px rgba(39,32,27,0.06);">
+<sc-if value="{{notBooked}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5642;">The package for this day</span>
+<h2 id="pkg-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">{{pkg.name}}</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A4336;">{{pkg.why}}</p>
+<ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.45;">
+<sc-for list="{{pkg.includes}}" as="inc" hint-placeholder-count="3"><li>{{inc}}</li></sc-for>
+</ul>
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-top: 1px solid #E3DED4; border-bottom: 1px solid #E3DED4;">
+<span style="font-size: 14px; color: #5E5642;">{{partyLine}}</span>
+<span style="font-size: 14px; color: #5E5642;">{{transportLine}}</span>
+<span style="font-size: 20px; font-weight: 700; margin-top: 4px;">[TOTAL]</span>
+</div>
+<button type="button" onClick="{{book}}" style="min-height: 52px; border: none; border-radius: 999px; background: #D6420F; color: #FFFFFF; font-weight: 700; font-size: 17px; cursor: pointer;">Book this day</button>
+<a href="Discover.dc.html" onClick="{{keepDay}}" style="text-align: center; font-size: 15px; font-weight: 700; padding: 10px 0;">Compare all packages</a>
+<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #5E5642;">Your day comes with you. After you book, it's waiting in My Day with every time and walk, ready to fine-tune.</p>
+</div>
+</sc-if>
+<sc-if value="{{booked}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">Booked · prototype</span>
+<h2 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">Mahalo! Your day is saved to booking {{bookedConf}}.</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A4336;">This is the confirmation email a guest would receive. One tap opens their day. No account, no typing.</p>
+<div style="border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
+<div style="padding: 10px 14px; background: #F6F4EF; font-size: 13px; color: #5E5642; display: flex; flex-direction: column; gap: 2px;"><span><strong style="color: #27201B;">From:</strong> Polynesian Cultural Center</span><span><strong style="color: #27201B;">Subject:</strong> You're booked for {{dateLong}}</span></div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.5;">
+<span>Aloha! {{pkg.name}}, {{dateLong}}. Confirmation {{bookedConf}}.</span>
+<span>We've saved the day you shaped. Open it to see every time, the walks between stops, and what to bring.</span>
+<a href="Main.dc.html" style="align-self: flex-start; min-height: 48px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; background: #215968; color: #FFFFFF; font-weight: 700; text-decoration: none;">Open my day</a>
+<span style="font-size: 13px; color: #5E5642;">This link works until your visit. Lost it? Find your day with confirmation {{bookedConf}} at polynesia.com/myday.</span>
+</div>
+</div>
+<button type="button" onClick="{{unbook}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Start over</button>
+</div>
+</sc-if>
+</aside>
+</section>
+</sc-if>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3000}}'>
+// ---- Event times, in the shape PCC's scheduling app is expected to supply them.
+// Until the app can be read, these sample times live here. Times are local, "HH:MM".
+var SCHEDULE = {
+  source: "sample",
+  events: [
+    { id: "market-lunch", title: "Early lunch at the Hukilau Marketplace", place: "market", kind: "Food", dur: 45, times: ["11:00"] },
+    { id: "huki-show", title: "Huki: A Canoe Celebration", place: "huki", kind: "Show", dur: 20, times: ["13:00"], note: "Pre-show at 12:50" },
+    { id: "samoa-pres", title: "Way of Life in Samoa", place: "samoa", kind: "Presentation", dur: 20, times: ["13:00", "14:00", "15:00", "16:00", "16:30"] },
+    { id: "samoa-fire", title: "Fire-making", place: "samoa", kind: "Demonstration", dur: 15, times: ["13:30", "14:30", "15:30", "16:30"] },
+    { id: "aotearoa-pres", title: "Haka and Māori culture", place: "aotearoa", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30"] },
+    { id: "fiji-pres", title: "History Through Chants and Dance", place: "fiji", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30"] },
+    { id: "fiji-oil", title: "Coconut oil making", place: "fiji", kind: "Demonstration", dur: 15, times: ["13:00", "14:00", "15:00", "16:00", "17:00"] },
+    { id: "hawaii-pres", title: "Tradition of Lasting Tide", place: "hawaii", kind: "Presentation", dur: 20, times: ["13:00", "14:00", "15:00", "16:00", "17:00"] },
+    { id: "hawaii-games", title: "Traditional Hawaiian games", place: "hawaii", kind: "Hands-on", dur: 15, times: ["13:30", "14:30", "15:30", "16:30"], kids: true },
+    { id: "tahiti-drums", title: "Drums of the Islands", place: "tahiti", kind: "Presentation", dur: 20, times: ["13:30", "14:00"] },
+    { id: "tahiti-wedding", title: "Ancient Tahitian Wedding", place: "tahiti", kind: "Presentation", dur: 20, times: ["15:00", "16:00"], couples: true },
+    { id: "tonga-pres", title: "Echoing the Sounds of Respect", place: "tonga", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30", "17:00"] },
+    { id: "tonga-nafa", title: "Nafa drums for kids", place: "tonga", kind: "Hands-on", dur: 15, times: ["13:00", "14:00", "15:00", "16:00"], kids: true },
+    { id: "buffet", title: "Gateway Buffet", place: "gateway", kind: "Dinner", dur: 75, times: ["16:30", "18:00"] },
+    { id: "luau", title: "Aliʻi Lūʻau", place: "luau", kind: "Dinner and show", dur: 90, times: ["17:00"] },
+    { id: "market-snack", title: "A bite at the food trucks", place: "market", kind: "Food", dur: 20, times: ["18:45"] },
+    { id: "ha", title: "HĀ: Breath of Life", place: "theater", kind: "Evening show", dur: 75, times: ["19:30"] }
+  ]
+};
+function toMin(t) { var p = t.split(":"); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+function fmt(m) { var h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? "PM" : "AM", h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm + " " + ap; }
+function evById(id) { for (var i = 0; i < SCHEDULE.events.length; i++) if (SCHEDULE.events[i].id === id) return SCHEDULE.events[i]; return null; }
+
+var PLACES = {
+  samoa: { name: "Samoa", x: 51.5, y: 67.5, code: "SA", color: "#2B6E3A" },
+  aotearoa: { name: "Aotearoa", x: 64.6, y: 55.5, code: "AO", color: "#4338A0" },
+  tonga: { name: "Tonga", x: 68.5, y: 19.9, code: "TO", color: "#1F5BAA" },
+  fiji: { name: "Fiji", x: 75.0, y: 34.4, code: "FJ", color: "#13695F" },
+  tahiti: { name: "Tahiti", x: 81.7, y: 11.6, code: "TA", color: "#9A2F7C" },
+  hawaii: { name: "Hawaiʻi", x: 87.7, y: 42.4, code: "HI", color: "#71349E" },
+  huki: { name: "Lagoon", x: 48.8, y: 44.3, code: "HU", color: "#4A4336" },
+  market: { name: "Hukilau Marketplace", x: 9.4, y: 83.6, code: "MK", color: "#4A4336" },
+  gateway: { name: "Gateway Restaurant", x: 28.3, y: 56.3, code: "GB", color: "#6B4A33" },
+  luau: { name: "Hale Aloha", x: 41.8, y: 72.5, code: "LU", color: "#6B4A33" },
+  theater: { name: "Pacific Theater", x: 13.0, y: 44.3, code: "HĀ", color: "#2B2540" }
+};
+// Map length in metres and walking pace for a mid-age adult; estimates until a scaled site plan is measured.
+var MAP_M = 900, PACE = 80;
+function walkMin(a, b) { var A = PLACES[a], B = PLACES[b]; if (!A || !B || a === b) return 0; var dx = (A.x - B.x) / 100 * MAP_M, dy = (A.y - B.y) / 100 * MAP_M * (704 / 2601); return Math.max(2, Math.round(Math.sqrt(dx * dx + dy * dy) / PACE)); }
+
+var VILLAGES = [
+  { id: "samoa", greeting: "Talofa", img: "../assets/samoa.jpg", alt: "A Samoan villager climbs a tall coconut palm barefoot", promise: "Fire from two sticks and a 40-foot palm, climbed barefoot." },
+  { id: "aotearoa", greeting: "Kia ora", img: "../assets/aotearoa.webp", alt: "Two Māori performers with painted moko", promise: "Feel the haka, then try Māori games and skills." },
+  { id: "tonga", greeting: "Mālō e lelei", img: "../assets/tonga.webp", alt: "A Tongan drummer with a red flower lei", promise: "The drums call you in. Then you're the drummer." },
+  { id: "fiji", greeting: "Bula", img: "../assets/fiji.webp", alt: "A Fijian host with a red-painted face", promise: "A loud warriors' welcome and a chief's house." },
+  { id: "tahiti", greeting: "Ia ora na", img: "../assets/tahiti.webp", alt: "Tahitian dancers in red costumes and headdresses", promise: "The fastest dance in the Pacific, and a wedding." },
+  { id: "hawaii", greeting: "Aloha", img: "../assets/hawaii.webp", alt: "Hula dancers in fern lei at the Hawaiian village", promise: "A hula step, fresh poi and ancient games." }
+];
+
+// One suggested day per party type. Other groups start from the couple day.
+var TEMPLATES = {
+  couple: [["market-lunch", "11:00"], ["huki-show", "13:00"], ["samoa-pres", "14:00"], ["aotearoa-pres", "14:30"], ["tahiti-wedding", "15:00"], ["fiji-pres", "15:30"], ["hawaii-pres", "16:00"], ["tonga-pres", "16:30"], ["luau", "17:00"], ["ha", "19:30"]],
+  family: [["market-lunch", "11:00"], ["huki-show", "13:00"], ["tonga-nafa", "14:00"], ["aotearoa-pres", "14:30"], ["samoa-pres", "15:00"], ["hawaii-games", "15:30"], ["fiji-oil", "16:00"], ["buffet", "16:30"], ["ha", "19:30"]]
+};
+var WHY = {
+  "tonga-nafa": "Kids play the drums themselves.", "hawaii-games": "Games Hawaiian children have played for generations.",
+  "tahiti-wedding": "A favorite with couples.", "huki-show": "The daily highlight. Arrive early for lagoon-side seats.",
+  "luau": "Comes with your package.", "buffet": "Comes with your package.", "ha": "Comes with your package."
+};
+var LOCKED = { "huki-show": "Daily highlight", "luau": "In your package", "buffet": "In your package", "ha": "In your package", "market-lunch": "" };
+
+var PARTIES = [
+  { id: "couple", label: "Couple", note: "Two adults", template: "couple", adults: 2, kids: 0, name: "a couple" },
+  { id: "family", label: "Family with young kids", note: "Kids under about 10", template: "family", adults: 2, kids: 2, name: "a family with young kids" },
+  { id: "group", label: "Friends or another group", note: "Starts from the couple day", template: "couple", adults: 4, kids: 0, name: "your group" }
+];
+var HOURS = [
+  { id: "allday", label: "All day", note: "Villages, dinner and HĀ. Recommended.", from: 660, to: 1245 },
+  { id: "afternoon", label: "Afternoon", note: "Huki and the villages, home before dinner", from: 660, to: 1050 },
+  { id: "lateday", label: "Afternoon into evening", note: "Villages from 2 PM, then dinner and HĀ", from: 840, to: 1245 },
+  { id: "evening", label: "Dinner and show", note: "Dinner, then HĀ", from: 990, to: 1245 }
+];
+var STAYS = [
+  { id: "waikiki", label: "Waikīkī or Honolulu", note: "About an hour away. Add our coach.", hotel: "hhv" },
+  { id: "northshore", label: "North Shore", note: "A short drive. Free parking." },
+  { id: "cruise", label: "On a cruise ship", note: "We'll fit the day to your port times" },
+  { id: "elsewhere", label: "Somewhere else on Oʻahu", note: "Driving. Free parking." }
+];
+var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
+var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
+var PACKAGES = {
+  admission: { id: "admission", conf: "PCC-31907", name: "Islands of Polynesia", includes: ["All six island villages", "Huki: A Canoe Celebration", "Canoe rides and exhibits"] },
+  buffet: { id: "buffet", conf: "PCC-52640", name: "Gateway Buffet + HĀ", includes: ["All six island villages and Huki", "Gateway Buffet dinner with live music, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"] },
+  luau: { id: "luau", conf: "PCC-48213", name: "Aliʻi Lūʻau package", includes: ["All six island villages and Huki", "Aliʻi Lūʻau dinner and show, 5:00 PM", "HĀ: Breath of Life, reserved seating, 7:30 PM"] }
+};
+var REC_KEY = "pcc-shared-day-v1";
+function saveRec(r) { try { r.updated = Date.now(); window.localStorage.setItem(REC_KEY, JSON.stringify(r)); } catch (err) {} }
+
+function optStyle(on) {
+  return "min-height: 56px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; text-align: left; padding: 8px 14px; border-radius: 12px; cursor: pointer; font-size: 15px; color: #27201B; " +
+    (on ? "background: #E6EFF1; border: 2px solid #215968;" : "background: #FFFFFF; border: 1px solid #D8CCB6;");
+}
+function numStyle(done) {
+  return "display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-right: 6px; border-radius: 50%; font-size: 13px; " +
+    (done ? "background: #215968; color: #FFFFFF;" : "background: #EFEBE2; color: #4A4336;");
+}
+function badge(c, size) { return "display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: " + size + "px; height: " + size + "px; border-radius: 8px; background: " + c + "; color: #FFFFFF; font-size: " + Math.round(size * 0.4) + "px; font-weight: 700; letter-spacing: 0.02em;"; }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { party: null, date: null, hours: null, stay: null, swaps: {}, swapMsg: "", booked: false };
+  }
+  // Build the day: template, trimmed to the hours, with any swaps applied.
+  day() {
+    var s = this.state, P = null, H = null;
+    for (var i = 0; i < PARTIES.length; i++) if (PARTIES[i].id === s.party) P = PARTIES[i];
+    for (var j = 0; j < HOURS.length; j++) if (HOURS[j].id === s.hours) H = HOURS[j];
+    if (!P || !H) return [];
+    var tpl = TEMPLATES[P.template].slice();
+    // Afternoon-only days drop dinner and HĀ; evening-only days are dinner and HĀ.
+    // The Waikīkī coach arrives at noon, so nothing is planned before then.
+    var from = s.stay === "waikiki" ? Math.max(H.from, 720) : H.from;
+    var out = [];
+    tpl.forEach(function (x, idx) {
+      var ev = evById(x[0]), t = toMin(x[1]);
+      if (!ev) return;
+      if (t < from || t + ev.dur > H.to) return;
+      out.push({ slot: P.template + ":" + idx, ev: ev, t: t });
+    });
+    if (H.id === "evening" && P.template === "couple") out.splice(1, 0, { slot: "snack", ev: evById("market-snack"), t: toMin("18:45") });
+    out = out.map(function (x) { var sw = s.swaps[x.slot]; if (sw) { var e2 = evById(sw.id); if (e2) return { slot: x.slot, ev: e2, t: sw.t, swapped: true }; } return x; });
+    out.sort(function (a, b) { return a.t - b.t; });
+    return out;
+  }
+  alternatives(list, i) {
+    var cur = list[i], prevEnd = i > 0 ? list[i - 1].t + list[i - 1].ev.dur : 0, nextStart = i < list.length - 1 ? list[i + 1].t : 2000;
+    var used = {}; list.forEach(function (x) { used[x.ev.id] = true; });
+    var kidsFirst = this.state.party === "family", alts = [];
+    SCHEDULE.events.forEach(function (ev) {
+      if (used[ev.id] || LOCKED[ev.id] !== undefined || ev.id === "market-snack") return;
+      ev.times.forEach(function (tt) {
+        var t = toMin(tt);
+        if (Math.abs(t - cur.t) > 30) return;
+        if (t < prevEnd + walkMin(list[i - 1] ? list[i - 1].ev.place : ev.place, ev.place)) return;
+        if (t + ev.dur + (list[i + 1] ? walkMin(ev.place, list[i + 1].ev.place) : 0) > nextStart) return;
+        alts.push({ id: ev.id, t: t, rank: (kidsFirst && ev.kids ? 0 : 1) * 100 + Math.abs(t - cur.t) });
+      });
+    });
+    alts.sort(function (a, b) { return a.rank - b.rank; });
+    return alts;
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    var P = null, H = null, ST = null;
+    PARTIES.forEach(function (p) { if (p.id === s.party) P = p; });
+    HOURS.forEach(function (h) { if (h.id === s.hours) H = h; });
+    STAYS.forEach(function (x) { if (x.id === s.stay) ST = x; });
+    var ready = !!(P && H && ST && s.date !== null);
+    var left = [];
+    if (!P) left.push("who's coming"); if (s.date === null || !H) left.push("when"); if (!ST) left.push("where you're staying");
+    var waitingText = left.length === 3 ? "Answer three quick questions and your suggested day appears here." : "Almost there: tell us " + left.join(" and ") + ".";
+
+    var list = ready ? this.day() : [];
+    var stops = list.map(function (x, i) {
+      var pl = PLACES[x.ev.place], prev = list[i - 1];
+      var w = prev ? walkMin(prev.ev.place, x.ev.place) : 0;
+      var alts = LOCKED[x.ev.id] === undefined ? self.alternatives(list, i) : [];
+      var lock = LOCKED[x.ev.id];
+      var meta = pl.name + " · " + x.ev.dur + " min" + (x.ev.note ? " · " + x.ev.note : "");
+      return {
+        time: fmt(x.t), title: x.ev.title, meta: meta, code: pl.code, badge: badge(pl.color, 36),
+        why: x.swapped ? "" : (WHY[x.ev.id] || (s.party === "family" && x.ev.kids ? "Kids love it." : "")),
+        walk: w ? w + " min walk" : "",
+        rowStyle: "display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: " + (x.swapped ? "#FFFDF4" : "#FFFFFF") + "; border: 1px solid #E3DED4; border-radius: 12px;",
+        canSwap: alts.length > 0, lockLabel: lock || "",
+        swapAria: "Swap " + x.ev.title + " at " + fmt(x.t) + " for something else around the same time",
+        swap: function () {
+          var a = alts[0], sw = Object.assign({}, s.swaps); sw[x.slot] = { id: a.id, t: a.t };
+          self.setState({ swaps: sw, swapMsg: "Swapped in " + evById(a.id).title + " at " + fmt(a.t) + ". Tap Swap again for another option." });
+        }
+      };
+    });
+    var mapPins = (ready ? list : []).map(function (x, i) {
+      var pl = PLACES[x.ev.place];
+      return { label: String(i + 1), style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%) translate(" + ((i % 3) - 1) * 10 + "px, 0); z-index: 2; width: 26px; height: 26px; border-radius: 50%; background: " + pl.color + "; color: #FFFFFF; border: 2px solid #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font: 700 12px Lato, sans-serif;" };
+    });
+    if (!ready) mapPins = VILLAGES.map(function (v) { var pl = PLACES[v.id]; return { label: pl.code, style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%); z-index: 2; padding: 3px 7px; border-radius: 8px; background: " + pl.color + "; color: #FFFFFF; border: 2px solid #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.3); font: 700 12px Lato, sans-serif;" }; });
+
+    // Package: matched to the hours and the party.
+    var evening = list.some(function (x) { return x.ev.id === "ha"; });
+    var pkg = !evening ? PACKAGES.admission : (P && P.template === "family" ? PACKAGES.buffet : PACKAGES.luau);
+    var why = !evening ? "Your day ends before dinner, so village admission covers everything in it."
+      : (P && P.template === "family" ? "Best value for families: a relaxed buffet at 4:30 leaves time to rest before HĀ." : "Your day includes the royal lūʻau at 5:00 and reserved seats for HĀ.");
+    var dateObj = s.date !== null ? DATES[s.date] : null;
+    var dateLong = dateObj ? LONG_DOW[dateObj[0]] + ", " + dateObj[1] : "";
+    var transportLine = !ST ? "" : ST.id === "waikiki" ? "Coach from Waikīkī: pickup about 9:45 AM, back about 10:30 PM (add-on)" : ST.id === "cruise" ? "Cruise guests: [port transfer and times to confirm with Sales]" : "Driving: free parking at the Hukilau Marketplace";
+    var arrivalNote = !ST ? "" : ST.id === "waikiki" ? "From Waikīkī, the coach gets you here by noon, in time for Huki. Driving takes about an hour each way, and drivers can come early for lunch at the Marketplace." : ST.id === "northshore" ? "From the North Shore it's a short drive up Kamehameha Highway. Parking is free at the Hukilau Marketplace." : ST.id === "cruise" ? "Cruise day? Check your all-aboard time: the evening show ends around 8:45 PM. We'll confirm transfers when you book." : "Parking is free at the Hukilau Marketplace, right at the entrance.";
+    var first = list[0], last = list[list.length - 1];
+    var span = first && last ? fmt(first.t) + " to " + fmt(last.t + last.ev.dur) : "";
+
+    return {
+      mapPins: mapPins,
+      mapCaption: ready ? "Your stops, numbered in order. Walking times are estimates at an easy pace." : "Every village sits on the lagoon. Walking the full loop takes about 25 minutes without stopping.",
+      villages: VILLAGES.map(function (v) { var pl = PLACES[v.id]; return { name: pl.name, code: pl.code, badge: badge(pl.color, 28), greeting: v.greeting, promise: v.promise, img: v.img, alt: v.alt }; }),
+      parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setState({ party: p.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
+      hours: HOURS.map(function (h) { var on = s.hours === h.id; return { label: h.label, note: h.note, on: on, style: optStyle(on), pick: function () { self.setState({ hours: h.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
+      stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setState({ stay: x.id, booked: false }); } }; }),
+      dates: DATES.map(function (d, i) {
+        var on = s.date === i;
+        return { dow: d[0], day: d[1].split(" ")[1], closed: d[2], on: on, aria: LONG_DOW[d[0]] + " " + d[1] + (d[2] ? ", closed" : ""),
+          style: "min-width: 52px; min-height: 56px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 16px; cursor: " + (d[2] ? "not-allowed" : "pointer") + "; " +
+            (d[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
+          pick: function () { if (!d[2]) self.setState({ date: i, booked: false }); } };
+      }),
+      step1Num: numStyle(!!P), step2Num: numStyle(!!H && s.date !== null), step3Num: numStyle(!!ST),
+      ready: ready, notReady: !ready, waitingText: waitingText,
+      partyName: P ? P.name : "", dayTitle: dateLong ? dateLong + ", " + span : "", daySub: list.length + " stops, with the times on that date. Swap anything that doesn't appeal.",
+      arrivalNote: arrivalNote, stops: stops, swapMsg: s.swapMsg,
+      sourceNote: "Sample times for " + dateLong + ". On the live site, every time comes from PCC's scheduling app and updates if the program changes.",
+      pkg: { name: pkg.name, why: why, includes: pkg.includes },
+      partyLine: P ? P.adults + " adults" + (P.kids ? ", " + P.kids + " kids" : "") + " · " + dateLong : "",
+      transportLine: transportLine, dateLong: dateLong,
+      notBooked: !s.booked, booked: s.booked, bookedConf: pkg.conf,
+      keepDay: function () { self.save(list, P, H, ST, null); },
+      book: function () { self.save(list, P, H, ST, pkg); self.setState({ booked: true }); },
+      unbook: function () { self.setState({ booked: false, party: null, hours: null, stay: null, date: null, swaps: {}, swapMsg: "" }); }
+    };
+  }
+  // Hand the day to the packages page and My Day through the shared record.
+  save(list, P, H, ST, pkg) {
+    var fixedIds = { luau: 1, buffet: 1, ha: 1 };
+    saveRec({ v: 1, source: "shape", party: P.id, stay: ST.id, date: this.state.date, adults: P.adults, kids: P.kids, avail: H.id,
+      transport: ST.hotel || null, ticket: pkg ? pkg.id : null, conf: pkg ? pkg.conf : null, ticketName: pkg ? pkg.name : null,
+      plan: list.map(function (x) { return { p: x.ev.place === "theater" ? "theater" : x.ev.place, e: x.ev.id, t: x.t, fixed: !!(pkg && fixedIds[x.ev.id]), title: x.ev.title, place: PLACES[x.ev.place].name }; }) });
+  }
+}
+</script>
+</body>
+</html>

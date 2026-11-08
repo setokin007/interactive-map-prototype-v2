@@ -1,21 +1,42 @@
 # PCC Interactive Map & Day Planner — Prototype, Version 2
 
-Version 2 starts as an exact copy of Version 1
+Version 2 reworks the Version 1 prototype
 ([setokin007/interactive-map-prototype](https://github.com/setokin007/interactive-map-prototype),
-live at https://interactive-map-prototype-blush.vercel.app). It will be reworked around the
-guest's journey, as set out in the PRD's *Version 2: one guest, five stages* section:
+live at https://interactive-map-prototype-blush.vercel.app) around where the guest is in their
+journey, as set out in the PRD's *Version 2: one guest, five stages* section.
 
-| Stage | Guest's question | Where it lives |
-| --- | --- | --- |
-| 1 · Dreaming | Is this worth a day of my trip? | Website: explore the map |
-| 2 · Comparing | What would my day look like? | Website: "Shape your day in three taps" |
-| 3 · Booking | Which package fits that day? | Website: package from the shaped day |
-| 4 · Booked, preparing | How do I make the most of it? | Website: My Day, opened from the confirmation email or number |
-| 5 · On the day | What's next and where is it? | PCC app screens |
+**Live:** https://interactive-map-prototype-v2.vercel.app (Vercel project `interactive-map-prototype-v2`)
 
-Event times will come from PCC's scheduling app; until it can be read, the prototype uses
-sample data. Live at https://interactive-map-prototype-v2.vercel.app (Vercel project
-`interactive-map-prototype-v2`). Until the rework lands, everything below describes the copied Version 1.
+| Stage | Guest's question | Page | Route | Design source |
+| --- | --- | --- | --- | --- |
+| 1 · Dreaming | Is this worth a day of my trip? | Explore: breadth, map, the six villages | `/` or `/explore` | `design/explore-and-shape.dc.html` |
+| 2 · Comparing | What would my day look like? | Shape your day in three taps: party, date and hours, where staying | `/#shape` | same page |
+| 3 · Booking | Which package fits that day? | Package matched to the shaped day, then the confirmation email | `/#book`; full comparison at `/packages` | same page; `design/your-day-and-tickets.dc.html` |
+| 4 · Booked, preparing | How do I make the most of it? | My Day: booking loaded from the email link or confirmation number, "Before you come", the full builder | `/myday` | `design/plan-my-day.dc.html` |
+| 5 · On the day | What's next and where is it? | PCC app screens (iOS and Android): Today, Map, Running behind, Schedule change | `/app`, `/app/map`, `/app/replan`, `/app/alert` | `design/app-*.dc.html` |
+
+Decisions behind it (PRD, Nov 8):
+
+- One suggested day per party type: **couple** and **family with young kids**; other groups
+  start from the couple day. Party type changes the order of suggestions and the package suggested.
+- Exact times for the chosen date. They will come from PCC's scheduling app; until it can be read,
+  `SCHEDULE` in the Explore page holds sample times in the shape the app is expected to supply.
+- Waikīkī guests on the coach arrive at noon, so their suggested day starts with Huki.
+- "Book this day" saves the day to the shared record (`pcc-shared-day-v1` in the browser) and shows
+  the confirmation email; its "Open my day" link opens My Day with the booking loaded.
+
+## Updating the site after design changes (Version 2)
+
+Edit on the "PCC Interactive Map — Version 2" design canvas, then export each changed page:
+
+```bash
+python3 tools/export-page.py <canvas page>.dc.html site/<Page>.dc.html site/assets
+```
+
+The script swaps the canvas image ids for the files in `site/assets/` and adds the local React
+scripts. Commit and push; Vercel redeploys.
+
+The rest of this README describes the Version 1 pages this copy started from.
 
 ---
 

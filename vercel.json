@@ -2,11 +2,56 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "site",
   "rewrites": [
-    { "source": "/", "destination": "/Main.dc.html" },
-    { "source": "/plan", "destination": "/Main.dc.html" },
-    { "source": "/tickets", "destination": "/Discover.dc.html" }
+    {
+      "source": "/",
+      "destination": "/Shape.dc.html"
+    },
+    {
+      "source": "/explore",
+      "destination": "/Shape.dc.html"
+    },
+    {
+      "source": "/packages",
+      "destination": "/Discover.dc.html"
+    },
+    {
+      "source": "/tickets",
+      "destination": "/Discover.dc.html"
+    },
+    {
+      "source": "/myday",
+      "destination": "/Main.dc.html"
+    },
+    {
+      "source": "/plan",
+      "destination": "/Main.dc.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/App-Today.dc.html"
+    },
+    {
+      "source": "/app/map",
+      "destination": "/App-Map.dc.html"
+    },
+    {
+      "source": "/app/replan",
+      "destination": "/App-Late.dc.html"
+    },
+    {
+      "source": "/app/alert",
+      "destination": "/App-Alert.dc.html"
+    }
   ],
   "headers": [
-    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&amp;family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F4EF}
 a{color:#215968}a:hover{color:#153A45}
@@ -35,11 +35,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <a href="#" style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; color: #27201B; text-decoration: none; letter-spacing: -0.01em;">Polynesian Cultural Center</a>
 <span style="flex-grow: 1;"></span>
 <div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px; font-weight: 500;">
-<a href="your-day-and-tickets.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Your day &amp; tickets</a>
-<a href="#" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Plan my day</a>
-<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Island villages</a>
-<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Lūʻau &amp; dining</a>
-<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">HĀ show</a>
+<a href="Shape.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Explore</a>
+<a href="Shape.dc.html#shape" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Shape your day</a>
+<a href="Discover.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Packages</a>
+<a href="#" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">My Day</a>
 </div>
 </div>
 </nav>
@@ -47,15 +46,29 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <section aria-labelledby="plan-title" style="background: #FFFFFF; border-bottom: 1px solid #E3DED4;">
 <div style="max-width: 1400px; margin: 0 auto; padding: 28px 24px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
 <div style="flex: 1 1 420px; min-width: 0;">
-<ol style="list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; font-weight: 500;">
-<sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
-<li style="display: flex; align-items: center; gap: 8px; color: #5E5642;"><span style="{{st.badgeStyle}}">{{st.badge}}</span><span style="{{st.labelStyle}}">{{st.label}}</span></li>
-</sc-for>
-</ol>
-<h1 id="plan-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 44px; line-height: 1.02; letter-spacing: -0.02em;">Plan your day at the Center</h1>
-<p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #4A4336; max-width: 620px;">Explore six island villages across 42 acres, pick the moments you don't want to miss, and we'll fit them into one day for you.</p>
-<p style="margin: 8px 0 0; font-size: 15px;"><a href="your-day-and-tickets.dc.html" style="font-weight: 700;">New to the Center? See how the day works and which ticket fits →</a></p>
+<span style="display: block; margin: 0 0 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">{{heroEyebrow}}</span>
+<h1 id="plan-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 44px; line-height: 1.02; letter-spacing: -0.02em;">{{heroTitle}}</h1>
+<p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #4A4336; max-width: 620px;">{{heroLead}}</p>
+<sc-if value="{{heroNotBooked}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 8px 0 0; font-size: 15px;"><a href="Shape.dc.html#shape" style="font-weight: 700;">Not booked yet? Shape your day in three taps →</a></p>
+</sc-if>
 </div>
+<sc-if value="{{heroBooked}}" hint-placeholder-val="{{ false }}">
+<section aria-labelledby="prep-h" style="flex: 1 1 100%; order: 3; display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; background: #F6F4EF; border: 1px solid #E3DED4; border-radius: 16px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;">
+<h2 id="prep-h" style="margin: 0; font-size: 19px; font-weight: 700;">Before you come</h2>
+<span style="font-size: 14px; color: #5E5642;">{{prepCountdown}}</span>
+</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+<sc-for list="{{prep}}" as="pr" hint-placeholder-count="4">
+<li style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">{{pr.label}}</span>
+<span style="font-size: 15px; line-height: 1.45;">{{pr.text}}</span>
+</li>
+</sc-for>
+</ul>
+</section>
+</sc-if>
 
 <div style="flex: 0 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
 <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center;">
@@ -752,7 +765,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: #27201B;">{{pkg.title}}</span>
 </div>
 <span style="font-size: 13px; line-height: 1.4; color: #4A4336;">{{pkg.why}}</span>
-<a href="your-day-and-tickets.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; padding: 0 20px; border-radius: 999px; background: #D6420F; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none;">See packages for this day</a>
+<a href="Discover.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; padding: 0 20px; border-radius: 999px; background: #D6420F; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none;">See packages for this day</a>
 </div>
 </sc-if>
 </div>
@@ -1130,7 +1143,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.drag = null;
-    this.state = { navOpen: true, closed: {}, walkFromId: null, bookOpen: false, marketMore: false, hotel: null, pickOpen: false, vw: 1440, appSent: false, flash: null, openG: {}, aboutOpen: {}, ticket: null, conf: "", confErr: false, allOpen: false, avail: "allday", availSet: false, arrive: 780, leave: 1080, showOutside: false, route: true, ghost: null, dragging: false, filter: "all", hour: null, sel: null, open: null, show360: false, plan: [], lastAdded: "", cart: false, zoom: 0, date: 0, adults: 2, kids: 0, shared: false };
+    this.state = { navOpen: true, closed: {}, walkFromId: null, bookOpen: true, marketMore: false, hotel: null, pickOpen: false, vw: 1440, appSent: false, flash: null, openG: {}, aboutOpen: {}, ticket: null, conf: "", confErr: false, allOpen: false, avail: "allday", availSet: false, arrive: 780, leave: 1080, showOutside: false, route: true, ghost: null, dragging: false, filter: "all", hour: null, sel: null, open: null, show360: false, plan: [], lastAdded: "", cart: false, zoom: 0, date: 0, adults: 2, kids: 0, shared: false };
   }
   componentDidMount() {
     var self = this;
@@ -1271,6 +1284,21 @@ class Component extends DCLogic {
     var dateLabel = DATES[s.date][0] + ", " + DATES[s.date][1];
     var partyLabel = s.adults + (s.adults === 1 ? " adult" : " adults") + (s.kids ? ", " + s.kids + (s.kids === 1 ? " child" : " children") : "");
 
+    // Version 2: this page is My Day. A booked guest arrives from the confirmation email or the number lookup.
+    var bookedTk = s.ticket ? TICKETS[s.ticket] : null;
+    var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
+    var longDate = LONG_DOW[DATES[s.date][0]] + ", " + DATES[s.date][1];
+    var heroEyebrow = bookedTk ? "My Day · booking " + bookedTk.conf : "My Day";
+    var heroTitle = bookedTk ? "Your day at the Center, " + longDate : "Find your day";
+    var heroLead = bookedTk ? bookedTk.name + " for " + partyLabel + ". Fine-tune your times below, then send the day to the PCC app for reminders and the map on the day."
+      : "Open the link in your confirmation email, or enter your confirmation number below. You can also plan freely here.";
+    var prepHotel = s.hotel ? hotelById(s.hotel) : null;
+    var prep = !bookedTk ? [] : [
+      { label: "Getting here", text: prepHotel ? "Coach pickup about 9:45 AM at " + prepHotel.name + ". " + prepHotel.pickup : "Arrive by 12:00 PM to find seats for Huki at 1:00. Parking is free at the Hukilau Marketplace." },
+      { label: "Check in", text: "Show booking " + bookedTk.conf + " at the Welcome Center, or the QR code in the PCC app. No printing needed." },
+      { label: "Bring", text: "Sunscreen, a hat, water and comfortable shoes: the villages are outdoors across 42 acres. A light layer for the evening." },
+      { label: "On the day", text: "Send this day to the PCC app. It shows what's next, where it is, and reminds you before each show." }
+    ];
     var stepDone = [true, s.availSet, s.plan.length > 0, s.cart];
     var stepLabels = ["Date and party", "Your hours", "Build your day", "Choose tickets"];
     var steps = stepLabels.map(function (l, i) {
@@ -1641,6 +1669,7 @@ class Component extends DCLogic {
 
     var zoomPct = ZOOMS[s.zoom];
     return {
+      heroEyebrow: heroEyebrow, heroTitle: heroTitle, heroLead: heroLead, heroBooked: !!bookedTk, heroNotBooked: !bookedTk, prep: prep, prepCountdown: bookedTk ? "Your visit: " + longDate : "",
       things: things, steps: steps, dates: dates, adults: s.adults, kids: s.kids, dateLabel: dateLabel, partyLabel: partyLabel,
       datePrev: function () { for (var i = s.date - 1; i >= 0; i--) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },
       dateNext: function () { for (var i = s.date + 1; i < DATES.length; i++) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },

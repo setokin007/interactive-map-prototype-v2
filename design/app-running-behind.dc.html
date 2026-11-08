@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PCC app · Re-plan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#215968}a:hover{color:#153A45}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F6F4EF; color: #27201B; font-family: Lato, 'Helvetica Neue', Arial, sans-serif; overflow: hidden;">
+
+<header style="padding: 16px 20px; background: #FFFFFF; border-bottom: 1px solid #E3DED4; display: flex; align-items: center; gap: 12px;">
+<a href="App-Today.dc.html" aria-label="Back to today" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #27201B;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+<h1 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 24px;">Re-plan my day</h1>
+</header>
+
+<main style="flex: 1 1 auto; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+<div role="status" style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: #FFF4E5; border: 1px solid #F0C78A; border-radius: 14px;">
+<span style="font-size: 16px; font-weight: 700; color: #6B3A00;">You're about 20 minutes behind</span>
+<span style="font-size: 14px; line-height: 1.45; color: #6B3A00;">It's 3:05 PM and you're still in Aotearoa, so you'd miss the 3:00 Tahitian Wedding. Here's how the rest of your day could go.</span>
+</div>
+
+<h2 style="margin: 4px 0 0; font-size: 16px; font-weight: 700;">Choose one</h2>
+<div role="radiogroup" aria-label="How to catch up" style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{options}}" as="o" hint-placeholder-count="3">
+<button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%;"><span style="font-size: 16px; font-weight: 700; text-align: left;">{{o.title}}</span><sc-if value="{{o.rec}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; font-weight: 700; color: #215968; padding: 2px 8px; border-radius: 999px; background: #E6EFF1;">Suggested</span></sc-if></span>
+<span style="font-size: 14px; line-height: 1.45; color: #4A4336; text-align: left;">{{o.text}}</span>
+</button>
+</sc-for>
+</div>
+
+<section aria-labelledby="after-h" style="display: flex; flex-direction: column; gap: 8px;">
+<h2 id="after-h" style="margin: 4px 0 0; font-size: 16px; font-weight: 700;">The rest of your day</h2>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
+<sc-for list="{{rest}}" as="r" hint-placeholder-count="5">
+<li style="{{r.style}}"><span style="width: 64px; flex-shrink: 0; font-weight: 700; font-size: 14px;">{{r.time}}</span><span style="font-size: 15px;">{{r.title}}</span></li>
+</sc-for>
+</ol>
+</section>
+</main>
+
+<div style="padding: 12px 16px 28px; background: #FFFFFF; border-top: 1px solid #E3DED4;">
+<a href="App-Today.dc.html" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 999px; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 17px; text-decoration: none;">Update my day</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+var OPTIONS = [
+  { id: "later", rec: true, title: "Catch the 4:00 wedding instead", text: "Go to Fiji now for 3:30, see the Tahitian Wedding at 4:00 and skip the Hawaiian presentation. Still at the lūʻau by 5:00." },
+  { id: "skip", title: "Skip the wedding", text: "Head straight to Fiji for 3:30. The rest of your day stays the same." },
+  { id: "slow", title: "Slow down", text: "Drop Fiji and Hawaiʻi, take your time in Tahiti and rest before the lūʻau." }
+];
+var REST = {
+  later: [["3:30 PM", "History Through Chants and Dance · Fiji"], ["4:00 PM", "Ancient Tahitian Wedding · Tahiti"], ["5:00 PM", "Aliʻi Lūʻau · Table 14"], ["7:30 PM", "HĀ: Breath of Life · Row G"]],
+  skip: [["3:30 PM", "History Through Chants and Dance · Fiji"], ["4:00 PM", "Tradition of Lasting Tide · Hawaiʻi"], ["5:00 PM", "Aliʻi Lūʻau · Table 14"], ["7:30 PM", "HĀ: Breath of Life · Row G"]],
+  slow: [["3:30 PM", "Time in the Tahitian village"], ["5:00 PM", "Aliʻi Lūʻau · Table 14"], ["7:30 PM", "HĀ: Breath of Life · Row G"]]
+};
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { pick: "later" }; }
+  renderVals() {
+    var self = this, s = this.state;
+    return {
+      options: OPTIONS.map(function (o) {
+        var on = s.pick === o.id;
+        return { title: o.title, text: o.text, rec: !!o.rec, on: on, pick: function () { self.setState({ pick: o.id }); },
+          style: "display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 14px 16px; border-radius: 14px; cursor: pointer; text-align: left; color: #27201B; " + (on ? "background: #E6EFF1; border: 2px solid #215968;" : "background: #FFFFFF; border: 1px solid #D8CCB6;") };
+      }),
+      rest: REST[s.pick].map(function (r) { return { time: r[0], title: r[1], style: "display: flex; gap: 10px; align-items: center; padding: 10px 12px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px;" }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
