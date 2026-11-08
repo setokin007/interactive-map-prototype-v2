@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "site",
+  "rewrites": [
+    { "source": "/", "destination": "/Main.dc.html" },
+    { "source": "/plan", "destination": "/Main.dc.html" },
+    { "source": "/tickets", "destination": "/Discover.dc.html" }
+  ],
+  "headers": [
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+  ]
+}

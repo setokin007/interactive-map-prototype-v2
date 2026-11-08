@@ -1,0 +1,1800 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Plan your day · Polynesian Cultural Center</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&amp;family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4EF}
+a{color:#215968}a:hover{color:#153A45}
+button{font-family:inherit}
+.day-sticky{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;overscroll-behavior:contain;z-index:5}
+@media (max-width:1120px){.day-sticky{position:static;max-height:none;overflow:visible}}
+.day-bar{display:none}
+@media (max-width:1120px){.day-bar{display:flex}body{padding-bottom:84px}}
+@media (max-width:640px){.phase-box{padding:12px !important}.group-sub{padding:8px !important}}
+[hidden]{display:none !important}
+button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2px}
+.side-nav{position:sticky;top:16px;z-index:6}
+.side-nav-list{flex-direction:column}
+.side-nav-toggle{display:flex}
+@media (max-width:1120px){.side-nav{position:sticky;top:0;width:100% !important;flex-basis:100% !important;margin:-24px -24px 0;padding:8px 24px !important;border-radius:0 !important;border-width:0 0 1px !important}.side-nav-list{flex-direction:row;overflow-x:auto}.side-nav-toggle{display:none}.side-nav-label{display:inline !important}}
+#hours,#map,#things,#your-day,.phase-box{scroll-margin-top:16px}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F6F4EF; color: #27201B; font-family: Lato, 'Helvetica Neue', Arial, sans-serif;">
+
+<nav aria-label="Site" style="background: #FFFFFF; border-bottom: 1px solid #E3DED4;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
+<a href="#" style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; color: #27201B; text-decoration: none; letter-spacing: -0.01em;">Polynesian Cultural Center</a>
+<span style="flex-grow: 1;"></span>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px; font-weight: 500;">
+<a href="Discover.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Your day &amp; tickets</a>
+<a href="#" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Plan my day</a>
+<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Island villages</a>
+<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Lūʻau &amp; dining</a>
+<a href="#" style="color: #5E5642; text-decoration: none; padding: 10px 0;">HĀ show</a>
+</div>
+</div>
+</nav>
+
+<section aria-labelledby="plan-title" style="background: #FFFFFF; border-bottom: 1px solid #E3DED4;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 28px 24px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between;">
+<div style="flex: 1 1 420px; min-width: 0;">
+<ol style="list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; font-weight: 500;">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+<li style="display: flex; align-items: center; gap: 8px; color: #5E5642;"><span style="{{st.badgeStyle}}">{{st.badge}}</span><span style="{{st.labelStyle}}">{{st.label}}</span></li>
+</sc-for>
+</ol>
+<h1 id="plan-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 44px; line-height: 1.02; letter-spacing: -0.02em;">Plan your day at the Center</h1>
+<p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #4A4336; max-width: 620px;">Explore six island villages across 42 acres, pick the moments you don't want to miss, and we'll fit them into one day for you.</p>
+<p style="margin: 8px 0 0; font-size: 15px;"><a href="Discover.dc.html" style="font-weight: 700;">New to the Center? See how the day works and which ticket fits →</a></p>
+</div>
+
+<div style="flex: 0 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center;">
+<div role="group" aria-label="Visit date" style="display: flex; align-items: center; gap: 6px;">
+<span style="font-size: 15px; font-weight: 500; min-width: 40px;">Date</span>
+<button type="button" onClick="{{datePrev}}" disabled="{{dateAtStart}}" aria-label="Earlier date" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<span aria-live="polite" style="min-width: 104px; text-align: center; font-weight: 700; font-size: 16px; white-space: nowrap;">{{dateLabel}}</span>
+<button type="button" onClick="{{dateNext}}" disabled="{{dateAtEnd}}" aria-label="Later date" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="font-size: 15px; font-weight: 500; min-width: 64px;">Adults</span>
+<button type="button" onClick="{{adultsDown}}" aria-label="Fewer adults" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">−</button>
+<span aria-live="polite" style="min-width: 20px; text-align: center; font-weight: 700; font-size: 17px;">{{adults}}</span>
+<button type="button" onClick="{{adultsUp}}" aria-label="More adults" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">+</button>
+</div>
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="font-size: 15px; font-weight: 500; min-width: 64px;">Children</span>
+<button type="button" onClick="{{kidsDown}}" aria-label="Fewer children" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">−</button>
+<span aria-live="polite" style="min-width: 20px; text-align: center; font-weight: 700; font-size: 17px;">{{kids}}</span>
+<button type="button" onClick="{{kidsUp}}" aria-label="More children" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<main style="max-width: 1640px; margin: 0 auto; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+<nav class="side-nav" aria-label="Sections of this page" style="{{navStyle}}">
+<button type="button" class="side-nav-toggle" onClick="{{toggleNav}}" aria-expanded="{{navOpen}}" aria-label="{{navToggleAria}}" style="{{navToggleStyle}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{navChevStyle}}"><path d="M15 6l-6 6 6 6"></path></svg><sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Collapse</span></sc-if></button>
+<ol class="side-nav-list" style="list-style: none; margin: 0; padding: 0; display: flex; gap: 4px;">
+<sc-for list="{{navTabs}}" as="nt" hint-placeholder-count="8">
+<li style="flex-shrink: 0; display: flex; align-items: center; gap: 2px;"><button type="button" onClick="{{nt.go}}" aria-label="{{nt.aria}}" title="{{nt.aria}}" style="{{nt.style}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="{{nt.icon}}"></path></svg><span class="side-nav-label" style="{{nt.labelStyle}}">{{nt.label}}</span></button><sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}"><button type="button" class="side-nav-label" onClick="{{nt.toggle}}" aria-pressed="{{nt.hidden}}" aria-label="{{nt.toggleAria}}" title="{{nt.toggleAria}}" style="{{nt.eyeStyle}}"><sc-if value="{{nt.open}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></sc-if><sc-if value="{{nt.hidden}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10.5 10.5 0 0112 5c6.4 0 10 7 10 7a17 17 0 01-3.2 4.1M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a10 10 0 005.4-1.6M9.9 9.9a3 3 0 004.2 4.2"></path></svg></sc-if></button></sc-if></li>
+</sc-for>
+</ol>
+<sc-if value="{{anyClosed}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{openAll}}" style="{{openAllStyle}}">{{openAllLabel}}</button></sc-if>
+</nav>
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<section id="hours" hidden="{{hide.hours}}" aria-labelledby="hours-title" style="background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline;">
+<h2 id="hours-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em;">How long are you staying?</h2>
+<span style="font-size: 14px; color: #5E5642;">We'll show only what fits your hours.</span>
+</div>
+<div role="radiogroup" aria-labelledby="hours-title" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{availOpts}}" as="o" hint-placeholder-count="5">
+<button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700; font-size: 15px;">{{o.label}}</span><span style="{{o.hoursStyle}}">{{o.hours}}</span></button>
+</sc-for>
+</div>
+<p aria-live="polite" style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;"><strong style="color: #27201B;">{{availSel.label}}:</strong> {{availSel.fits}} <span style="color: #5E5642;">{{availSel.count}}.</span><sc-if value="{{availSel.rec}}" hint-placeholder-val="{{ true }}"> <span style="color: #215968; font-weight: 700;">Recommended: the only way to see all six villages, dinner and HĀ in one visit.</span></sc-if></p>
+<sc-if value="{{availCustom}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; background: #F6F4EF; border-radius: 14px; padding: 12px 14px;">
+<div role="group" aria-label="Arrival time" style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 15px; font-weight: 500; min-width: 56px;">Arrive</span>
+<button type="button" onClick="{{arriveDown}}" aria-label="Arrive 30 minutes earlier" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">−</button>
+<span aria-live="polite" style="min-width: 84px; text-align: center; font-weight: 700; font-size: 17px;">{{arriveLabel}}</span>
+<button type="button" onClick="{{arriveUp}}" aria-label="Arrive 30 minutes later" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">+</button>
+</div>
+<div role="group" aria-label="Leaving time" style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 15px; font-weight: 500; min-width: 56px;">Leave</span>
+<button type="button" onClick="{{leaveDown}}" aria-label="Leave 30 minutes earlier" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">−</button>
+<span aria-live="polite" style="min-width: 84px; text-align: center; font-weight: 700; font-size: 17px;">{{leaveLabel}}</span>
+<button type="button" onClick="{{leaveUp}}" aria-label="Leave 30 minutes later" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; font-size: 20px; color: #27201B; cursor: pointer;">+</button>
+</div>
+<span style="font-size: 14px; color: #5E5642;">{{customNote}}</span>
+</div>
+</sc-if>
+<sc-if value="{{availMissHas}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; background: #FBF6D9; border-radius: 12px; padding: 10px 14px;">
+<span style="font-size: 15px; line-height: 1.45; color: #4A3B05; flex: 1 1 320px;">{{availMiss}}</span>
+<button type="button" onClick="{{goAllDay}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #4A3B05; background: #FFFFFF; color: #4A3B05; font-weight: 700; font-size: 14px; cursor: pointer;">Make it a full day</button>
+</div>
+</sc-if>
+<div role="group" aria-label="How a day at the Center flows" style="border-top: 1px solid #E3DED4; padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline;">
+<span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px; color: #27201B;">How a day at the Center flows</span>
+<span style="font-size: 13px; color: #5E5642;">Tap a part of the day to jump to it</span>
+</div>
+<div style="position: relative; height: 160px;">
+<sc-for list="{{flowTicks}}" as="ft" hint-placeholder-count="6">
+<span style="{{ft.lineStyle}}"></span>
+<span style="{{ft.labelStyle}}">{{ft.label}}</span>
+</sc-for>
+<sc-if value="{{flowYouOn}}" hint-placeholder-val="{{ false }}">
+<span style="{{flowYouStyle}}">{{flowYouLabel}}</span>
+</sc-if>
+<sc-for list="{{flowLanes}}" as="fl" hint-placeholder-count="4">
+<a href="{{fl.href}}" aria-label="{{fl.aria}}" style="{{fl.style}}">{{fl.label}}</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="map" hidden="{{hide.map}}" aria-label="Map of the Center" style="background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(39,32,27,0.04);">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+<div>
+<h2 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em;">Explore the map</h2>
+<p style="margin: 2px 0 0; font-size: 14px; color: #5E5642;">Tap a pin to open that place’s show times below. Pins with a check are in your day.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<sc-if value="{{hasRoute}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{toggleRoute}}" aria-pressed="{{routeOn}}" style="{{routeBtnStyle}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="18" r="2.5"></circle><circle cx="19" cy="6" r="2.5"></circle><path d="M7.5 18H15a3.5 3.5 0 000-7H9a3.5 3.5 0 010-7h7.5"></path></svg>{{routeBtnLabel}}</button>
+</sc-if>
+<div role="group" aria-label="Zoom" style="display: flex; gap: 6px; align-items: center;">
+<button type="button" onClick="{{zoomOut}}" aria-label="Zoom out" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; font-size: 20px; cursor: pointer;">−</button>
+<button type="button" onClick="{{zoomFit}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; font-weight: 700; font-size: 14px; cursor: pointer;">{{zoomLabel}}</button>
+<button type="button" onClick="{{zoomIn}}" aria-label="Zoom in" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; font-size: 20px; cursor: pointer;">+</button>
+</div>
+</div>
+</div>
+<div style="overflow: auto; border-radius: 14px; background: #FFFFFF;">
+<div style="{{mapInnerStyle}}">
+<img src="./assets/d497d5da52a9fbf62bdad6bd124bd428.webp" alt="Illustrated map of the Polynesian Cultural Center grounds: the Hukilau Marketplace and Pacific Theater at the Waikīkī end, then the lagoon and six island villages running toward the North Shore." style="display: block; width: 100%; height: auto;">
+<sc-if value="{{showRouteLine}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: visible;">
+<polyline points="{{routePoints}}" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" opacity="0.9"></polyline>
+<polyline points="{{routePoints}}" fill="none" stroke="#27201B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 8" vector-effect="non-scaling-stroke"></polyline>
+</svg>
+<sc-for list="{{routeStops}}" as="rs" hint-placeholder-count="5">
+<span style="{{rs.style}}">{{rs.num}}</span>
+</sc-for>
+</sc-if>
+<sc-for list="{{hotspots}}" as="h" hint-placeholder-count="14">
+<button type="button" onClick="{{h.pick}}" aria-label="{{h.aria}}" aria-pressed="{{h.selected}}" title="{{h.name}}" style="{{h.style}}">
+<span style="{{h.dotStyle}}">
+<sc-if value="{{h.showCode}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true">{{h.code}}</span></sc-if>
+<sc-if value="{{h.inPlan}}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>
+</sc-if>
+</span>
+<sc-if value="{{h.selected}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; top: 42px; left: 50%; transform: translateX(-50%); background: #27201B; color: #FFFFFF; font-weight: 700; font-size: 13px; padding: 5px 10px; border-radius: 999px; white-space: nowrap;">{{h.name}}</span>
+</sc-if>
+</button>
+</sc-for>
+</div>
+</div>
+<div aria-label="Map key" style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: #4A4336; align-items: center;">
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="display: inline-flex; gap: 2px;"><span style="width: 14px; height: 14px; border-radius: 50%; background: #2B6E3A; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span><span style="width: 14px; height: 14px; border-radius: 50%; background: #1F5BAA; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span><span style="width: 14px; height: 14px; border-radius: 50%; background: #9A2F7C; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span></span>Island villages: each has its own colour and letters, matching Your day</span>
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 14px; height: 14px; border-radius: 50%; background: #6B4A33; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span>Dinner</span>
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 14px; height: 14px; border-radius: 50%; background: #2B2540; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span>HĀ show</span>
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 14px; height: 14px; border-radius: 50%; background: #4A4336; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #CFC8BA;"></span>Around the Center</span>
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 50%; background: #4A4336; border: 2px solid #FFFFFF; box-shadow: 0 0 0 3px #F4EB96, 0 0 0 4px #27201B;"></span>Ringed: something starts at the hour you picked</span>
+</div>
+<sc-if value="{{showRouteLine}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E3DED4; padding-top: 12px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between;">
+<h3 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px;">Your route through the Center</h3>
+<span style="font-size: 14px; color: #5E5642;">{{routeSummary}} · <strong style="color: #27201B;">{{walkTotalText}}</strong></span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center;">
+<sc-for list="{{routeList}}" as="rl" hint-placeholder-count="5">
+<li style="display: flex; align-items: center; gap: 4px;">
+<sc-if value="{{rl.hasLeg}}" hint-placeholder-val="{{ true }}"><span aria-label="{{rl.legAria}}" style="{{rl.legStyle}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"></circle><path d="M9 21l2-6 3 3v5M14 18l-2-4 1-5 3 3 3 1M8 12l2-3h3"></path></svg>{{rl.legText}}</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#857D69" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if>
+<button type="button" onClick="{{rl.pick}}" aria-label="{{rl.aria}}" style="min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px 0 6px; border-radius: 999px; border: 1px solid #E3DED4; background: #FFFFFF; color: #27201B; font-size: 14px; cursor: pointer;"><span style="{{rl.badgeStyle}}">{{rl.num}}</span><span style="font-weight: 700;">{{rl.time}}</span><span>{{rl.name}}</span></button>
+<sc-if value="{{rl.notLast}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#857D69" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if>
+</li>
+</sc-for>
+</ol>
+<sc-if value="{{hasTight}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; font-size: 14px; color: #4A3B05; background: #FBF6D9; border-radius: 12px; padding: 10px 12px;">{{tightText}}</p>
+</sc-if>
+<sc-if value="{{hasBacktrack}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 14px; color: #4A3B05; background: #FBF6D9; border-radius: 12px; padding: 10px 12px;">{{backtrackText}}</p>
+</sc-if>
+<p style="margin: 0; font-size: 13px; color: #5E5642;">The line follows the main walkways between your stops, in time order. {{walkPaceText}}</p>
+</div>
+</sc-if>
+<div style="border-top: 1px solid #E3DED4; padding-top: 4px;">
+<button type="button" onClick="{{toggleWalk}}" aria-expanded="{{walkOpen}}" aria-controls="walk-times" style="width: 100%; min-height: 48px; padding: 0; border: none; background: none; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left;">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px;">Walking times between places</span><span style="font-size: 14px; color: #5E5642;">How far everything is from {{walkFromName}}</span></span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#215968" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{walkChevStyle}}"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<sc-if value="{{walkOpen}}" hint-placeholder-val="{{ false }}">
+<div id="walk-times" style="display: flex; flex-direction: column; gap: 10px; padding: 4px 0 8px;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;">
+<label for="walk-from" style="font-size: 15px; font-weight: 700;">Walking from</label>
+<select id="walk-from" value="{{walkFromId}}" onChange="{{setWalkFrom}}" style="min-height: 44px; min-width: 0; flex: 0 1 340px; padding: 0 12px; border-radius: 12px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; font-size: 15px;">
+<sc-for list="{{walkOptions}}" as="wo" hint-placeholder-count="15"><option value="{{wo.id}}">{{wo.name}}</option></sc-for>
+</select>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px 16px;">
+<sc-for list="{{walkRows}}" as="wr" hint-placeholder-count="14">
+<li><button type="button" onClick="{{wr.pick}}" aria-label="{{wr.name}}: {{wr.minText}} walk, {{wr.dist}}. Show on the map." style="width: 100%; min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-radius: 12px; border: 1px solid #E3DED4; background: #FFFFFF; color: #27201B; font-size: 14px; cursor: pointer; text-align: left;"><span style="{{wr.dotStyle}}"></span><span style="flex: 1 1 auto; min-width: 0;">{{wr.name}}</span><span style="font-weight: 700; white-space: nowrap;">{{wr.minText}}</span><span style="color: #5E5642; white-space: nowrap; min-width: 52px; text-align: right;">{{wr.dist}}</span></button></li>
+</sc-for>
+</ol>
+<p style="margin: 0; font-size: 13px; color: #5E5642;">{{walkPaceText}} Distances follow the main walkways and are estimates until they’re checked on the ground.</p>
+</div>
+</sc-if>
+</div>
+</section>
+
+<section id="things" aria-labelledby="browse-title" style="min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+<div hidden="{{hide.things}}" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between;">
+<h2 id="browse-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -0.01em;">Things to do</h2>
+<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 15px; color: #5E5642;">{{resultCount}}</span><button type="button" onClick="{{toggleAll}}" style="min-height: 44px; padding: 0 4px; border: none; background: none; color: #215968; font-weight: 700; text-decoration: underline; font-size: 14px; cursor: pointer;">{{allLabel}}</button></div>
+</div>
+<div role="search" aria-label="Find things to do" style="background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+<div role="group" aria-label="Show me" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #215968; min-width: 84px;">Show me</span>
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="8">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" aria-label="{{f.label}}, {{f.count}}" style="{{f.style}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="{{f.icon}}"></path></svg><span style="font-weight: 700; font-size: 14px;">{{f.label}}</span><span aria-hidden="true" style="{{f.countStyle}}">{{f.n}}</span></button>
+</sc-for>
+</div>
+<div role="group" aria-label="Starting at" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #215968; min-width: 84px;">Starting at</span>
+<div style="display: flex; flex: 1 1 360px; min-width: 0; overflow-x: auto; border: 1px solid #CFC8BA; border-radius: 999px; background: #F6F4EF;">
+<sc-for list="{{hours}}" as="h" hint-placeholder-count="9">
+<button type="button" onClick="{{h.pick}}" aria-pressed="{{h.on}}" style="{{h.style}}">{{h.label}}</button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{filtersActive}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; background: #E3EDF0; border-radius: 12px; padding: 8px 12px; font-size: 14px; color: #153A45;">
+<span>Matching pins are highlighted on the map; the rest are faded.</span>
+<button type="button" onClick="{{clearFilters}}" style="min-height: 44px; padding: 0 6px; border: none; background: none; color: #153A45; font-weight: 700; text-decoration: underline; font-size: 14px; cursor: pointer;">Clear filters</button>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{hasPlace}}" hint-placeholder-val="{{ false }}">
+<article id="place-detail" style="scroll-margin-top: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px; overflow: hidden; display: flex; flex-wrap: wrap;">
+<div style="flex: 1 1 300px; min-width: 0; aspect-ratio: 4 / 3; background: #27201B; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 20px; box-sizing: border-box;">
+<sc-if value="{{notShow360}}" hint-placeholder-val="{{ true }}">
+<span style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.14); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></span>
+<span style="font-size: 15px;">{{place.media}}</span>
+<span style="font-size: 12px; color: #F4EB96; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;">Video placeholder</span>
+</sc-if>
+<sc-if value="{{show360}}" hint-placeholder-val="{{ false }}">
+<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="4"></ellipse><path d="M12 2v20"></path><circle cx="12" cy="12" r="10"></circle></svg>
+<span style="font-size: 15px;">360° view of the {{place.short}} grounds. Drag to look around.</span>
+<span style="font-size: 12px; color: #F4EB96; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;">360° placeholder</span>
+</sc-if>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; gap: 10px; align-items: flex-start; justify-content: space-between;">
+<div style="min-width: 0;">
+<div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #215968;">{{place.zone}}</div>
+<h3 style="margin: 4px 0 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.05; letter-spacing: -0.01em;">{{place.name}}</h3>
+<div style="font-size: 15px; color: #5E5642; margin-top: 2px;">{{place.native}}</div>
+</div>
+<button type="button" onClick="{{closePlace}}" aria-label="Close and show everything" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>
+</div>
+<p style="margin: 0; font-size: 19px; font-weight: 700; line-height: 1.35;">{{place.promise}}</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #4A4336;">{{place.story}}</p>
+<sc-if value="{{place.hasLandmarks}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; color: #5E5642;"><strong style="color: #27201B;">Look for</strong> · {{place.landmarks}}</p>
+</sc-if>
+<button type="button" onClick="{{toggle360}}" aria-pressed="{{show360}}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #27201B; background: #FFFFFF; color: #27201B; font-weight: 700; font-size: 14px; cursor: pointer;">{{view360Label}}</button>
+</div>
+</article>
+</sc-if>
+
+
+<sc-if value="{{noGroups}}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border: 1px dashed #CFC8BA; border-radius: 16px; padding: 24px; font-size: 16px; color: #4A4336;">Nothing matches those filters at that hour. Try another time, or choose Everything.</div>
+</sc-if>
+
+<sc-if value="{{hiddenHas}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; background: #E3EDF0; border-radius: 12px; padding: 8px 14px; font-size: 14px; color: #153A45;">
+<span style="flex: 1 1 240px;">{{hiddenText}}</span>
+<button type="button" onClick="{{toggleOutside}}" aria-pressed="{{showOutside}}" style="min-height: 44px; padding: 0 6px; border: none; background: none; color: #153A45; font-weight: 700; text-decoration: underline; font-size: 14px; cursor: pointer;">{{outsideLabel}}</button>
+</div>
+</sc-if>
+</div>
+<sc-for list="{{phases}}" as="ph" hint-placeholder-count="4">
+<section id="{{ph.anchor}}" hidden="{{ph.closed}}" class="phase-box" aria-label="{{ph.title}}" style="{{ph.boxStyle}}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+<sc-if value="{{ph.hasStep}}" hint-placeholder-val="{{ true }}"><span style="{{ph.stepStyle}}">{{ph.step}}</span></sc-if>
+<div style="min-width: 0;">
+<div style="{{ph.eyebrowStyle}}">{{ph.eyebrow}}</div>
+<h3 style="{{ph.titleStyle}}">{{ph.title}}</h3>
+</div>
+</div>
+<span style="{{ph.hoursStyle}}">{{ph.hours}}</span>
+</div>
+<p style="{{ph.noteStyle}}">{{ph.note}}</p>
+<sc-if value="{{ph.isMarket}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<span style="font-size: 13px; font-weight: 700; color: #5E5642;">Make time for it:</span>
+<sc-for list="{{ph.quick}}" as="q" hint-placeholder-count="3">
+<button type="button" onClick="{{q.add}}" aria-pressed="{{q.on}}" aria-label="{{q.aria}}" style="{{q.style}}">{{q.label}} <span style="font-size: 12px; font-weight: 400; opacity: 0.85;">{{q.when}}</span></button>
+</sc-for>
+<button type="button" onClick="{{ph.toggleMore}}" style="min-height: 44px; padding: 0 4px; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">{{ph.moreLabel}}</button>
+</div>
+</sc-if>
+<sc-for list="{{ph.subs}}" as="sb" hint-placeholder-count="2">
+<div role="group" class="group-sub" aria-label="{{sb.label}}" style="{{sb.wrapStyle}}">
+<sc-if value="{{sb.hasHead}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 4px 2px 2px;">
+<span aria-hidden="true" style="{{sb.iconStyle}}"><sc-if value="{{sb.isVillages}}" hint-placeholder-val="{{ true }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 4l10 8"></path><path d="M5 10.5V20h14v-9.5"></path><path d="M10 20v-5h4v5"></path></svg></sc-if><sc-if value="{{sb.isAround}}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg></sc-if></span>
+<div style="min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;"><h4 style="{{sb.titleStyle}}">{{sb.label}}</h4><span style="{{sb.countStyle}}">{{sb.count}}</span></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{sb.note}}</p>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{sb.tiles}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<sc-for list="{{sb.rows}}" as="row" hint-placeholder-count="2">
+<div style="{{sb.gridStyle}}">
+<sc-for list="{{row.items}}" as="g" hint-placeholder-count="3">
+<button type="button" id="{{g.anchor}}" onClick="{{g.toggle}}" aria-expanded="{{g.isOpen}}" aria-controls="panel-{{g.anchor}}" style="{{g.tileStyle}}">
+<span aria-hidden="true" style="position: relative; width: 56px; height: 56px; border-radius: 12px; overflow: hidden; flex-shrink: 0; background: #E3DED4; display: flex; align-items: center; justify-content: center;"><sc-if value="{{g.th.hawaii}}" hint-placeholder-val="{{ false }}"><img src="./assets/402ef4cb675883c62faac675f1703779.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;"></sc-if><sc-if value="{{g.th.samoa}}" hint-placeholder-val="{{ false }}"><img src="./assets/0072284cd42a958df9861a57a6804bf0.jpg" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%;"></sc-if><sc-if value="{{g.th.aotearoa}}" hint-placeholder-val="{{ false }}"><img src="./assets/9fcc7d0630886635e93402dad5b7b022.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;"></sc-if><sc-if value="{{g.th.fiji}}" hint-placeholder-val="{{ false }}"><img src="./assets/d5a84c319e8b46746f3571181b8b8aef.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%;"></sc-if><sc-if value="{{g.th.tahiti}}" hint-placeholder-val="{{ false }}"><img src="./assets/e1c88b77b227c89a5536417e292eee7c.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;"></sc-if><sc-if value="{{g.th.tonga}}" hint-placeholder-val="{{ false }}"><img src="./assets/c31db3fd457e42732e50a4288da77925.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%;"></sc-if><sc-if value="{{g.th.huki}}" hint-placeholder-val="{{ false }}"><img src="./assets/1f1bd631ee9bcfce4029fbe3e059baa0.jpg" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;"></sc-if><sc-if value="{{g.th.canoe}}" hint-placeholder-val="{{ false }}"><img src="./assets/d9331cccec8b8d69a08806bedf12dae7.webp" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;"></sc-if><sc-if value="{{g.noThumb}}" hint-placeholder-val="{{ false }}"><span style="{{g.iconDot}}">{{g.code}}</span></sc-if><sc-if value="{{g.hasThumb}}" hint-placeholder-val="{{ false }}"><span style="{{g.codeBadge}}">{{g.code}}</span></sc-if></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; text-align: left;">
+<span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px; line-height: 1.15;">{{g.name}}</span>
+<span style="font-size: 13px; line-height: 1.35; color: #4A4336;">{{g.tileLine}}</span>
+<sc-if value="{{g.inDayHas}}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; background: #215968; color: #FFFFFF; border-radius: 999px; padding: 2px 8px; font-size: 12px; font-weight: 700;">{{g.inDayLabel}}</span></sc-if>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{g.chevStyle}}"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+</sc-for>
+</div>
+<sc-for list="{{row.open}}" as="g" hint-placeholder-count="0">
+<div id="panel-{{g.anchor}}" role="region" aria-label="{{g.name}}" style="background: #FFFFFF; border: 2px solid #215968; border-radius: 16px; overflow: hidden; margin-bottom: 4px;">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; justify-content: space-between; padding: 10px 12px 10px 16px;">
+<span style="display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; min-width: 0;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 20px;">{{g.name}}</span><span style="font-size: 14px; color: #5E5642;">{{g.zone}}</span></span>
+<button type="button" onClick="{{g.toggle}}" aria-label="Close {{g.name}}" style="min-height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Close</button>
+</div>
+<div style="border-top: 1px solid #E3DED4; display: flex; flex-wrap: wrap; align-items: stretch;">
+<div style="flex: 1 1 300px; min-width: 0; background: #153A45; color: #FFFFFF; display: flex; flex-direction: column;">
+<sc-if value="{{g.hasHero}}" hint-placeholder-val="{{ true }}">
+<div style="position: relative; height: 200px; overflow: hidden; background: #215968;">
+<sc-if value="{{g.th.hawaii}}" hint-placeholder-val="{{ false }}"><img src="./assets/402ef4cb675883c62faac675f1703779.webp" alt="Hula dancers in fern lei at the Hawaiian village" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%;"></sc-if>
+<sc-if value="{{g.th.samoa}}" hint-placeholder-val="{{ false }}"><img src="./assets/0072284cd42a958df9861a57a6804bf0.jpg" alt="A Samoan villager climbs a tall coconut palm barefoot" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;"></sc-if>
+<sc-if value="{{g.th.aotearoa}}" hint-placeholder-val="{{ false }}"><img src="./assets/9fcc7d0630886635e93402dad5b7b022.webp" alt="Two Māori performers with painted moko" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%;"></sc-if>
+<sc-if value="{{g.th.fiji}}" hint-placeholder-val="{{ false }}"><img src="./assets/d5a84c319e8b46746f3571181b8b8aef.webp" alt="A Fijian host with a red-painted face" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%;"></sc-if>
+<sc-if value="{{g.th.tahiti}}" hint-placeholder-val="{{ false }}"><img src="./assets/e1c88b77b227c89a5536417e292eee7c.webp" alt="Tahitian dancers in red costumes and headdresses" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%;"></sc-if>
+<sc-if value="{{g.th.tonga}}" hint-placeholder-val="{{ false }}"><img src="./assets/c31db3fd457e42732e50a4288da77925.webp" alt="A Tongan drummer with a red flower lei" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%;"></sc-if>
+<sc-if value="{{g.th.huki}}" hint-placeholder-val="{{ false }}"><img src="./assets/34da04980b4c60daefc9f678815bacc2.webp" alt="Performers dance on double-hulled canoes across the lagoon" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;"></sc-if>
+<sc-if value="{{g.th.canoe}}" hint-placeholder-val="{{ false }}"><img src="./assets/d9331cccec8b8d69a08806bedf12dae7.webp" alt="Guests ride a canoe on the lagoon" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;"></sc-if>
+<sc-if value="{{g.insp.hasGreeting}}" hint-placeholder-val="{{ true }}"><span style="position: absolute; left: 14px; bottom: 12px; background: #F4EB96; color: #27201B; border-radius: 999px; padding: 5px 14px; font-size: 16px; font-weight: 700;">{{g.insp.greeting}}</span></sc-if>
+</div>
+</sc-if>
+<div style="padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px;">
+<p style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 24px; line-height: 1.15; color: #FFFFFF;">{{g.insp.message}}</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #E3EDF0;">{{g.insp.lead}}</p>
+<sc-if value="{{g.insp.hasHighlights}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #F4EB96;">Don't miss</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{g.insp.highlights}}" as="hl" hint-placeholder-count="3">
+<li style="background: rgba(255,255,255,0.12); color: #FFFFFF; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 700;">{{hl}}</li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
+<sc-if value="{{g.insp.hasSaying}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-style: italic; font-size: 14px; line-height: 1.5; color: #C9DAE0;">{{g.insp.saying}}</p></sc-if>
+</div>
+</div>
+<div style="flex: 999 1 420px; min-width: 0; padding: 16px 18px 12px; display: flex; flex-direction: column; gap: 4px;">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; justify-content: space-between; padding-bottom: 6px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Plan your visit</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #27201B;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{g.planTime}}</span>
+</div>
+<p style="margin: 0 0 6px; font-size: 14px; line-height: 1.5; color: #4A4336;">{{g.planTip}}</p>
+<sc-for list="{{g.cats}}" as="ct" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column;">
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 0 4px;"><span style="{{ct.dot}}"></span><span style="font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #4A4336;">{{ct.label}}</span></div>
+<sc-for list="{{ct.items}}" as="e" hint-placeholder-count="2">
+<div draggable="true" onDragStart="{{e.dragStart}}" onDragEnd="{{dragEnd}}" title="Drag onto Your day" style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid #EFECE6; cursor: grab;">
+<div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 3px;">
+<span style="font-size: 16px; font-weight: 700; line-height: 1.3;">{{e.title}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font-size: 13px; color: #5E5642;"><span>{{e.durLabel}}</span><span>{{e.tags}}</span><button type="button" onClick="{{e.toggleMore}}" aria-expanded="{{e.expanded}}" style="min-height: 28px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">{{e.moreLabel}}</button></span>
+<sc-if value="{{e.expanded}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; line-height: 1.5; color: #4A4336;">{{e.what}}</span></sc-if>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end;">
+<sc-for list="{{e.chips}}" as="c" hint-placeholder-count="3">
+<button type="button" onClick="{{c.toggle}}" aria-pressed="{{c.added}}" aria-label="{{c.aria}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+<button type="button" onClick="{{g.pick}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">See {{g.short}} on the map →</button>
+</div>
+</div>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{sb.notTiles}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{sb.groups}}" as="g" hint-placeholder-count="3">
+<div id="{{g.anchor}}" style="background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 16px; overflow: hidden; scroll-margin-top: 16px;">
+<button type="button" onClick="{{g.toggle}}" aria-expanded="{{g.isOpen}}" style="width: 100%; min-height: 64px; padding: 12px 16px; border: none; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; gap: 12px; text-align: left; color: #27201B;">
+<span style="{{g.dotStyle}}"></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto;">
+<span style="display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 20px;">{{g.name}}</span><span style="font-size: 14px; color: #5E5642;">{{g.zone}}</span></span>
+<span style="font-size: 14px; color: #4A4336;">{{g.summary}}</span>
+</span>
+<sc-if value="{{g.inDayHas}}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; background: #E3EDF0; color: #153A45; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; white-space: nowrap;">{{g.inDayLabel}}</span></sc-if>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#215968" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{g.chevStyle}}"><path d="M6 9l6 6 6-6"></path></svg>
+</button>
+<sc-if value="{{g.isOpen}}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E3DED4; padding: 14px 0; display: flex; flex-direction: column; gap: 16px; background: #F6F4EF;">
+<sc-if value="{{g.hasAbout}}" hint-placeholder-val="{{ false }}">
+<div style="margin: 0 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+<sc-for list="{{g.gallery}}" as="im" hint-placeholder-count="3">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="border-radius: 12px; overflow: hidden; border: 1px solid #E3DED4;">
+<sc-if value="{{im.isPalm}}" hint-placeholder-val="{{ false }}"><img src="./assets/0072284cd42a958df9861a57a6804bf0.jpg" alt="A Samoan villager in a red lavalava climbs a tall coconut palm barefoot" style="display: block; width: 100%; height: 220px; object-fit: cover; object-position: 50% 35%;"></sc-if>
+<sc-if value="{{im.isFire}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 260 160" role="img" aria-label="Illustration: fire starting from two sticks over coconut husk" style="display: block; width: 100%; height: auto;"><rect width="260" height="160" fill="#FBEDE6"></rect><rect y="128" width="260" height="32" fill="#E3DED4"></rect><path d="M70 130 Q130 104 190 130 Z" fill="#B08D57"></path><path d="M80 126 L180 110 M90 112 L176 128" stroke="#857D69" stroke-width="8" stroke-linecap="round"></path><path d="M130 112 C112 92 120 70 132 52 C134 70 148 74 146 92 C152 86 154 80 152 72 C164 88 160 106 130 112 Z" fill="#D6420F"></path><path d="M131 108 C122 96 126 84 133 76 C135 88 142 92 140 102 Z" fill="#F4EB96"></path><path d="M118 44 C114 34 122 28 118 18 M146 40 C142 30 150 24 146 14" stroke="#CFC8BA" stroke-width="3" fill="none" stroke-linecap="round"></path></svg></sc-if>
+<sc-if value="{{im.isFale}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 260 160" role="img" aria-label="Illustration: an open-sided Samoan fale with a domed roof" style="display: block; width: 100%; height: auto;"><rect width="260" height="160" fill="#EEF3F4"></rect><rect y="128" width="260" height="32" fill="#C9DAE0"></rect><path d="M40 84 Q130 6 220 84 Z" fill="#5E5642"></path><path d="M60 78 Q130 22 200 78" stroke="#857D69" stroke-width="3" fill="none"></path><rect x="44" y="84" width="172" height="8" fill="#857D69"></rect><path d="M56 92 V124 M88 92 V124 M120 92 V124 M152 92 V124 M184 92 V124 M204 92 V124" stroke="#857D69" stroke-width="5" stroke-linecap="round"></path><rect x="36" y="122" width="188" height="8" rx="2" fill="#B08D57"></rect></svg></sc-if>
+</div>
+<figcaption style="font-size: 13px; color: #4A4336;">{{im.caption}}</figcaption>
+</figure>
+</sc-for>
+</div>
+<h4 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 22px; color: #27201B;">{{g.about.title}}</h4>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #27201B; max-width: 720px;">{{g.about.lead}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{g.about.highlights}}" as="hl" hint-placeholder-count="4">
+<li style="background: #E3EDF0; color: #153A45; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 700;">{{hl}}</li>
+</sc-for>
+</ul>
+<sc-if value="{{g.aboutMore}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #4A4336; max-width: 720px;">{{g.about.body}}</p>
+<p style="margin: 0; font-style: italic; font-size: 15px; color: #5E5642;">{{g.about.saying}}</p>
+</sc-if>
+<button type="button" onClick="{{g.toggleAbout}}" aria-expanded="{{g.aboutMore}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">{{g.aboutLabel}}</button>
+</div>
+</sc-if>
+<sc-for list="{{g.cats}}" as="ct" hint-placeholder-count="3">
+<div data-carwrap="1" style="display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px; min-height: 44px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-width: 0;">
+<span style="display: inline-flex; align-items: center; gap: 8px;"><span style="{{ct.dot}}"></span><span style="font-weight: 700; font-size: 16px; color: #27201B;">{{ct.label}}</span></span>
+<span style="font-size: 13px; color: #5E5642;">{{ct.note}}</span>
+</div>
+<sc-if value="{{ct.many}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 6px;">
+<button type="button" onClick="{{carPrev}}" aria-label="Previous {{ct.label}} in {{g.short}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" onClick="{{carNext}}" aria-label="More {{ct.label}} in {{g.short}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #CFC8BA; background: #FFFFFF; color: #27201B; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</sc-if>
+</div>
+<div data-track="1" style="display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 16px; padding: 2px 16px 8px;">
+<sc-for list="{{ct.items}}" as="e" hint-placeholder-count="2">
+<div draggable="true" onDragStart="{{e.dragStart}}" onDragEnd="{{dragEnd}}" title="Drag onto Your day" style="{{e.cardStyle}}">
+<div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+<span style="{{e.kindStyle}}">{{e.kind}}</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; background: #F6F4EF; border: 1px solid #E3DED4; border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 700; color: #27201B;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{e.durLabel}}</span>
+<span style="font-size: 13px; color: #5E5642; padding: 3px 0;">{{e.tags}}</span>
+<sc-if value="{{e.outside}}" hint-placeholder-val="{{ false }}"><span style="border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; background: #FDECEA; color: #8A1C12;">Outside your hours</span></sc-if>
+<span style="flex-grow: 1;"></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="#857D69" aria-hidden="true"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg>
+</div>
+<div style="font-weight: 700; font-size: 17px; line-height: 1.3;">{{e.title}}</div>
+<sc-if value="{{e.plainOpen}}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 15px; line-height: 1.5; color: #4A4336;">{{e.what}} <span style="color: #5E5642; font-style: italic;">The rest we'll save for your visit.</span></div>
+</sc-if>
+<sc-if value="{{e.hasShow}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">Pick a time</span></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{e.chips}}" as="c" hint-placeholder-count="4">
+<button type="button" onClick="{{c.toggle}}" aria-pressed="{{c.added}}" aria-label="{{c.aria}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+<button type="button" onClick="{{e.addBest}}" aria-pressed="{{e.inDay}}" aria-label="{{e.addAria}}" style="{{e.addStyle}}"><sc-if value="{{e.inDay}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg></sc-if><sc-if value="{{e.notInDay}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></sc-if>{{e.addLabel}}</button>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 20px;">
+<sc-if value="{{e.noShow}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{e.toggleMore}}" aria-expanded="{{e.expanded}}" style="min-height: 44px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">{{e.moreLabel}}</button></sc-if>
+<sc-if value="{{e.placeholder}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 12px; color: #5E5642;">Times are placeholders</span>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{e.hasShow}}" hint-placeholder-val="{{ false }}">
+<div style="min-width: 0; background: #F6F4EF; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 140px; overflow: hidden; background: #E3DED4;">
+<sc-if value="{{e.hero.is_court}}" hint-placeholder-val="{{ false }}"><img src="./assets/67eb68cba7f8dc710502053c3f85a920.jpg" alt="Hula dancers in purple holokū and lei at the Aliʻi Lūʻau" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;"></sc-if>
+<sc-if value="{{e.hero.is_canoe}}" hint-placeholder-val="{{ false }}"><img src="./assets/1f1bd631ee9bcfce4029fbe3e059baa0.jpg" alt="A Huki performer splashes lagoon water from a canoe as a dancer in orange performs behind" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;"></sc-if>
+<sc-if value="{{e.hero.is_fire}}" hint-placeholder-val="{{ false }}"><img src="./assets/4a9b88a1746b3d047fe516697c53704e.jpg" alt="Fire knife dancers spinning blazing circles of fire at night" style="display: block; width: 100%; height: 100%; object-fit: cover; "></sc-if>
+</div>
+<div style="padding: 12px 14px 4px; display: flex; flex-direction: column; gap: 8px;">
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #27201B;">{{e.hook}}</p>
+<sc-if value="{{e.storyOpen}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 4px; ">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5642; padding-top: 8px;">{{e.storyTitle}}</span>
+<sc-for list="{{e.story}}" as="para" hint-placeholder-count="2">
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4A4336;">{{para}}</p>
+</sc-for>
+<sc-if value="{{e.hasSaying}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-style: italic; font-size: 14px; color: #5E5642;">{{e.saying}}</p></sc-if>
+</div>
+</sc-if>
+<button type="button" onClick="{{e.toggleMore}}" aria-expanded="{{e.expanded}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">{{e.moreLabel}}</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{g.showAbout}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{g.pick}}" style="align-self: flex-start; margin: 0 16px; min-height: 44px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">See {{g.short}} on the map →</button>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</section>
+</sc-for>
+<p style="margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: #5E5642;">Prototype. Map from the gate handout; pins placed by eye. Times come from the 2022 draft schedule or are placeholders and need confirming with Operations. Durations marked “est.” are estimates. Media and prices are placeholders.</p>
+</section>
+
+</div>
+<aside id="your-day" class="day-sticky" aria-labelledby="day-title" style="flex: 1 1 460px; min-width: 0; max-width: 100%; background: #E6EFF1; border: 2px solid #153A45; border-radius: 20px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 8px 24px rgba(39,32,27,0.06);">
+<div style="margin: -20px -20px 0; padding: 20px; border-radius: 18px 18px 0 0; flex-shrink: 0; background: #153A45; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+<div>
+<h2 id="day-title" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.01em; color: #FFFFFF;">Your day</h2>
+<div style="font-size: 15px; color: #C9DAE0; margin-top: 2px;">{{dateLabel}} · {{partyLabel}} · {{availShort}}</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+<span style="background: #F4EB96; color: #27201B; border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 700; white-space: nowrap;">{{planCountLabel}}</span>
+<button type="button" onClick="{{toggleDay}}" aria-expanded="{{dayShown}}" aria-controls="day-body" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #C9DAE0; background: transparent; color: #FFFFFF; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap;">{{dayToggleLabel}}</button>
+</div>
+</div>
+</div>
+<div id="day-body" hidden="{{hide.yourday}}" style="display: flex; flex-direction: column; gap: 16px;">
+<sc-if value="{{noTicket}}" hint-placeholder-val="{{ true }}">
+<div role="search" aria-label="Load your booking" style="{{bookBoxStyle}}">
+<button type="button" onClick="{{toggleBook}}" aria-expanded="{{bookOpen}}" aria-controls="book-body" style="width: 100%; min-height: 44px; padding: 0 12px; border: none; background: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; text-align: left; color: #153A45; font-family: inherit;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg><span style="font-size: 14px; font-weight: 700; white-space: nowrap;">Have tickets?</span><span style="flex: 1 1 auto; min-width: 0; font-size: 13px; color: #5E5642; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{bookHint}}</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{bookChevStyle}}"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{bookOpen}}" hint-placeholder-val="{{ true }}">
+<div id="book-body" style="display: flex; flex-direction: column; gap: 6px; padding: 0 12px 10px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<input id="conf-input" type="text" aria-label="Confirmation number" value="{{confInput}}" onChange="{{setConf}}" placeholder="Confirmation number" autocomplete="off" style="flex: 1 1 140px; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #857D69; border-radius: 999px; font-size: 16px; font-family: inherit; color: #27201B; background: #FFFFFF;">
+<button type="button" onClick="{{findBooking}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">Load my day</button>
+</div>
+<sc-if value="{{confError}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; color: #8A1C12;">Enter the confirmation number from your ticket email.</p></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 0 12px; align-items: center; font-size: 13px; color: #5E5642;">
+<span>Prototype samples:</span>
+<button type="button" onClick="{{loadLuau}}" style="min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">Lūʻau package</button>
+<button type="button" onClick="{{loadGuided}}" style="min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">With guided tour</button>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{hasTicket}}" hint-placeholder-val="{{ false }}">
+<div style="background: #E3EDF0; border-radius: 14px; color: #153A45; flex-shrink: 0;">
+<button type="button" onClick="{{togglePick}}" aria-expanded="{{pickOpen}}" aria-controls="trip-body" aria-label="{{tripAria}}" style="width: 100%; min-height: 44px; padding: 8px 12px; border: none; background: none; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-align: left; color: #153A45; font-family: inherit;"><span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 14px; font-weight: 700;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg><span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ticket.name}} · {{ticket.conf}}</span></span><span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><rect x="4" y="3" width="16" height="15" rx="2.5"></rect><path d="M4 11h16M8 18v2.5M16 18v2.5"></path></svg><span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{tripLine}}</span></span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{pickChevStyle}}"><path d="M6 9l6 6 6-6"></path></svg></button>
+<sc-if value="{{pickOpen}}" hint-placeholder-val="{{ false }}">
+<div id="trip-body" style="margin: 0 12px; padding: 8px 0 10px; border-top: 1px solid #C9DAE0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.45;">
+<sc-if value="{{ticket.guided}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; line-height: 1.45;"><strong>Your guide has the afternoon planned.</strong> {{ticket.guideNote}}</p></sc-if>
+<sc-if value="{{hasRide}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span>Coach 9:45 AM from {{ride.hotel}} · arrives at the Center 12:00 PM.</span>
+<label style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;"><span style="font-weight: 700;">Hotel</span>
+<select onChange="{{setHotel}}" style="min-height: 36px; max-width: 100%; border: 1px solid #857D69; border-radius: 8px; padding: 0 8px; font-size: 14px; font-family: inherit; color: #27201B; background: #FFFFFF;">
+<sc-for list="{{hotelOpts}}" as="ho" hint-placeholder-count="5"><option value="{{ho.id}}" selected="{{ho.sel}}">{{ho.name}}</option></sc-for>
+</select></label>
+<span><strong>Pickup:</strong> {{ride.pickup}}</span>
+<span>Your coach back leaves the Center at 9:00 PM and arrives in Waikīkī at 10:30 PM.</span>
+<a href="{{ride.dir}}" target="_blank" rel="noopener" style="font-weight: 700;">Walking directions to your pickup ↗</a>
+</div>
+</sc-if>
+<sc-if value="{{noRide}}" hint-placeholder-val="{{ false }}">
+<span>No coach on this booking. Driving? Parking is free at the Hukilau Marketplace.</span>
+</sc-if>
+<button type="button" onClick="{{unloadTicket}}" style="align-self: flex-start; min-height: 32px; padding: 0; border: none; background: none; color: #153A45; text-decoration: underline; font-size: 13px; cursor: pointer;">Not yours? Start over</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<p aria-live="polite" style="margin: 0;"><sc-if value="{{hasLastAdded}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 8px; background: #E3EDF0; color: #153A45; border-radius: 12px; padding: 8px 12px; font-size: 14px; font-weight: 700; line-height: 1.4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M20 6L9 17l-5-5"></path></svg>{{lastAdded}}</span></sc-if></p>
+<sc-if value="{{hasRoute}}" hint-placeholder-val="{{ false }}">
+<a href="#map" style="font-size: 14px; font-weight: 700;">See your route on the map ↑</a>
+</sc-if>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<button type="button" onClick="{{buildDay}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #27201B; background: #FFFFFF; color: #27201B; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"></path></svg>Build my day for me</button>
+<sc-if value="{{planHas}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{clearPlan}}" style="min-height: 44px; padding: 0 8px; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Clear</button>
+</sc-if>
+</div>
+
+<sc-if value="{{hasAnytime}}" hint-placeholder-val="{{ false }}">
+<div>
+<div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5E5642; margin-bottom: 6px;">Anytime · drag onto the timeline to set a time</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{anytime}}" as="r" hint-placeholder-count="2">
+<span draggable="true" onDragStart="{{r.dragStart}}" onDragEnd="{{dragEnd}}" title="Drag onto the timeline to give it a time" style="{{r.chipStyle}}"><span aria-hidden="true" style="{{r.badgeStyle}}">{{r.code}}</span>{{r.title}} · {{r.durLabel}}<button type="button" onClick="{{r.remove}}" aria-label="{{r.aria}}" style="width: 36px; height: 36px; border: none; background: none; color: #153A45; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"></path></svg></button></span>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: -8px; font-size: 13px; color: #5E5642;">
+<span style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">11 AM to 9:30 PM</span>
+<span style="display: inline-flex; align-items: center; gap: 4px;">Scroll for the evening<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></span>
+</div>
+<div style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 0; flex-shrink: 0;">
+<div style="position: relative; height: {{railHeight}}px;">
+<sc-for list="{{railHours}}" as="rh" hint-placeholder-count="10">
+<span style="{{rh.style}}">{{rh.label}}</span>
+</sc-for>
+</div>
+<div onDragOver="{{railOver}}" onDragLeave="{{railLeave}}" onDrop="{{railDrop}}" style="{{railStyle}}">
+<sc-for list="{{railLines}}" as="ln" hint-placeholder-count="10">
+<span style="{{ln.style}}"></span>
+</sc-for>
+<span style="position: absolute; left: 0; right: 0; top: {{villageTop}}px; height: {{villageHeight}}px; background: rgba(33,89,104,0.05);"></span>
+<span style="position: absolute; right: 6px; top: {{villageLabelTop}}px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #215968;">Villages open</span>
+<span style="{{dinnerBandStyle}}"></span>
+<span style="{{dinnerLabelStyle}}">Dinner</span>
+<span style="{{showBandStyle}}"></span>
+<span style="{{showLabelStyle}}">HĀ show</span>
+<span style="{{phaseStripDay}}"></span><span style="{{phaseStripDinner}}"></span><span style="{{phaseStripShow}}"></span>
+<sc-if value="{{offBeforeOn}}" hint-placeholder-val="{{ false }}"><span style="{{offBeforeStyle}}">{{offBeforeLabel}}</span></sc-if>
+<sc-if value="{{offAfterOn}}" hint-placeholder-val="{{ false }}"><span style="{{offAfterStyle}}">{{offAfterLabel}}</span></sc-if>
+<sc-if value="{{hasRide}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="{{arriveStyle}}"></span><span style="{{arriveLabelStyle}}">Coach arrives at the Center · 12:00 PM</span></sc-if>
+<sc-if value="{{returnOn}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="{{returnStyle}}"></span><span style="{{returnLabelStyle}}">Coach leaves 9:00 PM · arrives in Waikīkī 10:30 PM</span></sc-if>
+<sc-if value="{{tourOn}}" hint-placeholder-val="{{ false }}"><div aria-label="{{tourAria}}" style="{{tourStyle}}"><span style="font-weight: 700;">{{tourLabel}}</span><span style="font-size: 12px;">{{tourSub}}</span></div></sc-if>
+<sc-for list="{{railBlocks}}" as="b" hint-placeholder-count="5">
+<button type="button" draggable="true" onDragStart="{{b.dragStart}}" onDragEnd="{{dragEnd}}" onClick="{{b.pick}}" aria-label="{{b.aria}}" style="{{b.style}}"><span aria-hidden="true" style="{{b.badgeStyle}}">{{b.code}}</span><span style="flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><sc-if value="{{b.fixed}}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align: -1px; margin-right: 4px;"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"></path></svg></sc-if><span style="font-weight: 700;">{{b.time}}</span> <span>{{b.title}}</span> <span style="opacity: 0.75;">· {{b.durLabel}}</span></span><span aria-hidden="true" title="{{b.typeLabel}}" style="flex-shrink: 0; display: inline-flex; align-items: center; height: 20px; color: {{b.typeColor}};"><sc-if value="{{b.tShow}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6l-5.4 2.9 1.2-6-4.5-4.2 6.1-.7z"></path></svg></sc-if><sc-if value="{{b.tAct}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v4M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0v-3a2 2 0 0 0-4 0"></path></svg></sc-if><sc-if value="{{b.tExh}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21v-9M10 21v-9M14 21v-9M19 21v-9M2 10l10-7 10 7z"></path></svg></sc-if><sc-if value="{{b.tFood}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2.2 2-2.2 6 0 8v10"></path></svg></sc-if><sc-if value="{{b.tShop}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"></path></svg></sc-if><sc-if value="{{b.tTour}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg></sc-if></span></button>
+</sc-for>
+<sc-for list="{{railWalks}}" as="rw" hint-placeholder-count="3">
+<span role="note" aria-label="{{rw.aria}}" style="{{rw.style}}"><span style="{{rw.pillStyle}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"></circle><path d="M9 21l2-6 3 3v5M14 18l-2-4 1-5 3 3 3 1M8 12l2-3h3"></path></svg>{{rw.text}}</span></span>
+</sc-for>
+<sc-if value="{{ghostOn}}" hint-placeholder-val="{{ false }}">
+<span style="{{ghostStyle}}">{{ghostLabel}}</span>
+</sc-if>
+<sc-if value="{{planEmpty}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: 16px; right: 12px; top: 80px; pointer-events: none; background: #F6F4EF; border: 1px dashed #CFC8BA; border-radius: 14px; padding: 16px; font-size: 15px; line-height: 1.5; color: #4A4336;">Your day is empty. Drag any card here, tap a time, or let us build a day around Huki, the villages and the evening show.</div>
+</sc-if>
+</div>
+</div>
+
+<div role="group" aria-label="Timeline key" style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E3DED4; padding: 10px 0 0; font-size: 13px; color: #4A4336;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center;">
+<span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5642; min-width: 52px;">What</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6l-5.4 2.9 1.2-6-4.5-4.2 6.1-.7z"></path></svg>Show</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0v4M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0v-3a2 2 0 0 0-4 0"></path></svg>Activity</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21v-9M10 21v-9M14 21v-9M19 21v-9M2 10l10-7 10 7z"></path></svg>Exhibit</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2.2 2-2.2 6 0 8v10"></path></svg>Food</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg>Tour</span>
+<span style="display: inline-flex; align-items: center; gap: 5px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"></path></svg>Shopping</span>
+</div>
+</div>
+
+<sc-if value="{{hasConflicts}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<sc-for list="{{conflicts}}" as="cf" hint-placeholder-count="1">
+<div style="display: flex; gap: 8px; align-items: flex-start; background: #FDECEA; color: #8A1C12; border-radius: 12px; padding: 10px 12px; font-size: 14px; line-height: 1.4;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"></path></svg>{{cf.text}}</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{hasGap}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: #FBF6D9; border-radius: 12px; padding: 10px 12px;">
+<span style="font-size: 14px; line-height: 1.4; color: #4A3B05; flex: 1 1 200px;">{{gap.text}}</span>
+<button type="button" onClick="{{gap.add}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #4A3B05; background: #FFFFFF; color: #4A3B05; font-weight: 700; font-size: 14px; cursor: pointer;">Add it</button>
+</div>
+</sc-if>
+
+<sc-if value="{{hasTicket}}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #E3DED4; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5E5642;">On your ticket · {{ticket.conf}}</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
+<sc-for list="{{ticket.includes}}" as="inc" hint-placeholder-count="3">
+<li style="display: flex; gap: 8px; align-items: flex-start; font-size: 15px; line-height: 1.4; color: #27201B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#215968" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 3px;"><path d="M20 6L9 17l-5-5"></path></svg>{{inc}}</li>
+</sc-for>
+</ul>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #5E5642;">Items marked with a ticket on the timeline come from your booking. Moving or removing them here only changes this plan, not your ticket.</p>
+<sc-if value="{{appNotSent}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{sendToApp}}" style="min-height: 52px; padding: 0 20px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"></rect><path d="M11 18h2"></path></svg>Send my day to the PCC app</button>
+</sc-if>
+<sc-if value="{{appSent}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; gap: 12px; align-items: center; background: #E3EDF0; border-radius: 14px; padding: 12px;">
+<svg width="72" height="72" viewBox="0 0 21 21" role="img" aria-label="QR code placeholder for opening your day in the PCC app" style="flex-shrink: 0; background: #FFFFFF; border-radius: 6px; padding: 4px;"><path fill="#27201B" d="M0 0h7v7H0zM1 1v5h5V1zM2 2h3v3H2zM14 0h7v7h-7zM15 1v5h5V1zM16 2h3v3h-3zM0 14h7v7H0zM1 15v5h5v-5zM2 16h3v3H2zM9 0h2v2H9zM8 3h2v3H8zM11 4h2v2h-2zM9 8h3v2H9zM14 9h2v2h-2zM17 8h3v2h-3zM8 12h2v3H8zM11 11h2v2h-2zM13 14h3v2h-3zM17 12h2v3h-2zM9 17h3v2H9zM14 18h2v3h-2zM17 17h4v2h-4zM19 20h2v1h-2zM0 9h2v2H0zM3 10h3v2H3z"></path></svg>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #153A45;"><strong>Sent to the PCC app.</strong> Sign in with booking {{ticket.conf}} on your phone, or scan this code. Your times, map and reminders will be there on the day.</p>
+</div>
+</sc-if>
+<a href="#" style="font-size: 14px; font-weight: 700;">Manage your booking</a>
+</div>
+</sc-if>
+<sc-if value="{{showSales}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center;">
+<span style="font-size: 13px; line-height: 1.45; color: #5E5642;">Your day goes with you: it waits on the packages page and comes back here once you book.</span>
+<button type="button" onClick="{{sharePlan}}" style="min-height: 44px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">{{shareLabel}}</button>
+</div>
+<div style="position: sticky; bottom: 0; z-index: 6; margin: 0 -20px -20px; padding: 12px 20px 16px; background: #E6EFF1; border-top: 1px solid #C9DAE0; box-shadow: 0 -10px 18px rgba(21,58,69,0.10); border-radius: 0 0 18px 18px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+<span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5E5642;">Fits your day</span>
+<span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; color: #27201B;">{{pkg.title}}</span>
+</div>
+<span style="font-size: 13px; line-height: 1.4; color: #4A4336;">{{pkg.why}}</span>
+<a href="Discover.dc.html" style="min-height: 48px; display: flex; align-items: center; justify-content: center; padding: 0 20px; border-radius: 999px; background: #D6420F; color: #FFFFFF; font-weight: 700; font-size: 16px; text-decoration: none;">See packages for this day</a>
+</div>
+</sc-if>
+</div>
+</aside>
+</main>
+<a href="#your-day" class="day-bar" aria-label="Go to your day: {{planCountLabel}}" style="position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 20; min-height: 60px; box-sizing: border-box; padding: 8px 8px 8px 16px; border-radius: 18px; background: #153A45; color: #FFFFFF; text-decoration: none; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 10px 30px rgba(21,58,69,0.35);">
+<span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #F4EB96;">Your itinerary</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Your day · {{planCountLabel}}</span></span>
+<span style="flex-shrink: 0; min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: #F4EB96; color: #27201B; font-weight: 700; font-size: 15px;">View</span>
+</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"walkSpeed":{"editor":"int","default":80,"min":40,"max":110,"unit":"m/min","section":"Walking"},"mapLengthM":{"editor":"int","default":900,"min":400,"max":1600,"unit":"m","section":"Walking"},"distUnits":{"editor":"enum","options":["mi","m"],"default":"mi","section":"Walking"},"$preview":{"width":1440,"height":1900}}'>
+var VILLAGE_WINDOW = [750, 1050];
+var CAT_OF = {
+  "samoa-pres": "main", "aotearoa-pres": "main", "fiji-pres": "main", "hawaii-pres": "main", "tahiti-drums": "main", "tonga-pres": "main",
+  "samoa-fire": "cultural", "samoa-food": "cultural", "fiji-oil": "cultural", "fiji-derua": "cultural", "fiji-camakau": "cultural",
+  "tahiti-wedding": "show", "huki-pre": "show", "huki-show": "show", "ha": "show", "journey-film": "show", "luau": "show",
+  "canoe-tour": "interactive"
+};
+var CATS = [
+  { id: "main", one: "main presentation", many: "main presentations", label: "Main presentation", note: "The village's signature show", color: "#215968" },
+  { id: "cultural", one: "cultural presentation", many: "cultural presentations", label: "Cultural presentations", note: "Demonstrations and talks", color: "#4D8796" },
+  { id: "show", one: "show", many: "shows", label: "Other shows", note: "Performances and ceremonies", color: "#27201B" },
+  { id: "interactive", one: "interactive experience", many: "interactive experiences", label: "Interactive experiences", note: "Try it yourself: games, lessons, tastings", color: "#B8860B" },
+  { id: "visit", one: "place to explore", many: "places to explore", label: "Exhibits, dining and shopping", note: "Go at your own pace", color: "#857D69" }
+];
+function catOf(e) { if (CAT_OF[e.id]) return CAT_OF[e.id]; if (e.kind === "Hands-on" || e.kind === "Tasting") return "interactive"; if (e.kind === "Presentation" || e.kind === "Demonstration") return "cultural"; if (e.kind === "Show" || e.kind === "Evening show") return "show"; return "visit"; }
+var DAY_OPEN = 735, DAY_CLOSE = 1245;
+// One itinerary record shared with the Discover page. In production it lives with the guest's booking or account.
+var REC_KEY = "pcc-shared-day-v1";
+function loadRec() { try { var r = window.localStorage.getItem(REC_KEY); return r ? JSON.parse(r) : null; } catch (err) { return null; } }
+function saveRec(r) { try { r.updated = Date.now(); window.localStorage.setItem(REC_KEY, JSON.stringify(r)); return r.updated; } catch (err) { return 0; } }
+// Sample bookings for the prototype. Names, times and inclusions are placeholders to confirm with Sales and Operations.
+// Transportation, from the Transportation Step prototype. Pickup text is real for Ala Moana Hotel only.
+var HOTELS = [
+  { id: "ala-moana", name: "Ala Moana Hotel by Mantra", dest: "Mahukona St, Ala Moana Hotel, Honolulu, HI", pickup: "Wait on the sidewalk on Mahukona Street near the side entrance of the hotel at least 10 minutes before departure." },
+  { id: "hhv", name: "Hilton Hawaiian Village", dest: "Hilton Hawaiian Village, Honolulu, HI", pickup: "Sample text: wait at the Rainbow Tower bus stop on Paoa Place at least 10 minutes before departure." },
+  { id: "sheraton", name: "Sheraton Waikiki", dest: "Sheraton Waikiki, Honolulu, HI", pickup: "Sample text: wait at the motor coach lane off Kālia Road at least 10 minutes before departure." },
+  { id: "hyatt", name: "Hyatt Regency Waikiki", dest: "Hyatt Regency Waikiki, Honolulu, HI", pickup: "Sample text: wait at the Kalākaua Avenue tour pickup curb at least 10 minutes before departure." },
+  { id: "outrigger", name: "Outrigger Waikiki Beach Resort", dest: "Outrigger Waikiki Beach Resort, Honolulu, HI", pickup: "Sample text: wait at the Kalākaua Avenue entrance at least 10 minutes before departure." }
+];
+function hotelById(id) { for (var i = 0; i < HOTELS.length; i++) if (HOTELS[i].id === id) return HOTELS[i]; return HOTELS[0]; }
+// Inspiration for each detail panel. Village messages are drafts awaiting cultural review.
+var INSP = {
+  hawaii: { greeting: "Aloha", message: "Hawaiʻi speaks in rhythms.", lead: "The strum of the ʻukulele, the pounding of poi, the pahu drum and the ipu gourd. As the host culture, Hawaiʻi invites you to sit down, talk story and feel what aloha means.", highlights: ["Learn a hula step", "Taste fresh poi", "Ancient Hawaiian games"] },
+  samoa: { greeting: "Talofa", message: "Lead by serving. Laugh the whole way.", lead: "That's faʻa Samoa, the Samoan way. Known as the happy people, your hosts crack coconuts with a rock, make fire from two sticks and climb a 40-foot palm barefoot.", highlights: ["Coconut tree climb", "Fire from two sticks", "Fire knife up close"], saying: "“O le ala i le pule o le tautua.” The path to leadership is through service." },
+  aotearoa: { greeting: "Kia ora", message: "Together, we cannot be broken.", lead: "Kotahitanga, unity, is at the heart of Māori culture. Feel it when you're welcomed into Hawaikiroa, the carved meetinghouse, and again when the haka begins.", highlights: ["The haka", "Poi and stick games", "Hawaikiroa meetinghouse"], saying: "“Ki te kotahi te kākaho ka whati, ki te kāpuia e kore e whati.” Alone we can be broken; together we are invincible." },
+  fiji: { greeting: "Bula", message: "Sometimes sun, sometimes rain.", lead: "Fijian life mixes humor, sincerity and careful etiquette, and everyone in the village is family. The warriors give a loud welcome; everyone else gives a warm one.", highlights: ["The lali drum", "Derua bamboo music", "The chief's house"] },
+  tahiti: { greeting: "Ia ora na", message: "Here, love is always in the air.", lead: "You'll hear it in the music and feel it in Ori Tahiti, a dance famous for its speed. Watch a traditional wedding ceremony, and fair warning: they'll get you dancing too.", highlights: ["Tahitian wedding", "Ori Tahiti dance", "Coconut bread"] },
+  tonga: { greeting: "Mālō e lelei", message: "Count your blessings. Then grab a drumstick.", lead: "Every day is a happy occasion in Tonga. The drums call you before you arrive, and before long the guests are the ones drumming.", highlights: ["The drum show", "Nafa drums for kids", "Tolo spear toss"] }
+};
+var TICKETS = {
+  admission: { id: "admission", conf: "PCC-31907", name: "Islands of Polynesia admission", date: 2, adults: 2, kids: 0, guided: false, short: "village admission",
+    summary: "Villages, Huki and canoe rides, 12:15 to 5:30 PM.", includes: ["All six island villages", "Huki: A Canoe Celebration", "Canoe rides and exhibits"], fixed: [] },
+  buffet: { id: "buffet", conf: "PCC-52640", name: "Gateway Buffet + HĀ package", date: 2, adults: 2, kids: 0, guided: false, short: "buffet dinner and HĀ show",
+    summary: "Villages, the Gateway Buffet and HĀ.", includes: ["All six island villages and Huki", "Gateway Buffet dinner, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"], fixed: [["buffet", 990], ["ha", 1170]] },
+  luau: { id: "luau", conf: "PCC-48213", name: "Aliʻi Lūʻau Package", date: 2, adults: 2, kids: 1, guided: false,
+    summary: "2 adults, 1 child. Your lūʻau seating and HĀ show are already in your day; plan the villages around them.",
+    includes: ["Islands of Polynesia: all six villages and Huki", "Aliʻi Lūʻau dinner and show, 5:00 PM", "HĀ: Breath of Life, reserved seating, 7:30 PM"],
+    fixed: [["luau", 1020], ["ha", 1170]], transport: "ala-moana" },
+  guided: { id: "guided", conf: "PCC-77051", name: "Lūʻau package with guided tour", date: 2, adults: 2, kids: 0, guided: true,
+    tour: [750, 990], guideNote: "From 12:30 to 4:30 PM your guide walks you through the villages and saves you seats at Huki.",
+    summary: "2 adults. Your guided tour, lūʻau and HĀ show are already in your day.",
+    includes: ["Guided tour of the villages with your own guide, 12:30–4:30 PM", "Aliʻi Lūʻau dinner and show, 5:00 PM", "HĀ: Breath of Life, reserved seating, 7:30 PM"],
+    fixed: [["luau", 1020], ["ha", 1170]], transport: "hhv" }
+};
+function ticketPlan(tk) { return tk.fixed.map(function (f) { return { p: findExp(f[0]).p.id, e: f[0], t: f[1], fixed: true }; }); }
+function removedMsg(plan, e) { var f = plan.some(function (x) { return x.e === e.id && x.fixed; }); return f ? "Removed " + e.title + " from this plan. It's still on your ticket." : "Removed " + e.title + "."; }
+var AVAIL = [
+  { id: "allday", label: "All day", from: 735, to: 1245, rec: true, fits: "Huki, all six villages, dinner and HĀ. Everything is open to you." },
+  { id: "afternoon", label: "Afternoon", from: 735, to: 1050, fits: "Huki and the villages. Leaves before dinner and the show." },
+  { id: "lateday", label: "Afternoon into evening", from: 840, to: 1245, fits: "Villages from 2 PM, then dinner and HĀ. Misses Huki." },
+  { id: "evening", label: "Dinner and show", from: 990, to: 1245, fits: "Lūʻau or buffet, then HĀ: Breath of Life." },
+  { id: "custom", label: "Something else", fits: "Tell us when you arrive and leave." }
+];
+function availWindow(s) {
+  if (s.avail === "custom") return [s.arrive, s.leave];
+  for (var i = 0; i < AVAIL.length; i++) if (AVAIL[i].id === s.avail) return [AVAIL[i].from, AVAIL[i].to];
+  return [735, 1245];
+}
+var RAIL_START = 660, RAIL_END = 1290, PX = 84;
+var PLACES = [
+  { id: "samoa", name: "Samoa", short: "Samoa", native: "Sāmoa", zone: "Island village", village: true, x: 51.5, y: 67.5, cats: ["villages", "hands-on", "food"],
+    promise: "Laugh with “the happy people,” watch fire made from two sticks, and see a 40-foot coconut tree climbed barefoot.",
+    story: "Samoa is known for humor, warmth and generosity. Walk through domed fale built without nails, then pull up a log and talk story with your hosts between presentations.",
+    about: {
+      title: "Way of Life in Samoa: The Fire Within",
+      lead: "The Samoan village is famous for its humor, warmth and generosity; villagers call themselves “the happy people.” Its 20-minute cultural presentation, repeated through the afternoon, shows everyday island skills with plenty of laughter and audience banter.",
+      body: "A host cracks a coconut open with nothing but a small rock and shares the fresh milk, then starts a fire by rubbing two sticks over dry coconut husk. A young man climbs a 40-foot coconut tree barefoot, and the show can end with fire knife twirling. Between presentations, stroll through the domed fale, built without nails and cooled by the breeze, try weaving a fish from coconut leaves, and watch bananas cooked the traditional way.",
+      saying: "“O le ala i le pule o le tautua” — the path to leadership is through service.",
+      highlights: ["Coconut cracked open with a small rock", "Fire made from two sticks and coconut husk", "40-foot coconut tree climbed barefoot", "Fire knife twirling", "Weave a fish from coconut leaves", "Domed fale built without nails"],
+      gallery: [
+        { key: "palm", caption: "A barefoot climb up a 40-foot coconut tree" }
+      ]
+    },
+    landmarks: "Chief's house · cooking hut", media: "Teaser · 30 s: making fire by hand",
+    exps: [
+      { id: "samoa-pres", title: "Way of Life in Samoa — The Fire Within", kind: "Presentation", dur: 20, tags: "All ages", times: [780, 840, 900, 960, 990], what: "Hosts crack a coconut with a small rock, make fire from two sticks and climb a 40-foot coconut tree barefoot, all told with plenty of Samoan humor." },
+      { id: "samoa-fire", title: "Fire-making", kind: "Demonstration", dur: 15, tags: "All ages", times: [810, 870, 930, 990], what: "Watch fire made the traditional way, by hand." },
+      { id: "samoa-food", title: "Food presentation", kind: "Tasting", dur: 15, tags: "All ages", times: [780, 900], what: "A taste of Samoan food prepared in the village." },
+      { id: "samoa-weave", dur: 15, est: true, title: "Weaving", kind: "Hands-on", tags: "Kids love it", what: "Try a weaving activity with village hosts." }
+    ] },
+  { id: "aotearoa", name: "Aotearoa", short: "Aotearoa", native: "New Zealand · Māori", zone: "Island village", village: true, x: 64.6, y: 55.5, cats: ["villages", "hands-on", "food"],
+    promise: "Feel the power of the haka and try Māori games and skills.",
+    story: "Discover the haka, then try your hand at some of the unique skills, games and food of the Māori people.",
+    landmarks: "", media: "Teaser · 30 s: the haka",
+    exps: [
+      { id: "aotearoa-pres", title: "Haka and Māori culture", kind: "Presentation", dur: 20, tags: "All ages", times: [810, 870, 930, 990], placeholder: true, what: "An introduction to the haka and what it means." },
+      { id: "aotearoa-games", dur: 15, est: true, title: "Games and skills", kind: "Hands-on", tags: "Kids love it", what: "Try traditional Māori games and skills." },
+      { id: "aotearoa-food", dur: 10, est: true, title: "Māori food", kind: "Tasting", tags: "All ages", what: "A taste of Māori food." }
+    ] },
+  { id: "fiji", name: "Fiji", short: "Fiji", native: "Viti", zone: "Island village", village: true, x: 75.0, y: 34.4, cats: ["villages", "hands-on"],
+    promise: "Beat the lali drum and step inside a chief's house.",
+    story: "A towering temple, a chief's house where it matters which door you use, and weaponry and crafts worth a close look.",
+    landmarks: "Temple · chief's house", media: "Teaser · 30 s: chants and dance",
+    exps: [
+      { id: "fiji-pres", title: "History Through Chants and Dance", kind: "Presentation", dur: 20, tags: "All ages", times: [810, 870, 930, 990], what: "Fiji's history, told through chant and dance." },
+      { id: "fiji-oil", title: "Coconut oil making", kind: "Demonstration", dur: 15, tags: "All ages", times: [780, 840, 900, 960, 1020], what: "See how coconut oil is made the traditional way." },
+      { id: "fiji-derua", title: "Derua", kind: "Demonstration", dur: 15, tags: "All ages", times: [780, 900, 1020], what: "A Fijian music tradition." },
+      { id: "fiji-camakau", title: "Camakau", kind: "Demonstration", dur: 15, tags: "All ages", times: [840, 960], what: "The Fijian sailing canoe." },
+      { id: "fiji-lali", dur: 10, est: true, title: "Play the lali log drum", kind: "Hands-on", tags: "Kids love it", what: "Try the lali, the Fijian log drum." }
+    ] },
+  { id: "hawaii", name: "Hawaiʻi", short: "Hawaiʻi", native: "Hawaiʻi", zone: "Island village", village: true, x: 87.7, y: 42.4, cats: ["villages", "hands-on", "food"],
+    promise: "Learn a hula step, taste poi, and play ancient Hawaiian games.",
+    story: "Learn some basic hula movements, get insight into the ancient kapu system, try freshly made poi, and learn time-honored fishing techniques.",
+    landmarks: "", media: "Teaser · 30 s: the hula",
+    exps: [
+      { id: "hawaii-pres", title: "Tradition of Lasting Tide", kind: "Presentation", dur: 20, tags: "All ages", times: [780, 840, 900, 960, 1020], what: "Hawaiian traditions and the kapu system." },
+      { id: "hawaii-games", title: "Traditional Hawaiian games", kind: "Hands-on", dur: 15, tags: "Kids love it", times: [810, 870, 930, 990], what: "Play games Hawaiian children have played for generations." },
+      { id: "hawaii-hula", dur: 15, est: true, title: "Hula lesson", kind: "Hands-on", tags: "All ages", what: "Learn a few basic hula movements." },
+      { id: "hawaii-poi", dur: 10, est: true, title: "Poi tasting", kind: "Tasting", tags: "All ages", what: "Try freshly made poi." }
+    ] },
+  { id: "tahiti", name: "Tahiti", short: "Tahiti", native: "Tahiti", zone: "Island village", village: true, x: 81.7, y: 11.6, cats: ["villages", "hands-on", "food"],
+    promise: "Fast-moving dance, a wedding ceremony, and coconut bread to taste.",
+    story: "With the fragrance of tiare in the air, the Tahitian village shares its weaving, mother-of-pearl art, and the fast-moving dance French Polynesia is famous for.",
+    landmarks: "", media: "Teaser · 30 s: the dance",
+    exps: [
+      { id: "tahiti-drums", title: "Drums of the Islands", kind: "Presentation", dur: 20, tags: "All ages", times: [810, 840], what: "The sounds of Tahitian drumming." },
+      { id: "tahiti-wedding", title: "Ancient Tahitian Wedding", kind: "Presentation", dur: 20, tags: "Couples love it", times: [900, 960], what: "A traditional Tahitian wedding ceremony." },
+      { id: "tahiti-bread", dur: 10, est: true, title: "Coconut bread tasting", kind: "Tasting", tags: "After 1:45 PM", window: [825, 1050], what: "Taste Tahitian coconut bread." },
+      { id: "tahiti-dance", dur: 15, est: true, title: "Dance lesson", kind: "Hands-on", tags: "All ages", what: "Learn a few Tahitian dance moves." },
+      { id: "tahiti-spear", dur: 10, est: true, title: "Spear throwing", kind: "Hands-on", tags: "Kids love it", what: "Try your aim at spear throwing." }
+    ] },
+  { id: "tonga", name: "Tonga", short: "Tonga", native: "Tonga", zone: "Island village", village: true, x: 68.5, y: 19.9, cats: ["villages", "hands-on"],
+    promise: "Drums, dance and the friendliest welcome in the islands.",
+    story: "Tonga is called the friendly island, and its village earns the name with drumming, dance, hands-on games and lots of laughter.",
+    landmarks: "", media: "Teaser · 30 s: the drumming",
+    exps: [
+      { id: "tonga-pres", title: "Echoing the Sounds of Respect", kind: "Presentation", dur: 20, tags: "All ages", times: [810, 870, 930, 990, 1020], what: "Tongan drumming and dance." },
+      { id: "tonga-nafa", title: "Nafa drums for kids", kind: "Hands-on", dur: 15, tags: "Kids love it", times: [780, 840, 900, 960], what: "Kids learn to play the nafa drum." },
+      { id: "tonga-tolo", dur: 10, est: true, title: "Tolo spear toss", kind: "Hands-on", tags: "All ages", what: "Try the Tongan spear toss." },
+      { id: "tonga-canoe", dur: 15, est: true, title: "Canoe paddling", kind: "Hands-on", tags: "All ages", what: "Paddle a canoe on the lagoon." }
+    ] },
+  { id: "huki", name: "Huki: A Canoe Celebration", short: "Huki", native: "The daily canoe celebration", zone: "Lagoon show", village: false, x: 48.8, y: 44.3, cats: ["shows"],
+    promise: "Performers from every island dance on double-hulled canoes across the lagoon.",
+    story: "The daily highlight on the lagoon. Many guests arrive when the Welcome Center opens at noon to choose their lagoon seating. An interactive pre-show starts at 12:50 PM.",
+    landmarks: "Lagoon seating", media: "Teaser · 30 s: the canoes arrive",
+    exps: [
+      { id: "huki-pre", title: "Huki pre-show", kind: "Show", dur: 10, tags: "All ages", times: [770], what: "An interactive introduction to the story of Huki." },
+      { id: "huki-show", title: "Huki: A Canoe Celebration", kind: "Show", dur: 20, tags: "Daily highlight", times: [780], what: "Music, dance and story performed on canoes.", show: { hook: "Every island of Polynesia arrives by canoe, one after another, dancing across the lagoon.", title: "About Huki", story: ["Each double-hulled canoe carries the music, dress and dance of its island, so it’s the quickest way to meet all of Polynesia in one sitting. Arrive early for lagoon-side seats."], images: [{ key: "canoe", caption: "Dancers glide by on double-hulled canoes" }] } }
+    ] },
+  { id: "canoe", name: "Canoe tours", short: "Canoe tours", native: "South and North Canoe Landings", zone: "Lagoon", village: false, x: 39.6, y: 35.6, cats: ["tours"],
+    promise: "Glide through the Center's lagoon with a guide.",
+    story: "A guided canoe ride along the lagoon between the South and North Canoe Landings, with views across the villages and gardens.",
+    landmarks: "South Canoe Landing · North Canoe Landing", media: "Teaser · 30 s: on the lagoon",
+    exps: [ { id: "canoe-tour", dur: 30, est: true, title: "Lagoon canoe tour", kind: "Tour", tags: "All ages", what: "A guided ride across the lagoon." } ] },
+  { id: "mission", name: "Hawaiian Mission Settlement", short: "Mission Settlement", native: "Lāʻie history", zone: "Exhibit", village: false, x: 58.1, y: 26.1, cats: ["exhibits"],
+    promise: "A mission home, school house and chapel from Lāʻie's past.",
+    story: "Walk through the buildings that tell the story of the community the Center grew from.",
+    landmarks: "Mission home · school house · chapel", media: "View in 360°: the mission home",
+    exps: [ { id: "mission-visit", dur: 20, est: true, title: "Explore the settlement", kind: "Exhibit", tags: "All ages", what: "Self-guided visit." } ] },
+  { id: "iosepa", name: "Iosepa & Carvers Workshop", short: "Iosepa", native: "Voyaging canoe", zone: "Exhibit", village: false, x: 96.3, y: 44.3, cats: ["exhibits"],
+    promise: "See Iosepa, a 60-foot double-hulled voyaging canoe, and carvers at work.",
+    story: "Learn how Polynesians crossed the Pacific by reading the stars and the sea, then visit the Carvers Workshop near the North Canoe Landing.",
+    landmarks: "Iosepa Learning Center · Carvers Workshop", media: "View in 360°: aboard Iosepa",
+    exps: [
+      { id: "iosepa-visit", dur: 20, est: true, title: "Iosepa Learning Center", kind: "Exhibit", tags: "All ages", what: "The art of Polynesian wayfinding." },
+      { id: "carvers", dur: 15, est: true, title: "Carvers Workshop", kind: "Exhibit", tags: "All ages", what: "Polynesian carving, up close." }
+    ] },
+  { id: "journey", name: "Hawaiian Journey & Ukulele Experience", short: "Hawaiian Journey", native: "Film and museum", zone: "Show and exhibit", village: false, x: 44.1, y: 33.5, cats: ["shows", "exhibits", "shop"],
+    promise: "An immersive film about Hawaiʻi, and a ukulele museum and gallery.",
+    story: "Step into an immersive film, then explore the story of the ukulele and browse the gallery.",
+    landmarks: "Hawaiian Journey Theater · Ukulele shop", media: "Teaser · 30 s: the film",
+    exps: [
+      { id: "journey-film", dur: 15, est: true, title: "Hawaiian Journey film", kind: "Show", tags: "Showtimes to confirm", what: "An immersive film experience." },
+      { id: "ukulele", dur: 20, est: true, title: "Ukulele Experience", kind: "Exhibit", tags: "Closed Sundays", what: "A self-guided museum and gallery." }
+    ] },
+  { id: "market", name: "Hukilau Marketplace & Welcome Center", short: "Marketplace", native: "Free to visit", zone: "Gateway · free", village: false, x: 9.4, y: 83.6, cats: ["shop", "food"],
+    promise: "Island food and local shops at the front gate, open to everyone.",
+    story: "A recreated 1950s Old Lāʻie marketplace just outside the entrance, with Pounders Restaurant, food trucks, local shops and free nightly entertainment. Free to visit, with free parking.",
+    landmarks: "Welcome Center · Pounders · food trucks · shops", media: "Teaser · 30 s: the marketplace",
+    exps: [
+      { id: "market-lunch", dur: 45, est: true, title: "Early lunch at the Marketplace", kind: "Food", tags: "Before the villages open", times: [660, 690], what: "Pounders Restaurant, the Hukilau lunch and food trucks, steps from the entrance. Eat first, then walk in when the villages open at 12:15." },
+      { id: "market-shop", dur: 30, est: true, title: "Browse the island shops", kind: "Shopping", tags: "Local vendors", window: [660, 1170], what: "Island-made gifts, clothing, ʻukulele and keepsakes from the Marketplace's vendors." },
+      { id: "market-snack", dur: 20, est: true, title: "A bite before HĀ", kind: "Food", tags: "Between dinner and the show", times: [1125, 1140], what: "A quick snack at the food trucks, a short walk from the Pacific Theater, before the 7:30 show." }
+    ] },
+  { id: "theater", name: "HĀ: Breath of Life", short: "HĀ show", native: "Pacific Theater", zone: "Evening show", village: false, x: 13.0, y: 44.3, cats: ["shows"],
+    promise: "The evening show: over 100 Polynesian performers, fire and story.",
+    story: "The award-winning evening show, with special effects, surround sound and lighting.",
+    landmarks: "Pacific Theater", media: "Teaser · 30 s: fire on stage",
+    exps: [ { id: "ha", title: "HĀ: Breath of Life", kind: "Evening show", dur: 75, tags: "Ticket upgrade", times: [1170], what: "The story of a life, told through Polynesian song and dance.", show: { hook: "Over 100 performers tell one life, from birth to legacy, and end it in fire.", title: "About HĀ: Breath of Life", story: ["The story of Mana, from birth through love, loss and family, told in the songs and dances of the islands, with a fire knife finale in the Pacific Theater."], images: [{ key: "fire", caption: "The fire knife finale" }, { key: "stage", caption: "The full cast on the Pacific Theater stage" }] } } ] },
+  { id: "luau", name: "Aliʻi Lūʻau", short: "Lūʻau", native: "Hale Aloha · Hale ʻOhana", zone: "Evening dining", village: false, x: 41.8, y: 72.5, cats: ["food", "shows"],
+    promise: "A royal Hawaiian feast with the imu presentation and entertainment.",
+    story: "A royal celebration of Hawaiian heritage, with the royal court procession, the imu (underground oven) presentation and island food. Two venues share the same program.",
+    landmarks: "Hale Aloha · Hale ʻOhana", media: "Teaser · 30 s: the royal court",
+    exps: [
+      { id: "luau", title: "Aliʻi Lūʻau", kind: "Dinner and show", dur: 90, tags: "Aliʻi Lūʻau packages", times: [1020], placeholder: true, what: "Dinner, the imu presentation and entertainment.", show: { hook: "In 1819 a king broke a sacred kapu by sitting down to eat with the women of his court, opening the way to the shared feast. Tonight’s lūʻau honors Hawaiʻi’s last queen.", title: "ʻOnipaʻa: A Tribute to Queen Liliʻuokalani", story: ["ʻOnipaʻa means steadfast, the motto of Liliʻuokalani. The evening follows her from princess to queen to the overthrow of the kingdom in 1893, told largely in her own words and set to music from her archives. She also wrote “Aloha ʻOe.”", "An oli opens the night, the Royal Court takes the stage, and the imu is uncovered and blessed in view of every seat."], saying: "ʻOnipaʻa: stand firm.", images: [{ key: "court", caption: "The Royal Court opens the evening" }, { key: "imu", caption: "The imu is uncovered and blessed" }, { key: "feast", caption: "Kālua pig, lomilomi salmon and poi" }] } }
+    ] },
+  { id: "gateway", name: "Gateway Buffet", short: "Gateway Buffet", native: "Gateway Restaurant", zone: "Evening dining", village: false, x: 28.3, y: 56.3, cats: ["food"],
+    promise: "A relaxed island buffet with live music before the show.",
+    story: "Polynesian, Asian and American dishes in the Gateway Restaurant, with live music. Arrive at 4:30 or 6:00 PM for no wait.",
+    landmarks: "Gateway Restaurant", media: "Teaser · 30 s: the buffet",
+    exps: [
+      { id: "buffet", dur: 75, est: true, title: "Gateway Buffet", kind: "Dinner", tags: "Gateway Buffet package", window: [990, 1140], what: "Island buffet dinner with live music." }
+    ] }
+];
+var PHASE_OF = { market: "allday", luau: "dinner", gateway: "dinner", theater: "show" };
+function phaseOf(p) { return PHASE_OF[p.id] || "day"; }
+var PHASE_COLOR = { day: "#215968", dinner: "#6B4A33", show: "#2B2540", allday: "#857D69" };
+var CULTURE = {
+  samoa: { code: "SA", color: "#2B6E3A", name: "Samoa" },
+  aotearoa: { code: "AO", color: "#4338A0", name: "Aotearoa" },
+  tonga: { code: "TO", color: "#1F5BAA", name: "Tonga" },
+  fiji: { code: "FJ", color: "#13695F", name: "Fiji" },
+  tahiti: { code: "TA", color: "#9A2F7C", name: "Tahiti" },
+  hawaii: { code: "HI", color: "#71349E", name: "Hawaiʻi" }
+};
+var CULTURE_ORDER = ["samoa", "aotearoa", "tonga", "fiji", "tahiti", "hawaii"];
+var EVENING = {
+  luau: { code: "LU", color: "#6B4A33", name: "Lūʻau", group: "dinner" },
+  gateway: { code: "GB", color: "#6B4A33", name: "Gateway Buffet", group: "dinner" },
+  theater: { code: "HĀ", color: "#2B2540", name: "HĀ show", group: "show" }
+};
+var CENTER_CODE = { huki: "HU", canoe: "CT", mission: "MS", iosepa: "IO", journey: "HJ", market: "MK" };
+var CENTER_COLOR = "#4A4336";
+function cultureOf(p) {
+  var c = CULTURE[p.id] || EVENING[p.id];
+  return c ? { code: c.code, color: c.color, village: true } : { code: CENTER_CODE[p.id] || p.short.slice(0, 2).toUpperCase(), color: CENTER_COLOR, village: false };
+}
+function typeOf(kind) {
+  if (kind === "Presentation" || kind === "Show" || kind === "Evening show") return { id: "show", label: "Show" };
+  if (kind === "Hands-on" || kind === "Demonstration") return { id: "act", label: "Activity" };
+  if (kind === "Exhibit") return { id: "exh", label: "Exhibit" };
+  if (kind === "Tasting" || kind === "Food" || kind === "Dinner" || kind === "Dinner and show") return { id: "food", label: "Food" };
+  if (kind === "Shopping") return { id: "shop", label: "Shopping" };
+  return { id: "tour", label: "Tour" };
+}
+function badgeCss(c, size) {
+  return "flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; min-width: " + size + "px; height: " + size + "px; padding: 0 3px; box-sizing: border-box; border-radius: 6px; font-size: " + (size >= 20 ? 11 : 10) + "px; font-weight: 700; letter-spacing: 0.02em; line-height: 1; color: #FFFFFF; background: " + c.color + ";" + (c.village ? "" : " border-radius: 999px;");
+}
+var PHASES = [
+  { id: "allday", step: "", eyebrow: "Open all day · no ticket needed", title: "Hukilau Marketplace", from: 660, to: 1170, hours: "11:00 AM – 7:30 PM",
+    note: "Island food and local shops at the front gate. Free to visit, with free parking." },
+  { id: "day", step: "1", eyebrow: "Daytime · included with village admission", title: "Islands of Polynesia", from: 735, to: 1050, hours: "12:15 – 5:30 PM",
+    note: "Two kinds of things to do: the six island villages, and shows, rides and exhibits around the Center. Both are included and open at the same time." },
+  { id: "dinner", step: "2", eyebrow: "Dinner · choose one", title: "Dinner options", from: 990, to: 1140, hours: "4:30 – 7:00 PM",
+    note: "Your package includes one dinner: the Aliʻi Lūʻau or the Gateway Buffet. Dinner starts while the villages are still open." },
+  { id: "show", step: "3", eyebrow: "Evening show · one performance nightly", title: "HĀ: Breath of Life", from: 1155, to: 1235, hours: "Seating 6:45 · 7:15 – 8:35 PM",
+    note: "The finale of the day in the Pacific Theater. Reserved seats; your package sets the seating level." }
+];
+var BUILD = [["huki-show", 780], ["samoa-fire", 810], ["fiji-pres", 870], ["tonga-pres", 930], ["tahiti-wedding", 960], ["hawaii-poi", null], ["luau", 1020], ["ha", 1170]];
+var FILTER_ICON = {
+  all: "M4 6h16M4 12h16M4 18h16",
+  villages: "M3 11l9-7 9 7M5 10v10h14V10M10 20v-5h4v5",
+  shows: "M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z",
+  "hands-on": "M8 13V5a1.5 1.5 0 013 0v6M11 11V4a1.5 1.5 0 013 0v7M14 11V6a1.5 1.5 0 013 0v8a6 6 0 01-6 6h-1a6 6 0 01-5-2.7L3 14a1.5 1.5 0 012.5-1.6L8 15",
+  food: "M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2 2-3 4-3 7h3v11",
+  shop: "M5 7h14l-1.5 12h-11zM9 7a3 3 0 016 0",
+  tours: "M3 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M6 14l2-8h8l2 8",
+  exhibits: "M4 20h16M6 20V10M10 20V10M14 20V10M18 20V10M3 10l9-6 9 6z"
+};
+var FILTERS = [["all", "Everything"], ["villages", "Island villages"], ["shows", "Shows"], ["hands-on", "Hands-on"], ["food", "Food & tastings"], ["shop", "Shopping"], ["tours", "Tours"], ["exhibits", "Exhibits"]];
+var HOURS = [[null, "Any time"], [720, "12"], [780, "1"], [840, "2"], [900, "3"], [960, "4"], [1020, "5"], [1080, "6"], [1140, "7 PM"]];
+var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
+var ZOOMS = [100, 160, 240];
+
+function fmt(m) { var h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? "PM" : "AM", h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm + " " + ap; }
+function fmtShort(m) { var h = Math.floor(m / 60), mm = m % 60, h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm; }
+function durOf(e) { return e.dur || 20; }
+function featureOf(its) { for (var i = 0; i < its.length; i++) if (its[i].show) return its[i].show; return null; }
+function showFeature(e) {
+  var n = e.show.images.length;
+  return {
+    images: e.show.images.map(function (im, i) {
+      var hero = i === 0, span = hero || (n === 2);
+      var o = { caption: im.caption,
+        figStyle: "margin: 0; position: relative; overflow: hidden; background: #E3DED4;" + (span ? " grid-column: 1 / -1;" : "") + (hero ? "" : " max-height: 150px;"),
+        capStyle: hero ? "position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 16px 10px; font-size: 14px; font-weight: 700; color: #FFFFFF; background: linear-gradient(to top, rgba(20,16,12,0.78), rgba(20,16,12,0));" : "padding: 6px 10px 8px; font-size: 13px; color: #4A4336; background: #FFFFFF;" };
+      ["court", "imu", "feast", "canoe", "fire", "stage"].forEach(function (k) { o["is_" + k] = im.key === k; });
+      return o;
+    }) };
+}
+function durText(e) { var d = durOf(e), t = d >= 60 ? Math.floor(d / 60) + " h" + (d % 60 ? " " + (d % 60) + " min" : "") : d + " min"; return t + (e.est ? " (est.)" : ""); }
+function hm(m) { return m >= 60 ? Math.floor(m / 60) + " h" + (m % 60 ? " " + (m % 60) + " min" : "") : m + " min"; }
+function windowOf(p, e) { return e.window || (p.village ? VILLAGE_WINDOW : [720, 1260]); }
+function findExp(id) { for (var i = 0; i < PLACES.length; i++) { for (var j = 0; j < PLACES[i].exps.length; j++) { if (PLACES[i].exps[j].id === id) return { p: PLACES[i], e: PLACES[i].exps[j] }; } } return null; }
+function pill(on) {
+  return "min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; " +
+    (on ? "background: #27201B; color: #FFFFFF; border: 1px solid #27201B;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA;");
+}
+function slot(on) {
+  return "min-height: 44px; padding: 0 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; " +
+    (on ? "background: #215968; color: #FFFFFF; border: 1px solid #215968;" : "background: #F6F4EF; color: #153A45; border: 1px solid #C9DAE0;");
+}
+function kindTone(kind) {
+  if (kind === "Show" || kind === "Evening show") return "background: #27201B; color: #FFFFFF;";
+  return "background: #EFECE6; color: #27201B;";
+}
+
+// ---- walking network: junctions on the main walkways (map %, same frame as the pins) + the pins themselves
+var WALK_JUNCTIONS = {
+  j_gate: [14, 66], j_plaza: [19, 57], j_south: [24, 70], j_lu: [33, 70], j_west: [36, 47], j_n0: [26, 38],
+  j_nb1: [48, 40], j_nb2: [56, 41], j_nb3: [63, 40], j_sb1: [42, 56], j_sb2: [52, 54],
+  j_e1: [72, 47], j_e2: [82, 38], j_t1: [76, 17], j_bot1: [60, 82], j_bot2: [77, 68], j_bot3: [91, 55]
+};
+var WALK_EDGES = [
+  ["market", "j_gate"], ["j_gate", "j_plaza"], ["j_plaza", "theater"], ["j_plaza", "gateway"], ["j_plaza", "j_south"],
+  ["j_south", "j_lu"], ["j_lu", "luau"], ["gateway", "j_west"], ["j_west", "j_lu"], ["theater", "j_n0"], ["j_n0", "canoe"],
+  ["j_west", "canoe"], ["canoe", "journey"], ["journey", "j_nb1"], ["j_nb1", "huki"], ["j_west", "j_sb1"],
+  ["j_sb1", "j_sb2"], ["j_sb1", "luau"], ["huki", "j_sb2"], ["j_sb2", "samoa"], ["luau", "samoa"],
+  ["j_nb1", "j_nb2"], ["j_nb2", "mission"], ["j_nb2", "j_nb3"], ["mission", "tonga"], ["j_nb3", "tonga"], ["j_nb3", "fiji"],
+  ["j_sb2", "aotearoa"], ["aotearoa", "j_e1"], ["j_e1", "fiji"], ["fiji", "j_e2"], ["j_e2", "hawaii"], ["hawaii", "iosepa"],
+  ["tonga", "j_t1"], ["j_t1", "tahiti"], ["tahiti", "j_e2"], ["luau", "j_bot1"], ["samoa", "j_bot1"], ["j_bot1", "j_bot2"],
+  ["aotearoa", "j_bot2"], ["j_bot2", "j_bot3"], ["j_bot3", "iosepa"], ["j_bot3", "hawaii"]
+];
+// map length end to end (Marketplace to Iosepa) in metres; the illustration is drawn in perspective, so depth (y) is foreshortened
+var WALK_DEPTH = 0.35;
+function walkNodes() {
+  var n = {}; for (var k in WALK_JUNCTIONS) n[k] = { x: WALK_JUNCTIONS[k][0], y: WALK_JUNCTIONS[k][1] };
+  PLACES.forEach(function (p) { n[p.id] = { x: p.x, y: p.y }; }); return n;
+}
+function walkMetres(a, b, len) { var dx = (b.x - a.x) * len / 100, dy = (b.y - a.y) * len / 100 * WALK_DEPTH; return Math.sqrt(dx * dx + dy * dy); }
+// shortest walking path from one place to every other (Dijkstra over the walkway network)
+function walkFrom(src, len) {
+  var nodes = walkNodes(), adj = {}, dist = {}, prev = {}, done = {};
+  WALK_EDGES.forEach(function (e) { var w = walkMetres(nodes[e[0]], nodes[e[1]], len); (adj[e[0]] = adj[e[0]] || []).push([e[1], w]); (adj[e[1]] = adj[e[1]] || []).push([e[0], w]); });
+  for (var k in nodes) dist[k] = Infinity; dist[src] = 0;
+  while (true) {
+    var u = null; for (var k2 in dist) if (!done[k2] && dist[k2] < Infinity && (u === null || dist[k2] < dist[u])) u = k2;
+    if (u === null) break; done[u] = true;
+    (adj[u] || []).forEach(function (vw) { var d = dist[u] + vw[1]; if (d < dist[vw[0]]) { dist[vw[0]] = d; prev[vw[0]] = u; } });
+  }
+  return { dist: dist, prev: prev, nodes: nodes };
+}
+var WALK_CACHE = {};
+function walkTable(len) {
+  if (WALK_CACHE[len]) return WALK_CACHE[len];
+  var t = {}; PLACES.forEach(function (p) { t[p.id] = walkFrom(p.id, len); });
+  return (WALK_CACHE[len] = t);
+}
+function walkLeg(table, a, b) {
+  var r = table[a], pts = [], cur = b;
+  if (a === b) return { m: 0, pts: [r.nodes[a]] };
+  while (cur) { pts.unshift(r.nodes[cur]); if (cur === a) break; cur = r.prev[cur]; }
+  return { m: r.dist[b], pts: pts };
+}
+function walkMin(m, speed) { return m <= 0 ? 0 : Math.max(1, Math.ceil(m / speed)); }
+function walkDist(m, units) {
+  if (units === "m") return m < 1000 ? Math.round(m / 10) * 10 + " m" : (m / 1000).toFixed(1) + " km";
+  var ft = m * 3.281; return ft < 528 ? Math.round(ft / 50) * 50 + " ft" : (m / 1609.34).toFixed(1) + " mi";
+}
+
+// left tab bar: [element id, label, icon path]; ids in page order (Your day last: it sits beside the content)
+var NAV_TABS = [
+  ["hours", "Your hours", "M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"],
+  ["map", "Map & walking", "M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"],
+  ["things", "Things to do", "M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.3-4.3"],
+  ["phase-allday", "Marketplace", "M5 8h14l-1 13H6zM9 8V6a3 3 0 016 0v2"],
+  ["phase-day", "Islands & villages", "M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"],
+  ["phase-dinner", "Dinner", "M7 3v8M5 3v5a2 2 0 004 0V3M7 11v10M17 3c-2.2 2-2.2 6 0 8v10"],
+  ["phase-show", "HĀ show", "M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6l-5.4 2.9 1.2-6-4.5-4.2 6.1-.7z"],
+  ["your-day", "Your day", "M8 2v4M16 2v4M3 9h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"]
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.drag = null;
+    this.state = { navOpen: true, closed: {}, walkFromId: null, bookOpen: false, marketMore: false, hotel: null, pickOpen: false, vw: 1440, appSent: false, flash: null, openG: {}, aboutOpen: {}, ticket: null, conf: "", confErr: false, allOpen: false, avail: "allday", availSet: false, arrive: 780, leave: 1080, showOutside: false, route: true, ghost: null, dragging: false, filter: "all", hour: null, sel: null, open: null, show360: false, plan: [], lastAdded: "", cart: false, zoom: 0, date: 0, adults: 2, kids: 0, shared: false };
+  }
+  componentDidMount() {
+    var self = this;
+    this.onResize = function () { var w = 1440; try { w = window.innerWidth || 1440; } catch (err) {} if (w !== self.state.vw) self.setState({ vw: w }); };
+    this.onResize();
+    try { if ((window.innerWidth || 1440) < 1680) this.setState({ navOpen: false }); } catch (err) {}
+    try { window.addEventListener("resize", this.onResize); } catch (err) {}
+    this.pull = function (first) {
+      var r = loadRec(); if (!r || (self._saved && r.updated <= self._saved)) return;
+      var plan = (r.plan || []).filter(function (x) { return findExp(x.e); }).map(function (x) { return { p: findExp(x.e).p.id, e: x.e, t: x.t, fixed: !!x.fixed }; });
+      var tk = r.ticket && TICKETS[r.ticket] ? r.ticket : null;
+      self._pulled = true;
+      self.setState({ hotel: r.transport || null, plan: plan, ticket: tk, date: r.date != null ? r.date : self.state.date, adults: r.adults || self.state.adults, kids: r.kids != null ? r.kids : self.state.kids,
+        avail: r.avail || self.state.avail, availSet: true, appSent: false,
+        lastAdded: tk ? "Your booking " + TICKETS[tk].conf + " came with the day you shaped. Fine-tune it here, then send it to the app." : (plan.length ? "Picked up the day you started on the packages page." : self.state.lastAdded) });
+    };
+    this.pull(true);
+    this.onStorage = function (ev) { if (!ev || !ev.key || ev.key === REC_KEY) self.pull(false); };
+    try { window.addEventListener("storage", this.onStorage); } catch (err) {}
+  }
+  componentWillUnmount() { try { window.removeEventListener("storage", this.onStorage); window.removeEventListener("resize", this.onResize); } catch (err) {} }
+  componentDidUpdate(pp, psIn) {
+    // The canvas runtime passes only prevProps, so remember the last state here.
+    var s = this.state, ps = psIn || this._ps || {};
+    this._ps = s;
+    if (ps.hotel === s.hotel && ps.plan === s.plan && ps.ticket === s.ticket && ps.date === s.date && ps.adults === s.adults && ps.kids === s.kids && ps.avail === s.avail) return;
+    var tk = s.ticket ? TICKETS[s.ticket] : null;
+    this._saved = saveRec({ v: 1, source: "planner", date: s.date, adults: s.adults, kids: s.kids, avail: s.avail,
+      transport: s.hotel, coach: s.hotel ? { pickup: "9:45 AM", arriveCenter: "12:00 PM", leaveCenter: "9:00 PM", arriveWaikiki: "10:30 PM" } : null, ticket: s.ticket, conf: tk ? tk.conf : null, ticketName: tk ? tk.name : null, tour: tk && tk.tour ? tk.tour : null,
+      plan: s.plan.map(function (x) { var f = findExp(x.e); return { p: x.p, e: x.e, t: x.t, fixed: !!x.fixed, title: f ? f.e.title : x.e, place: f ? f.p.short : "" }; }) });
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    // ---- guest availability: the window [A, B] everything below is filtered and placed against
+    var AV = availWindow(s);
+    var A = AV[0], B = AV[1], allDay = A <= DAY_OPEN && B >= DAY_CLOSE;
+    var inAvail = function (t, d) { return t >= A && t + d <= B; };
+    var fitsAvail = function (p, e) {
+      var d = durOf(e);
+      if (p.id === "market") return true;
+      if (e.times) return e.times.some(function (t) { return inAvail(t, d); });
+      var w = windowOf(p, e); return Math.max(w[0], A) + d <= Math.min(w[1], B);
+    };
+    var inPlan = function (e, t) { return s.plan.some(function (x) { return x.e === e && x.t === t; }); };
+    var toggle = function (p, e, t) {
+      return function () {
+        var has = e.times ? inPlan(e.id, t) : s.plan.some(function (x) { return x.e === e.id; });
+        var plan = has ? s.plan.filter(function (x) { return !(x.e === e.id && (!e.times || x.t === t)); }) : s.plan.concat([{ p: p.id, e: e.id, t: t }]);
+        self.setState({ plan: plan, cart: false, shared: false, flash: has ? s.flash : flashPlace(p.id), lastAdded: has ? removedMsg(s.plan, e) : "Added " + e.title + (t != null ? " at " + fmt(t) : "") + "." });
+      };
+    };
+    var openWith = function (id) { var o = {}; for (var k in s.openG) o[k] = s.openG[k]; o[id] = true; return o; };
+    var pick = function (id) { return function () {
+      self.setState({ sel: id, open: null, show360: false, openG: openWith(id) });
+      setTimeout(function () { var el = document.getElementById("place-detail"); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+    }; };
+    var carMove = function (dir) { return function (ev) {
+      var w = ev.currentTarget.closest("[data-carwrap]"), t = w && w.querySelector("[data-track]");
+      if (t) t.scrollBy({ left: dir * Math.max(240, t.clientWidth * 0.8), behavior: "smooth" });
+    }; };
+    // ---- one-tap add: first start time (or 5-minute slot) that doesn't overlap the plan
+    var busyNow = function () { return s.plan.filter(function (x) { return x.t != null; }).map(function (x) { var f = findExp(x.e); return [x.t, x.t + durOf(f.e)]; }); };
+    var freeAt = function (t, d) { return busyNow().every(function (b) { return t + d <= b[0] || t >= b[1]; }); };
+    var addBest = function (p, e) {
+      return function () {
+        var inIt = s.plan.some(function (x) { return x.e === e.id; });
+        if (inIt) { self.setState({ plan: s.plan.filter(function (x) { return x.e !== e.id; }), cart: false, shared: false, lastAdded: removedMsg(s.plan, e) }); return; }
+        var d = durOf(e), t = null, clash = false;
+        if (e.times) {
+          e.times.forEach(function (x) { if (t == null && inAvail(x, d) && freeAt(x, d)) t = x; });
+          if (t == null) e.times.forEach(function (x) { if (t == null && inAvail(x, d)) t = x; });
+          if (t == null) { t = e.times[0]; } else if (!freeAt(t, d)) clash = true;
+        } else {
+          var w = windowOf(p, e), lo = Math.max(w[0], A), hi = Math.min(w[1], B);
+          for (var m = lo; m + d <= hi && t == null; m += 5) { if (freeAt(m, d)) t = m; }
+          if (t == null) { t = lo + d <= hi ? lo : w[0]; clash = lo + d <= hi; }
+        }
+        self.setState({ plan: s.plan.concat([{ p: p.id, e: e.id, t: t }]), cart: false, shared: false, flash: flashPlace(p.id),
+          lastAdded: "Added " + e.title + " at " + fmt(t) + " (" + durText(e) + ")" + (clash ? ". Every time overlaps something, so check the warning below." : ". Drag it on the timeline to move it.") });
+      };
+    };
+    // ---- drag and drop onto the timeline
+    var dragStart = function (p, e, idx) {
+      return function (ev) {
+        self.drag = { p: p.id, e: e.id, idx: idx };
+        try { ev.dataTransfer.setData("text/plain", e.title); ev.dataTransfer.effectAllowed = "copyMove"; } catch (err) {}
+        self.setState({ dragging: true });
+      };
+    };
+    // Where would this drop land? Fixed-time items snap to their nearest listed start; others to 5 minutes inside their window.
+    var placeAt = function (ev) {
+      if (!self.drag) return null;
+      var f = findExp(self.drag.e); if (!f) return null;
+      var r = ev.currentTarget.getBoundingClientRect();
+      var m = RAIL_START + (ev.clientY - r.top) / r.height * (RAIL_END - RAIL_START);
+      var t;
+      if (f.e.times) { t = f.e.times.reduce(function (b, x) { return Math.abs(x - m) < Math.abs(b - m) ? x : b; }, f.e.times[0]); }
+      else { var w = windowOf(f.p, f.e); t = Math.round(m / 5) * 5; t = Math.max(w[0], Math.min(w[1] - durOf(f.e), t)); }
+      return { t: t, f: f };
+    };
+    var railOver = function (ev) {
+      if (!self.drag) return;
+      ev.preventDefault();
+      try { ev.dataTransfer.dropEffect = self.drag.idx != null ? "move" : "copy"; } catch (err) {}
+      var at = placeAt(ev); if (!at) return;
+      var g = s.ghost;
+      if (!g || g.t !== at.t || g.e !== at.f.e.id) self.setState({ ghost: { t: at.t, e: at.f.e.id } });
+    };
+    var railLeave = function (ev) { if (!ev.currentTarget.contains(ev.relatedTarget)) self.setState({ ghost: null }); };
+    var railDrop = function (ev) {
+      ev.preventDefault();
+      var at = placeAt(ev), d = self.drag; self.drag = null;
+      if (!at) { self.setState({ ghost: null, dragging: false }); return; }
+      var plan = s.plan.slice(), e = at.f.e, moved = d.idx != null;
+      if (moved) plan.splice(d.idx, 1);
+      else if (!e.times) plan = plan.filter(function (x) { return x.e !== e.id; });
+      var dup = plan.some(function (x) { return x.e === e.id && x.t === at.t; });
+      if (!dup) plan.push({ p: at.f.p.id, e: e.id, t: at.t, fixed: !!(moved && s.plan[d.idx] && s.plan[d.idx].fixed) });
+      self.setState({ plan: plan, ghost: null, dragging: false, cart: false, shared: false, flash: flashPlace(at.f.p.id),
+        lastAdded: (moved ? "Moved " : "Added ") + e.title + " to " + fmt(at.t) + " (" + durText(e) + ")" + (e.times ? ", its nearest start time." : ".") });
+    };
+    var visible = function (p) { return (s.filter === "all" || p.cats.indexOf(s.filter) >= 0) && (!s.sel || s.sel === p.id); };
+    var hourMatch = function (p, e) {
+      if (s.hour == null) return true;
+      var H = s.hour;
+      if (e.times) return e.times.some(function (t) { return t >= H && t < H + 60; });
+      var w = windowOf(p, e); return w[0] < H + 60 && w[1] > H;
+    };
+    var placeInPlan = function (p) { return s.plan.some(function (x) { return x.p === p.id; }); };
+
+    var things = 0; PLACES.forEach(function (p) { things += p.exps.length; });
+    var loadTicket = function (id) {
+      var tk = TICKETS[id];
+      self.setState({ hotel: tk.transport || null, pickOpen: false, ticket: id, confErr: false, date: tk.date, adults: tk.adults, kids: tk.kids, avail: "allday", availSet: true, showOutside: false, cart: false, shared: false, plan: ticketPlan(tk),
+        appSent: false, lastAdded: "Loaded booking " + tk.conf + ". " + (tk.fixed.length ? "Your " + (tk.short || (tk.guided ? "guided tour, lūʻau and HĀ show" : "lūʻau and HĀ show")) + " " + (tk.short ? "are" : "are") + " in your day." : "Plan the villages any way you like.") });
+    };
+    var flashPlace = function (id) { clearTimeout(self._flashT); self._flashT = setTimeout(function () { self.setState({ flash: null }); }, 5000); return id; };
+    var dateLabel = DATES[s.date][0] + ", " + DATES[s.date][1];
+    var partyLabel = s.adults + (s.adults === 1 ? " adult" : " adults") + (s.kids ? ", " + s.kids + (s.kids === 1 ? " child" : " children") : "");
+
+    var stepDone = [true, s.availSet, s.plan.length > 0, s.cart];
+    var stepLabels = ["Date and party", "Your hours", "Build your day", "Choose tickets"];
+    var steps = stepLabels.map(function (l, i) {
+      var done = stepDone[i], current = !done && (i === 0 || stepDone[i - 1]);
+      return { label: l, badge: done ? "✓" : String(i + 1),
+        badgeStyle: "width: 26px; height: 26px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; " + (done ? "background: #215968; color: #FFFFFF;" : current ? "background: #27201B; color: #FFFFFF;" : "background: #E3DED4; color: #5E5642;"),
+        labelStyle: (done || current) ? "color: #27201B; font-weight: 700;" : "color: #5E5642;" };
+    });
+
+    var dates = DATES.map(function (d, i) {
+      var on = s.date === i, closed = d[2];
+      return { dow: d[0], day: d[1], note: closed ? "Closed" : (on ? "Selected" : "Open"), on: on, closed: closed, aria: d[0] + " " + d[1] + (closed ? ", closed" : ""),
+        pick: function () { if (!closed) self.setState({ date: i }); },
+        style: "flex-shrink: 0; min-width: 72px; min-height: 64px; padding: 6px 8px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; " +
+          (closed ? "background: #F6F4EF; color: #857D69; border: 1px dashed #CFC8BA; cursor: not-allowed;" : on ? "background: #27201B; color: #FFFFFF; border: 1px solid #27201B; cursor: pointer;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA; cursor: pointer;") };
+    });
+
+    var filters = FILTERS.map(function (f) {
+      var on = s.filter === f[0], n = 0;
+      PLACES.forEach(function (p) { if (f[0] === "all" || p.cats.indexOf(f[0]) >= 0) p.exps.forEach(function (e) { if (s.showOutside || fitsAvail(p, e)) n++; }); });
+      return { label: f[1], on: on, icon: FILTER_ICON[f[0]], n: n, count: n + (n === 1 ? " experience" : " experiences"),
+        countStyle: "font-size: 12px; font-weight: 700; border-radius: 999px; padding: 1px 7px; " + (on ? "background: rgba(255,255,255,0.18); color: #FFFFFF;" : "background: #F6F4EF; color: #5E5642;"),
+        style: "min-height: 44px; padding: 0 12px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; " +
+          (on ? "background: #215968; color: #FFFFFF; border: 1px solid #215968;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA;"),
+        pick: function () { self.setState({ filter: f[0], sel: null }); } };
+    });
+    var hours = HOURS.map(function (h, i) {
+      var on = s.hour === h[0];
+      return { label: h[1], on: on, pick: function () { self.setState({ hour: on ? null : h[0] }); },
+        style: "flex: 1 0 auto; min-width: 44px; min-height: 44px; padding: 0 10px; border: none; border-radius: 999px; " + "font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; " +
+          (on ? "background: #215968; color: #FFFFFF;" : "background: transparent; color: #27201B;") };
+    });
+
+    var hotspots = PLACES.map(function (p) {
+      var sel = s.sel === p.id, vis = (s.filter === "all" || p.cats.indexOf(s.filter) >= 0) && (s.showOutside || p.exps.some(function (e) { return fitsAvail(p, e); })), inP = placeInPlan(p);
+      var live = s.hour != null && p.exps.some(function (e) { return hourMatch(p, e); });
+      var style = "position: absolute; left: " + p.x + "%; top: " + p.y + "%; transform: translate(-50%, -50%); width: 44px; height: 44px; padding: 0; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.2s; z-index: " + (sel ? 4 : live ? 3 : 2) + ";";
+      if (!vis) style += " opacity: 0.25;";
+      var cu = cultureOf(p), coded = true;
+      var size = coded ? (sel ? 34 : 30) : (sel ? 30 : 24);
+      var dot = "width: " + size + "px; height: " + size + "px; border-radius: 50%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 3px solid #FFFFFF; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: #FFFFFF; background: " + (sel ? "#27201B" : (coded ? cu.color : PHASE_COLOR[phaseOf(p)])) + ";";
+      var justAdded = s.flash === p.id, beacon = live || justAdded;
+      var ring = justAdded ? "#D6420F" : PHASE_COLOR[phaseOf(p)];
+      var beaconStyle = "position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; box-sizing: border-box; border: 3px solid " + ring + "; background: " + ring + "33; pointer-events: none; z-index: 0;";
+      dot += " position: relative; z-index: 1;";
+      if (sel || live) dot += " box-shadow: 0 0 0 4px #F4EB96, 0 0 0 5px #27201B, 0 2px 6px rgba(0,0,0,0.35);";
+      else dot += " box-shadow: 0 2px 6px rgba(0,0,0,0.4);";
+      return { code: cu.code, showCode: coded && !inP, beacon: beacon, beaconStyle: beaconStyle, name: p.name, style: style, dotStyle: dot, selected: sel, inPlan: inP, pick: pick(p.id), aria: p.name + (live ? ", something on at the time you picked" : "") + (justAdded ? ", just added to your day" : "") + (inP ? ", in your day" : "") };
+    });
+
+    var groups = [], count = 0, hidden = 0;
+    PLACES.forEach(function (p) {
+      if (!visible(p)) return;
+      var items = p.exps.filter(function (e) {
+        if (!hourMatch(p, e)) return false;
+        if (fitsAvail(p, e)) return true;
+        hidden++; return s.showOutside;
+      }).map(function (e) {
+        var expanded = s.open === e.id, chips, outside = !fitsAvail(p, e);
+        if (e.times) {
+          var ts = s.hour == null ? e.times : e.times.filter(function (t) { return t >= s.hour && t < s.hour + 60; });
+          if (!outside && p.id !== "market") ts = ts.filter(function (t) { return inAvail(t, durOf(e)); });
+          chips = ts.map(function (t) { var a = inPlan(e.id, t); return { label: (a ? "✓ " : "+ ") + fmt(t), added: a, toggle: toggle(p, e, t), style: slot(a), aria: (a ? "Remove " : "Add ") + e.title + " at " + fmt(t) + (a ? " from" : " to") + " your day" }; });
+        } else {
+          var w = windowOf(p, e), entry = null;
+          s.plan.forEach(function (x) { if (x.e === e.id) entry = x; });
+          var a = !!entry;
+          chips = [{ label: a ? "✓ " + (entry.t != null ? "At " + fmt(entry.t) : "Anytime") : "+ Anytime " + fmtShort(w[0]) + "–" + fmt(w[1]), added: a, toggle: toggle(p, e, null), style: slot(a), aria: (a ? "Remove " : "Add ") + e.title + (a ? " from" : " to") + " your day" }];
+        }
+        var inDay = s.plan.some(function (x) { return x.e === e.id; });
+        return { cat: catOf(e), outside: outside, addBest: addBest(p, e), inDay: inDay, notInDay: !inDay,
+          addLabel: inDay ? "In your day · remove" : "Add to my day",
+          addAria: (inDay ? "Remove " : "Add ") + e.title + (inDay ? " from your day" : " to your day at the first open time"),
+          addStyle: "min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; " + (inDay ? "background: #E3EDF0; color: #153A45; border: 1px solid #B5CCD3;" : "background: #215968; color: #FFFFFF; border: 1px solid #215968;"),
+          dragStart: dragStart(p, e, null), durMin: durOf(e), durLabel: durText(e), tags: e.tags,
+          cardStyle: "box-sizing: border-box; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 16px; padding: 16px; cursor: grab; " + (e.show ? "flex: 0 0 min(620px, 92%); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; align-items: start;" : "flex: 0 0 min(300px, 85%); display: flex; flex-direction: column;") + (self.drag && self.drag.e === e.id && s.dragging ? " opacity: 0.5;" : ""),
+          title: e.title, kind: e.kind, kindStyle: "border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; " + kindTone(e.kind),
+          meta: (e.dur ? "about " + e.dur + " min · " : "") + e.tags, what: e.what, expanded: expanded, moreLabel: expanded ? "Less" : (e.show ? "Read the story →" : "What to expect"),
+          chips: chips, placeholder: !!e.placeholder, hasShow: !!e.show, noShow: !e.show, hook: e.show ? e.show.hook : "", hero: e.show ? showFeature(e).images[0] : {},
+          storyOpen: expanded && !!e.show, plainOpen: expanded && !e.show, storyTitle: e.show ? (e.show.title || "About the show") : "",
+          story: e.show ? e.show.story : [], saying: e.show && e.show.saying || "", hasSaying: !!(e.show && e.show.saying), toggleMore: function () { self.setState({ open: expanded ? null : e.id }); } };
+      });
+      if (!items.length) return;
+      count += items.length;
+      var ph = phaseOf(p);
+      var isOpen = (s.openG[p.id] !== undefined ? s.openG[p.id] : (ph === "dinner" || ph === "show")) || s.sel === p.id || s.allOpen;
+      var startTimes = [];
+      p.exps.forEach(function (e) { if (e.times) e.times.forEach(function (t) { if ((s.showOutside || inAvail(t, durOf(e))) && startTimes.indexOf(t) < 0) startTimes.push(t); }); });
+      startTimes.sort(function (a, b) { return a - b; });
+      var nIn = s.plan.filter(function (x) { return x.p === p.id; }).length;
+      var cats = CATS.map(function (c) {
+        var its = items.filter(function (it) { return it.cat === c.id; });
+        return { id: c.id, label: (c.id === "show" && !p.village) ? "Shows" : c.label, one: c.one, plural: c.many, items: its, many: its.length > 1,
+          note: c.note,
+          dot: "width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; background: " + c.color + ";" };
+      }).filter(function (c) { return c.items.length; });
+      var catLine = cats.map(function (c) { return c.items.length + " " + (c.items.length === 1 ? c.one : c.plural); }).join(" · ");
+      var summary = catLine +
+        (startTimes.length ? " · starts at " + startTimes.slice(0, 5).map(fmtShort).join(", ") + (startTimes.length > 5 ? "…" : "") : " · drop in any time");
+      var TH = { hawaii: 1, samoa: 1, aotearoa: 1, fiji: 1, tahiti: 1, tonga: 1, huki: 1, canoe: 1 }, th = {};
+      for (var tk0 in TH) th[tk0] = p.id === tk0;
+      var IN = INSP[p.id], dsum = 0;
+      items.forEach(function (it) { dsum += it.durMin || 0; });
+      var mins = Math.round((dsum + (p.village ? 10 : 0)) / 5) * 5, planTime = mins >= 60 ? "Plan about " + Math.floor(mins / 60) + " hr" + (mins % 60 ? " " + (mins % 60) + " min" : "") + " here" : "Plan about " + mins + " min here";
+      var tip = p.village ? "Start with the main presentation, then stay for a demonstration or something hands-on. Every time below adds it to your day."
+        : "Pick a time below to add it to your day, or drag any row onto Your day.";
+      var insp = IN ? { greeting: IN.greeting, hasGreeting: true, message: IN.message, lead: IN.lead, highlights: IN.highlights, hasHighlights: true, saying: IN.saying || "", hasSaying: !!IN.saying }
+        : { greeting: "", hasGreeting: false, message: p.promise, lead: p.story, highlights: (p.landmarks || "").split(" · ").filter(function (x) { return x; }), hasHighlights: !!p.landmarks, saying: "", hasSaying: false };
+      groups.push({ insp: insp, hasHero: !!TH[p.id], planTime: planTime, planTip: tip, th: th, noThumb: !TH[p.id], iconDot: badgeCss(cultureOf(p), 34) + " font-size: 13px;", code: cultureOf(p).code, hasThumb: !!TH[p.id], codeBadge: "position: absolute; left: 3px; bottom: 3px; box-shadow: 0 0 0 2px #FFFFFF; " + badgeCss(cultureOf(p), 20),
+        tileLine: items.length + (items.length === 1 ? " experience" : " experiences") + (startTimes.length ? " · from " + fmt(startTimes[0]) : " · drop in anytime"),
+        tileStyle: "width: 100%; min-height: 76px; box-sizing: border-box; padding: 9px 12px 9px 9px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 12px; scroll-margin-top: 16px; font-family: inherit; " + (isOpen ? "background: #E3EDF0; border: 2px solid #215968; color: #153A45;" : "background: #FFFFFF; border: 1px solid #E3DED4; color: #27201B;"),
+        village: !!p.village, name: p.name, short: p.short, zone: p.zone, pick: pick(p.id), items: items, showHeader: true, showAbout: !s.sel,
+        hasAbout: !!p.about, about: p.about || {}, aboutMore: !!s.aboutOpen[p.id], aboutLabel: s.aboutOpen[p.id] ? "Less" : "Read more about " + p.short + " →", toggleAbout: function () { var o = {}; for (var k in s.aboutOpen) o[k] = s.aboutOpen[k]; o[p.id] = !o[p.id]; self.setState({ aboutOpen: o }); },
+        gallery: p.about ? p.about.gallery.map(function (gi) { return { caption: gi.caption, isPalm: gi.key === "palm", isFire: gi.key === "fire", isFale: gi.key === "fale" }; }) : [],
+        anchor: "grp-" + p.id, cats: cats, isOpen: isOpen, summary: summary, inDayHas: nIn > 0, inDayLabel: nIn + " in your day",
+        carHint: items.length > 1 ? "Swipe or use the arrows to see all " + items.length : "1 experience",
+        chevStyle: "flex-shrink: 0; transition: transform 0.2s;" + (isOpen ? " transform: rotate(180deg);" : ""),
+        toggle: function () { var o = {}; for (var k in s.openG) o[k] = s.openG[k]; if (!isOpen && ph === "day") PLACES.forEach(function (q) { if (q.id !== p.id && phaseOf(q) === "day") o[q.id] = false; }); o[p.id] = !isOpen; self.setState({ openG: o, allOpen: false, sel: (isOpen && s.sel === p.id) ? null : s.sel }); },
+        phase: ph,
+        dotStyle: "width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: " + cultureOf(p).color + ";" });
+    });
+
+    var sp = null;
+    PLACES.forEach(function (p) { if (p.id === s.sel) sp = p; });
+    var place = sp ? { name: sp.name, short: sp.short, native: sp.native, zone: sp.zone, promise: sp.promise, story: sp.story, media: sp.media, landmarks: sp.landmarks, hasLandmarks: !!sp.landmarks } : {};
+
+    var rows = s.plan.map(function (x) { var f = findExp(x.e); return { x: x, p: f.p, e: f.e }; });
+    var timedRows = rows.filter(function (r) { return r.x.t != null; }).sort(function (a, b) { return a.x.t - b.x.t; });
+    var lanes = [], conflicts = [];
+    timedRows.forEach(function (r, i) {
+      lanes[i] = 0;
+      for (var j = 0; j < i; j++) {
+        var q = timedRows[j];
+        if (r.x.t < q.x.t + durOf(q.e)) { lanes[i] = lanes[j] === 0 ? 1 : 0; lanes[j] = lanes[j]; r.clash = true; q.clash = true; conflicts.push({ text: r.e.title + " (" + fmt(r.x.t) + ") overlaps " + q.e.title + " (" + fmt(q.x.t) + "). Keep one, or pick another time." }); }
+      }
+    });
+    timedRows.forEach(function (r) {
+      if (r.p.id !== "market" && !inAvail(r.x.t, durOf(r.e))) conflicts.push({ text: r.e.title + " (" + fmt(r.x.t) + ") falls outside your hours, " + fmt(A) + " to " + fmt(B) + ". Change your hours or remove it." });
+    });
+    var railHeight = Math.round((RAIL_END - RAIL_START) / 60 * PX);
+    var Y = function (m) { return Math.round((m - RAIL_START) / 60 * PX); };
+    var railHours = [], railLines = [];
+    for (var m = RAIL_START; m <= RAIL_END - 30; m += 60) {
+      railHours.push({ label: fmtShort(m) + (m === 720 ? " PM" : m === 660 ? " AM" : ""), style: "position: absolute; right: 10px; top: " + (Y(m) - 8) + "px; font-size: 12px; font-weight: 500; color: #857D69; white-space: nowrap;" });
+      railLines.push({ style: "position: absolute; left: 0; right: 0; top: " + Y(m) + "px; border-top: 1px solid #EFECE6;" });
+    }
+    var railBlocks = timedRows.map(function (r, i) {
+      var top = Y(r.x.t), h = Math.max(Math.round(durOf(r.e) / 60 * PX), 30), half = r.clash;
+      var idx = s.plan.indexOf(r.x);
+      var cu = cultureOf(r.p), ty = typeOf(r.e.kind);
+      return { fixed: !!r.x.fixed, time: fmtShort(r.x.t), title: r.e.title, durLabel: durText(r.e), dragStart: dragStart(r.p, r.e, idx), pick: pick(r.p.id),
+        aria: fmt(r.x.t) + ", " + ty.label + ": " + r.e.title + " at " + r.p.short + ", " + durText(r.e) + ". Drag to move, or show on the map.",
+        code: cu.code, badgeStyle: badgeCss(cu, 20), typeLabel: ty.label, typeColor: cu.color,
+        tShow: ty.id === "show", tAct: ty.id === "act", tExh: ty.id === "exh", tFood: ty.id === "food", tShop: ty.id === "shop", tTour: ty.id === "tour",
+        style: "position: absolute; top: " + (top + 1) + "px; height: " + (h - 2) + "px; left: " + (half ? (lanes[i] ? "50%" : "8px") : "8px") + "; right: " + (half ? (lanes[i] ? "8px" : "50%") : "8px") + "; min-height: 28px; box-sizing: border-box; border-radius: 10px; padding: 3px 8px 3px 11px; display: flex; align-items: flex-start; gap: 6px; text-align: left; font-size: 13px; line-height: 20px; overflow: hidden; cursor: grab; z-index: 2; color: #27201B; background: " + cu.color + "17; box-shadow: inset 5px 0 0 " + cu.color + ";" + (r.clash ? " border: 2px solid #B42318;" : " border: 1px solid " + cu.color + "40;") };
+    });
+    var TK = s.ticket ? TICKETS[s.ticket] : null;
+    var tourOn = !!(TK && TK.guided), tourStyle = "", tourLabel = "", tourSub = "", tourAria = "";
+    if (tourOn) {
+      tourLabel = "Guided tour with your guide"; tourSub = fmt(TK.tour[0]) + " – " + fmt(TK.tour[1]) + " · villages and Huki";
+      tourAria = tourLabel + ", " + tourSub;
+      tourStyle = "position: absolute; top: " + (Y(TK.tour[0]) + 1) + "px; height: " + (Y(TK.tour[1]) - Y(TK.tour[0]) - 2) + "px; left: 8px; right: 8px; box-sizing: border-box; border-radius: 12px; border: 2px dashed #8A6508; background: repeating-linear-gradient(135deg, #FBF6E6 0 12px, #F6EDCF 12px 24px); color: #4A3B05; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; z-index: 1;";
+    }
+    var anytime = rows.filter(function (r) { return r.x.t == null; }).map(function (r) { var cu = cultureOf(r.p); return { code: cu.code, badgeStyle: badgeCss(cu, 20), chipStyle: "display: inline-flex; align-items: center; gap: 6px; background: " + cu.color + "17; border: 1px solid " + cu.color + "40; box-shadow: inset 4px 0 0 " + cu.color + "; color: #27201B; border-radius: 999px; padding: 0 4px 0 10px; font-size: 14px; font-weight: 700; cursor: grab;", title: r.e.title, durLabel: durText(r.e), dragStart: dragStart(r.p, r.e, s.plan.indexOf(r.x)), aria: "Remove " + r.e.title, remove: toggle(r.p, r.e, null) }; });
+    var totalMin = 0; rows.forEach(function (r) { totalMin += durOf(r.e); });
+    var ghost = null;
+    if (s.ghost) { var gf = findExp(s.ghost.e); if (gf) ghost = { t: s.ghost.t, e: gf.e }; }
+
+    var gap = null;
+    var villageTimes = timedRows.filter(function (r) { return r.x.t >= 750 && r.x.t < 1050; });
+    if (timedRows.length) {
+      var cursor = 790, end = 1050;
+      var busy = villageTimes.map(function (r) { return [r.x.t, r.x.t + durOf(r.e)]; });
+      busy.push([1050, 1050]);
+      for (var k = 0; k < busy.length && !gap; k++) {
+        if (busy[k][0] - cursor >= 45) {
+          var a0 = cursor, a1 = busy[k][0];
+          var cand = null;
+          PLACES.forEach(function (p) { if (cand || !p.village || placeInPlan(p)) return; p.exps.forEach(function (e) { if (cand || !e.times) return; e.times.forEach(function (t) { if (!cand && t >= a0 + 10 && t + durOf(e) <= a1) cand = { p: p, e: e, t: t }; }); }); });
+          if (cand) gap = { text: "You're free " + fmt(a0) + " to " + fmt(a1) + ". " + cand.p.short + " has " + cand.e.title + " at " + fmt(cand.t) + ".", add: toggle(cand.p, cand.e, cand.t) };
+        }
+        cursor = Math.max(cursor, busy[k][1]);
+      }
+    }
+
+    var hasLuau = s.plan.some(function (x) { return x.e === "luau"; });
+    var hasBuffet = s.plan.some(function (x) { return x.e === "buffet"; });
+    var hasHa = s.plan.some(function (x) { return x.e === "ha"; });
+    var pkg;
+    if (hasLuau && hasHa) pkg = { title: "Aliʻi Lūʻau package", why: "Your day includes the lūʻau and HĀ. This package covers the villages, Huki, dinner and the evening show." };
+    else if (hasLuau) pkg = { title: "Aliʻi Lūʻau package", why: "Your day includes the lūʻau. HĀ: Breath of Life is included too, so you can finish the night at the show." };
+    else if (hasHa || hasBuffet) pkg = { title: "Dinner and HĀ package", why: "Your day runs into the evening. A package with dinner and HĀ covers it in one ticket." };
+    else pkg = { title: "Islands of Polynesia admission", why: "Your day covers the villages and Huki. Add the lūʻau and HĀ to make it a full day into the night." };
+
+    // ---- route on the map: entrance, then each timed stop in time order (same place back-to-back = one waypoint)
+    var ENTRY = null; PLACES.forEach(function (p) { if (p.id === "market") ENTRY = p; });
+    var way = [];
+    timedRows.forEach(function (r) {
+      var last = way[way.length - 1];
+      if (last && last.p.id === r.p.id) { last.items.push(r); return; }
+      way.push({ p: r.p, items: [r] });
+    });
+    var hasRoute = way.length > 0;
+    var pts = [ENTRY].concat(way.map(function (w) { return w.p; }));
+    if (way.length && way[0].p.id === ENTRY.id) pts = way.map(function (w) { return w.p; });
+    // ---- walking: follow the walkways between consecutive stops; time each leg at an average pace
+    var SPEED = this.props.walkSpeed ?? 80, LEN = this.props.mapLengthM ?? 900, UNITS = this.props.distUnits ?? "mi";
+    var WT = walkTable(LEN);
+    var pathPts = [], legs = [], walkM = 0, walkT = 0;
+    for (var li = 0; li < pts.length; li++) {
+      if (li === 0) { pathPts.push(pts[0]); continue; }
+      var lg = walkLeg(WT, pts[li - 1].id, pts[li].id);
+      pathPts = pathPts.concat(lg.pts.slice(1));
+      var lmin = walkMin(lg.m, SPEED); walkM += lg.m; walkT += lmin;
+      legs.push({ m: lg.m, min: lmin, from: pts[li - 1], to: pts[li] });
+    }
+    // leg into way[i]: legs are offset by one when the route starts at the entrance
+    var legInto = function (i) { return legs[pts.length === way.length ? i - 1 : i] || null; };
+    var tightLegs = [];
+    var legInfo = way.map(function (w, i) {
+      var lg = legInto(i); if (!lg) return null;
+      var prev = way[i - 1], gap = null;
+      if (prev) { var lastIt = prev.items[prev.items.length - 1]; gap = w.items[0].x.t - (lastIt.x.t + durOf(lastIt.e)); }
+      var tight = gap != null && gap < lg.min;
+      if (tight) tightLegs.push(lg.from.short + " to " + lg.to.short);
+      return { text: lg.min + " min walk · " + walkDist(lg.m, UNITS), tight: tight,
+        aria: lg.min + " minute walk, " + walkDist(lg.m, UNITS) + (tight ? ". Only " + Math.max(gap, 0) + " minutes between these stops." : "") };
+    });
+    // walks between stops on the Your day timeline: a pill in the gap between one stop ending and the next starting
+    var railWalks = [];
+    way.forEach(function (w, i) {
+      if (i === 0) return;
+      var lg = walkLeg(WT, way[i - 1].p.id, w.p.id), lmin = walkMin(lg.m, SPEED);
+      var prevIt = way[i - 1].items[way[i - 1].items.length - 1];
+      var endT = prevIt.x.t + durOf(prevIt.e), startT = w.items[0].x.t, gap = startT - endT;
+      // a short stop is drawn at least 30 px tall, so measure from where its block visibly ends
+      var tight = gap < lmin, y1 = Y(startT), y0 = Math.max(Y(endT), Y(prevIt.x.t) + 30);
+      var top = (y0 + y1) / 2 - 10;
+      var dist = walkDist(lg.m, UNITS);
+      railWalks.push({ text: lmin + " min walk · " + dist + (tight ? " · " + (gap > 0 ? "only " + gap + " min" : "no gap") : ""),
+        aria: "Walk from " + way[i - 1].p.short + " to " + w.p.short + ": " + lmin + " minutes, " + dist + "." + (tight ? " Not enough time between these stops." : ""),
+        style: "position: absolute; left: 8px; right: 8px; top: " + Math.round(top) + "px; height: 20px; display: flex; justify-content: center; pointer-events: none; z-index: 3;",
+        pillStyle: "display: inline-flex; align-items: center; gap: 4px; height: 20px; box-sizing: border-box; padding: 0 8px; border-radius: 999px; font-size: 12px; line-height: 1; font-weight: 700; white-space: nowrap; box-shadow: 0 1px 3px rgba(39,32,27,0.18); " + (tight ? "background: #FBF6D9; color: #4A3B05; border: 1px solid #C9A227;" : "background: #FFFFFF; color: #4A4336; border: 1px solid #CFC8BA;") });
+    });
+    var routePoints = pathPts.map(function (p) { return p.x + "," + p.y; }).join(" ");
+    // number badge per place: a place visited twice shows both numbers
+    var nums = {};
+    way.forEach(function (w, i) { (nums[w.p.id] = nums[w.p.id] || { p: w.p, n: [] }).n.push(i + 1); });
+    var routeStops = Object.keys(nums).map(function (k) {
+      var o = nums[k];
+      return { num: o.n.join(" · "), style: "position: absolute; left: " + o.p.x + "%; top: " + o.p.y + "%; transform: translate(10px, -34px); min-width: 24px; height: 24px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; background: #27201B; color: #FFFFFF; border: 2px solid #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.35); pointer-events: none; z-index: 3;" };
+    });
+    var badge = function (start) { return "min-width: 28px; height: 28px; padding: 0 6px; box-sizing: border-box; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #FFFFFF; background: " + (start ? "#5E5642" : "#27201B") + ";"; };
+    var routeList = [{ num: "In", time: "", name: "Welcome Center", pick: pick("market"), aria: "Start at the Welcome Center. Show on the map.", badgeStyle: badge(true), notLast: way.length > 0 }].concat(way.map(function (w, i) {
+      var lgi = legInfo[i];
+      return { num: String(i + 1), time: fmt(w.items[0].x.t), name: w.p.short + (w.items.length > 1 ? " (" + w.items.length + " stops)" : ""), pick: pick(w.p.id),
+        aria: "Stop " + (i + 1) + ", " + fmt(w.items[0].x.t) + ", " + w.p.name + ". Show on the map.", badgeStyle: badge(false), notLast: i < way.length - 1,
+        hasLeg: !!lgi, legText: lgi ? lgi.text : "", legAria: lgi ? lgi.aria : "",
+        legStyle: "display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 3px 9px; white-space: nowrap; " + (lgi && lgi.tight ? "background: #FBF6D9; color: #4A3B05; border: 1px solid #C9A227;" : "background: #F6F4EF; color: #4A4336; border: 1px solid #E3DED4;") };
+    }));
+    // revisits: same place shows up again after leaving it
+    var revisits = Object.keys(nums).filter(function (k) { return nums[k].n.length > 1; }).map(function (k) { return nums[k].p.short; });
+    var places = Object.keys(nums).length;
+    var routeOn = s.route && hasRoute;
+    // ---- walking times from one place to every other
+    var wfId = s.walkFromId || s.sel || "market", wfP = null;
+    PLACES.forEach(function (p) { if (p.id === wfId) wfP = p; });
+    if (!wfP) { wfId = "market"; PLACES.forEach(function (p) { if (p.id === wfId) wfP = p; }); }
+    var walkOptions = PLACES.map(function (p) { return { id: p.id, name: p.name }; });
+    var walkRows = PLACES.filter(function (p) { return p.id !== wfId; }).map(function (p) {
+      var m = WT[wfId].dist[p.id]; return { id: p.id, name: p.name, m: m, min: walkMin(m, SPEED), dist: walkDist(m, UNITS), pick: pick(p.id),
+        dotStyle: "width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: " + cultureOf(p).color + ";" };
+    }).sort(function (a, b) { return a.m - b.m; }).map(function (r) { r.minText = r.min + " min"; return r; });
+
+    // ---- phases of the day: all-day marketplace, daytime islands, dinner (choose one), evening show
+    var cols = s.vw >= 760 ? 3 : s.vw >= 480 ? 2 : 1;
+    var phases = PHASES.map(function (ph) {
+      var gs = groups.filter(function (g) { return g.phase === ph.id; });
+      var dark = ph.id === "show", dinner = ph.id === "dinner", all = ph.id === "allday";
+      var subs;
+      if (ph.id === "day") {
+        var vg = gs.filter(function (g) { return g.village; }), og = gs.filter(function (g) { return !g.village; });
+        subs = [
+          { kind: "villages", label: "The six island villages", note: "Samoa, Aotearoa, Fiji, Hawaiʻi, Tahiti and Tonga. Each repeats its presentations through the afternoon, so wander between them at your own pace.", groups: vg, n: vg.length, one: "village", many: "villages" },
+          { kind: "around", label: "Around the Center", note: "Not part of a village: the Huki canoe show on the lagoon, canoe rides, exhibits and film. Fit them between your village visits.", groups: og, n: og.length, one: "place", many: "places" }
+        ].filter(function (x) { return x.groups.length; }).map(function (x) {
+          var v = x.kind === "villages";
+          var rows = [];
+          for (var ri = 0; ri < x.groups.length; ri += cols) {
+            var its = x.groups.slice(ri, ri + cols);
+            rows.push({ items: its, open: its.filter(function (g) { return g.isOpen; }) });
+          }
+          return { label: x.label, note: x.note, groups: x.groups, hasHead: true, isVillages: v, isAround: !v, tiles: true, notTiles: false, rows: rows,
+            gridStyle: "display: grid; grid-template-columns: repeat(" + cols + ", minmax(0, 1fr)); gap: 8px;",
+            count: x.n + " " + (x.n === 1 ? x.one : x.many),
+            wrapStyle: "display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 12px; " + (v ? "background: #FFFFFF; border: 1px solid #C9DAE0;" : "background: #FBF6E6; border: 1px solid #E6D7A8;"),
+            iconStyle: "width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; " + (v ? "background: #215968; color: #FFFFFF;" : "background: #8A6508; color: #FFFFFF;"),
+            titleStyle: "margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 20px; color: " + (v ? "#153A45" : "#4A3B05") + ";",
+            countStyle: "font-size: 13px; font-weight: 700; border-radius: 999px; padding: 2px 10px; " + (v ? "background: #E3EDF0; color: #153A45;" : "background: #FFFFFF; color: #4A3B05; border: 1px solid #E6D7A8;") };
+        });
+      } else {
+        subs = [{ tiles: false, notTiles: true, rows: [], gridStyle: "", label: ph.title, note: "", groups: (all && !s.marketMore) ? [] : gs, hasHead: false, isVillages: false, isAround: false, count: "", wrapStyle: "display: flex; flex-direction: column; gap: 10px;", iconStyle: "", titleStyle: "", countStyle: "" }];
+      }
+      var tkg = s.ticket && TICKETS[s.ticket].guided;
+      var mk = findExp("market-lunch").p, quick = [];
+      if (all) [["market-lunch", 660, "Early lunch", "11:00 AM"], ["market-shop", null, "Browse the shops", "anytime"], ["market-snack", 1125, "A bite before HĀ", "6:45 PM"]].forEach(function (q) {
+        var e = findExp(q[0]).e, on = q[1] == null ? s.plan.some(function (x) { return x.e === q[0]; }) : inPlan(q[0], q[1]);
+        quick.push({ label: (on ? "✓ " : "+ ") + q[2], when: q[3], on: on, add: toggle(mk, e, q[1]), aria: (on ? "Remove " : "Add ") + e.title + (q[1] != null ? " at " + q[3] : "") + (on ? " from" : " to") + " your day",
+          style: "flex-shrink: 0; white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-align: center; gap: 6px; font-size: 14px; font-weight: 700; line-height: 1.2; " + (on ? "background: #215968; color: #FFFFFF; border: 1px solid #215968;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA;") });
+      });
+      return { isMarket: all, quick: quick, moreLabel: s.marketMore ? "Hide details" : "See all food and shops",
+        toggleMore: function () { self.setState({ marketMore: !s.marketMore }); },
+        anchor: "phase-" + ph.id, closed: !!s.closed["phase-" + ph.id], title: ph.title, eyebrow: ph.eyebrow, hours: ph.hours, note: (ph.id === "day" && tkg) ? "Your guide leads you through the villages from 12:30 to 4:30 PM. Browse here to see what you’ll experience, or to plan time before or after your tour." : ph.note, step: ph.step, hasStep: !!ph.step, groups: gs, subs: subs, has: gs.length > 0,
+        boxClass: "phase-box", boxStyle: "scroll-margin-top: 16px; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px; " +
+          (dark ? "background: #2B2540; border: 1px solid #2B2540;" : dinner ? "background: #F4EEE9; border: 1px solid #DCCBBE;" : all ? "background: #FFFFFF; border: 2px dashed #CFC8BA;" : "background: #EEF3F4; border: 1px solid #C9DAE0;"),
+        stepStyle: "width: 36px; height: 36px; border-radius: 999px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; " +
+          (dark ? "background: #FFFFFF; color: #2B2540;" : dinner ? "background: #6B4A33; color: #FFFFFF;" : "background: #215968; color: #FFFFFF;"),
+        eyebrowStyle: "font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: " + (dark ? "#E4E1EE" : dinner ? "#6B4A33" : all ? "#5E5642" : "#215968") + ";",
+        titleStyle: "margin: 2px 0 0; font-family: " + "'True North', Oswald, 'Arial Narrow', sans-serif" + "; font-weight: 700; font-size: " + (all ? 18 : 22) + "px; color: " + (dark ? "#F6F4EF" : "#27201B") + ";",
+        hoursStyle: "font-size: 14px; font-weight: 700; white-space: nowrap; border-radius: 999px; padding: 6px 12px; " + (dark ? "background: rgba(255,255,255,0.14); color: #FFFFFF;" : dinner ? "background: #FFFFFF; color: #6B4A33;" : "background: #FFFFFF; color: #215968;"),
+        noteStyle: "margin: 0; font-size: 14px; line-height: 1.5; color: " + (dark ? "#E4E1EE" : "#4A4336") + ";" };
+    }).filter(function (ph) { return ph.has; });
+    var FL0 = 660, FL1 = 1260, pct = function (m) { return ((m - FL0) / (FL1 - FL0) * 100).toFixed(2) + "%"; };
+    var flowLanes = PHASES.map(function (ph, i) {
+      var dark = ph.id === "show", dinner = ph.id === "dinner", all = ph.id === "allday";
+      var labels = { allday: "Hukilau Marketplace · all day", day: "Islands of Polynesia", dinner: "Dinner", show: "HĀ show" };
+      return { href: "#phase-" + ph.id, label: labels[ph.id], aria: ph.title + ", " + ph.hours + ". Jump to it.",
+        style: "position: absolute; top: " + (i * 30) + "px; left: " + pct(ph.from) + "; width: calc(" + pct(ph.to) + " - " + pct(ph.from) + "); height: 24px; box-sizing: border-box; border-radius: 6px; padding: 0 8px; display: flex; align-items: center; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none; " +
+          (dark ? "background: #2B2540; color: #FFFFFF;" : dinner ? "background: #6B4A33; color: #FFFFFF;" : all ? "background: repeating-linear-gradient(135deg, #EFECE6 0 6px, #FFFFFF 6px 12px); color: #4A4336; border: 1px dashed #CFC8BA;" : "background: #215968; color: #FFFFFF;") };
+    });
+    var flowTicks = [720, 840, 960, 1080, 1200].map(function (m) {
+      return { label: fmt(m).replace(":00", ""), lineStyle: "position: absolute; top: 0; height: 122px; left: " + pct(m) + "; border-left: 1px solid #EFECE6;",
+        labelStyle: "position: absolute; top: 126px; left: " + pct(m) + "; transform: translateX(-50%); font-size: 12px; color: #857D69; white-space: nowrap;" };
+    });
+    var flowYouStyle = "position: absolute; top: 146px; left: " + pct(Math.max(A, FL0)) + "; width: calc(" + pct(Math.min(B, FL1)) + " - " + pct(Math.max(A, FL0)) + "); height: 12px; box-sizing: border-box; border: 2px solid #27201B; border-top: none; border-radius: 0 0 6px 6px; font-size: 0;";
+    var bandStyle = function (from, to, bg) { return "position: absolute; left: 0; right: 0; top: " + Math.round((from - RAIL_START) / 60 * PX) + "px; height: " + Math.round((to - from) / 60 * PX) + "px; background: " + bg + "; pointer-events: none;"; };
+    var labelStyle = function (from, color) { return "position: absolute; right: 6px; top: " + (Math.round((from - RAIL_START) / 60 * PX) + 4) + "px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: " + color + "; pointer-events: none;"; };
+    var stripStyle = function (from, to, color, left) { return "position: absolute; left: " + left + "px; width: 3px; top: " + Math.round((from - RAIL_START) / 60 * PX) + "px; height: " + Math.round((to - from) / 60 * PX) + "px; background: " + color + "; border-radius: 2px; pointer-events: none;"; };
+
+    var fitCount = function (a, b) {
+      var n = 0;
+      PLACES.forEach(function (p) { p.exps.forEach(function (e) { var d = durOf(e);
+        if (e.times ? e.times.some(function (t) { return t >= a && t + d <= b; }) : (function () { var w = windowOf(p, e); return Math.max(w[0], a) + d <= Math.min(w[1], b); })()) n++; }); });
+      return n;
+    };
+    var availOpts = AVAIL.map(function (o) {
+      var on = s.avail === o.id, a = o.id === "custom" ? s.arrive : o.from, b = o.id === "custom" ? s.leave : o.to;
+      return { label: o.label, rec: !!o.rec, fits: o.fits, on: on,
+        hours: o.id === "custom" ? (on ? fmt(a) + " – " + fmt(b) : "Your own times") : fmt(o.from) + " – " + fmt(o.to),
+        count: fitCount(a, b) + " of " + things + " experiences fit",
+        recStyle: "border-radius: 999px; padding: 2px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; " + (on ? "background: #F4EB96; color: #27201B;" : "background: #215968; color: #FFFFFF;"),
+        pick: function () { self.setState({ avail: o.id, availSet: true, showOutside: false, lastAdded: o.id === "allday" ? "Showing everything: you're here all day." : "Showing what fits " + (o.id === "custom" ? "your times" : o.label.toLowerCase()) + "." }); },
+        hoursStyle: "font-size: 13px; " + (on ? "color: #E3EDF0;" : "color: #5E5642;"),
+        style: "min-height: 44px; padding: 6px 14px; border-radius: 999px; cursor: pointer; display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; text-align: left; " +
+          (on ? "background: #215968; color: #FFFFFF; border: 1px solid #215968;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA;") };
+    });
+    // what a partial day gives up, to bias guests toward the full day
+    var missText = "";
+    if (!allDay) {
+      var miss = [];
+      var chk = function (id, label) { var f = findExp(id); if (f && !fitsAvail(f.p, f.e)) miss.push(label); };
+      chk("huki-show", "Huki on the lagoon"); chk("luau", "the Aliʻi Lūʻau"); chk("ha", "HĀ: Breath of Life");
+      var vMiss = PLACES.filter(function (p) { return p.village && !p.exps.some(function (e) { return e.times && fitsAvail(p, e); }); }).length;
+      if (vMiss) miss.push(vMiss + (vMiss === 1 ? " village presentation" : " village presentations"));
+      var nFit = fitCount(A, B);
+      if (miss.length) missText = "In these hours you'd miss " + (miss.length > 1 ? miss.slice(0, -1).join(", ") + " and " + miss[miss.length - 1] : miss[0]) + ". Staying all day opens up all " + things + " experiences (you'd have " + nFit + ").";
+    }
+
+    var zoomPct = ZOOMS[s.zoom];
+    return {
+      things: things, steps: steps, dates: dates, adults: s.adults, kids: s.kids, dateLabel: dateLabel, partyLabel: partyLabel,
+      datePrev: function () { for (var i = s.date - 1; i >= 0; i--) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },
+      dateNext: function () { for (var i = s.date + 1; i < DATES.length; i++) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },
+      dateAtStart: !DATES.slice(0, s.date).some(function (d) { return !d[2]; }),
+      dateAtEnd: !DATES.slice(s.date + 1).some(function (d) { return !d[2]; }),
+      adultsUp: function () { self.setState({ adults: Math.min(10, s.adults + 1) }); }, adultsDown: function () { self.setState({ adults: Math.max(1, s.adults - 1) }); },
+      kidsUp: function () { self.setState({ kids: Math.min(10, s.kids + 1) }); }, kidsDown: function () { self.setState({ kids: Math.max(0, s.kids - 1) }); },
+      filters: filters, hours: hours, hotspots: hotspots,
+      mapInnerStyle: "position: relative; width: " + zoomPct + "%; min-width: 720px;",
+      zoomLabel: s.zoom === 0 ? "Fit" : zoomPct + "%",
+      zoomIn: function () { self.setState({ zoom: Math.min(ZOOMS.length - 1, s.zoom + 1) }); },
+      zoomOut: function () { self.setState({ zoom: Math.max(0, s.zoom - 1) }); },
+      zoomFit: function () { self.setState({ zoom: 0 }); },
+      availOpts: availOpts, availSel: availOpts.filter(function (o) { return o.on; })[0] || availOpts[0], availCustom: s.avail === "custom", availSummary: allDay ? "All day · " + fmtShort(A) + "–" + fmt(B) : "You're here " + fmtShort(A) + "–" + fmt(B),
+      availShort: allDay ? "all day" : fmtShort(A) + "–" + fmt(B),
+      arriveLabel: fmt(s.arrive), leaveLabel: fmt(s.leave),
+      arriveUp: function () { self.setState({ arrive: Math.min(s.leave - 60, s.arrive + 30) }); },
+      arriveDown: function () { self.setState({ arrive: Math.max(720, s.arrive - 30) }); },
+      leaveUp: function () { self.setState({ leave: Math.min(1260, s.leave + 30) }); },
+      leaveDown: function () { self.setState({ leave: Math.max(s.arrive + 60, s.leave - 30) }); },
+      customNote: hm(B - A) + " at the Center · " + fitCount(A, B) + " experiences fit",
+      availMissHas: missText.length > 0, availMiss: missText,
+      goAllDay: function () { self.setState({ avail: "allday", availSet: true, showOutside: false }); },
+      hiddenHas: hidden > 0, hiddenText: hidden + (hidden === 1 ? " experience happens" : " experiences happen") + " outside your hours" + (s.showOutside ? " and " + (hidden === 1 ? "is" : "are") + " marked below." : ", so we've hidden " + (hidden === 1 ? "it." : "them.")),
+      showOutside: s.showOutside, outsideLabel: s.showOutside ? "Hide them" : "Show them anyway",
+      toggleOutside: function () { self.setState({ showOutside: !s.showOutside }); },
+      offBeforeOn: A > RAIL_START, offAfterOn: B < RAIL_END,
+      offBeforeLabel: "Before you arrive", offAfterLabel: "After you leave",
+      offBeforeStyle: "position: absolute; left: 0; right: 0; top: 0; height: " + Math.max(0, Y(A)) + "px; background: repeating-linear-gradient(135deg, rgba(39,32,27,0.06) 0 6px, rgba(39,32,27,0.02) 6px 12px); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; box-sizing: border-box; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5642; pointer-events: none; z-index: 1;",
+      offAfterStyle: "position: absolute; left: 0; right: 0; top: " + Y(B) + "px; bottom: 0; background: repeating-linear-gradient(135deg, rgba(39,32,27,0.06) 0 6px, rgba(39,32,27,0.02) 6px 12px); display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; box-sizing: border-box; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5642; pointer-events: none; z-index: 1;",
+      carPrev: carMove(-1), carNext: carMove(1),
+      allLabel: s.allOpen ? "Close all" : "Open all",
+      toggleAll: function () { self.setState({ allOpen: !s.allOpen, openG: {} }); },
+      filtersActive: s.filter !== "all" || s.hour != null,
+      filterSummary: (s.filter === "all" ? "Everything" : (FILTERS.filter(function (f) { return f[0] === s.filter; })[0] || ["", "Everything"])[1]) + (s.hour != null ? " · starting " + fmt(s.hour).replace(":00", "") + "–" + fmt(s.hour + 60).replace(":00", "") : " · any time") + (allDay ? "" : " · within your hours"),
+      clearFilters: function () { self.setState({ filter: "all", hour: null }); },
+      phases: phases, flowLanes: flowLanes, flowTicks: flowTicks,
+      flowYouOn: !allDay, flowYouStyle: flowYouStyle, flowYouLabel: "Your hours",
+      dinnerBandStyle: bandStyle(990, 1140, "rgba(107,74,51,0.07)"), dinnerLabelStyle: labelStyle(990, "#6B4A33"),
+      showBandStyle: bandStyle(1125, 1235, "rgba(43,37,64,0.08)"), showLabelStyle: labelStyle(1125, "#2B2540"),
+      phaseStripDay: stripStyle(735, 1050, "#215968", -2), phaseStripDinner: stripStyle(990, 1140, "#6B4A33", -2), phaseStripShow: stripStyle(1125, 1235, "#2B2540", -2),
+      hasRoute: hasRoute, routeOn: routeOn, showRouteLine: routeOn, routePoints: routePoints, routeStops: routeStops, routeList: routeList,
+      navOpen: s.navOpen, toggleNav: function () { self.setState({ navOpen: !s.navOpen }); },
+      navToggleAria: s.navOpen ? "Collapse section tabs" : "Expand section tabs",
+      navChevStyle: "flex-shrink: 0; transition: transform 0.2s;" + (s.navOpen ? "" : " transform: rotate(180deg);"),
+      navStyle: "flex: 0 0 auto; width: " + (s.navOpen ? 208 : 60) + "px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px; padding: 8px; display: flex; flex-direction: column; gap: 6px; transition: width 0.2s;",
+      navToggleStyle: "min-height: 44px; padding: 0 12px; border: none; border-bottom: 1px solid #E3DED4; background: none; color: #5E5642; cursor: pointer; align-items: center; gap: 8px; border-radius: 12px 12px 0 0;" + (s.navOpen ? "" : " justify-content: center; padding: 0;"),
+      hide: { hours: !!s.closed.hours, map: !!s.closed.map, things: !!s.closed.things, yourday: !!s.closed["your-day"] },
+      dayShown: !s.closed["your-day"], dayToggleLabel: s.closed["your-day"] ? "Show itinerary" : "Hide",
+      toggleDay: function () { var c = {}; for (var k in s.closed) c[k] = s.closed[k]; c["your-day"] = !s.closed["your-day"]; self.setState({ closed: c }); },
+      anyClosed: Object.keys(s.closed).some(function (k) { return s.closed[k]; }),
+      openAll: function () { self.setState({ closed: {} }); },
+      openAllStyle: "min-height: 44px; padding: 0 12px; border: none; border-top: 1px solid #E3DED4; background: none; color: #215968; font-weight: 700; font-size: 13px; text-decoration: underline; cursor: pointer; text-align: left;" + (s.navOpen ? "" : " text-align: center; padding: 0; font-size: 11px;"),
+      openAllLabel: s.navOpen ? "Open all sections" : "All",
+      navTabs: NAV_TABS.map(function (t) {
+        var open = !s.closed[t[0]];
+        var jump = function () {
+          setTimeout(function () { var el = document.getElementById(t[0]); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 40);
+        };
+        return { label: t[1], icon: t[2], open: open, hidden: !open,
+          aria: "Go to " + t[1] + (open ? "" : " (hidden: this shows it again)"),
+          toggleAria: (open ? "Hide " : "Show ") + t[1],
+          labelStyle: "flex: 1 1 auto; font-size: 14px; font-weight: 700; white-space: nowrap;" + (open ? "" : " text-decoration: line-through; text-decoration-thickness: 1px;") + (s.navOpen ? "" : " display: none;"),
+          style: "flex: 1 1 auto; min-width: 44px; min-height: 44px; padding: 0 10px; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-align: left; background: transparent; " + (s.navOpen ? "" : "justify-content: center; padding: 0; ") + (open ? "color: #27201B;" : "color: #857D69;"),
+          eyeStyle: "flex-shrink: 0; width: 36px; height: 36px; border: none; border-radius: 10px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; " + (open ? "color: #857D69;" : "color: #215968;"),
+          go: function () {
+            if (!open) { var c = {}; for (var k in s.closed) c[k] = s.closed[k]; delete c[t[0]]; self.setState({ closed: c }); }
+            jump();
+          },
+          toggle: function () { var c = {}; for (var k in s.closed) c[k] = s.closed[k]; if (open) c[t[0]] = true; else delete c[t[0]]; self.setState({ closed: c }); }
+        };
+      }),
+      walkOpen: !!s.walkOpen, toggleWalk: function () { self.setState({ walkOpen: !s.walkOpen }); },
+      walkChevStyle: "flex-shrink: 0; transition: transform 0.2s;" + (s.walkOpen ? " transform: rotate(180deg);" : ""),
+      walkFromId: wfId, walkFromName: wfP.name, walkOptions: walkOptions, walkRows: walkRows,
+      setWalkFrom: function (ev) { self.setState({ walkFromId: ev.target.value }); },
+      walkPaceText: "Times assume an easy walking pace of about " + SPEED + " m (" + Math.round(SPEED * 3.281) + " ft) a minute, roughly 3 mph.",
+      walkTotalText: walkT + " min walking · " + walkDist(walkM, UNITS) + " in all",
+      hasTight: tightLegs.length > 0,
+      tightText: "Short on time between " + tightLegs.join(" and ") + ": the walk takes longer than the gap in your day. Move a stop later or drop one.",
+      routeSummary: way.length + (way.length === 1 ? " stop" : " stops") + " at " + places + (places === 1 ? " place" : " places") + (timedRows.length ? ", " + fmt(timedRows[0].x.t) + " to " + fmt(timedRows[timedRows.length - 1].x.t + durOf(timedRows[timedRows.length - 1].e)) : ""),
+      hasBacktrack: revisits.length > 0,
+      backtrackText: "Your route returns to " + revisits.join(" and ") + " later in the day. Grouping those stops together saves walking.",
+      toggleRoute: function () { self.setState({ route: !s.route }); },
+      routeBtnLabel: routeOn ? "Hide my route" : "Show my route",
+      routeBtnStyle: "min-height: 44px; padding: 0 14px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; " + (routeOn ? "background: #27201B; color: #FFFFFF; border: 1px solid #27201B;" : "background: #FFFFFF; color: #27201B; border: 1px solid #CFC8BA;"),
+      groups: groups, noGroups: groups.length === 0, resultCount: count + (count === 1 ? " experience" : " experiences") + (s.hour != null ? " starting " + fmt(s.hour).replace(":00", "") + "–" + fmt(s.hour + 60).replace(":00", "") : ""),
+      hasPlace: !!sp, place: place,
+      closePlace: function () { self.setState({ sel: null, open: null, show360: false }); },
+      show360: s.show360, notShow360: !s.show360, view360Label: s.show360 ? "Back to video" : "View in 360°",
+      toggle360: function () { self.setState({ show360: !s.show360 }); },
+      lastAdded: s.lastAdded, hasLastAdded: !!s.lastAdded,
+      hasRide: !!(TK && s.hotel), noRide: !!(TK && !s.hotel), pickOpen: s.pickOpen, pickLabel: s.pickOpen ? "Hide" : "Pickup details",
+      ride: (function () { var h = hotelById(s.hotel || "ala-moana"), withHa = TK && TK.fixed.some(function (f) { return f[0] === "ha"; });
+        return { hotel: h.name, pickup: h.pickup, back: withHa ? "9:00 PM, after HĀ" : "the time on your ticket", dir: "https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=" + encodeURIComponent(h.dest) }; })(),
+      hotelOpts: HOTELS.map(function (h) { return { id: h.id, name: h.name, sel: h.id === s.hotel }; }),
+      togglePick: function () { self.setState({ pickOpen: !s.pickOpen }); },
+      tripLine: s.hotel ? "Coach 9:45 AM · " + hotelById(s.hotel).name : "No coach · free parking at the Marketplace",
+      tripAria: (s.pickOpen ? "Hide" : "Show") + " booking and pickup details",
+      pickChevStyle: "flex-shrink: 0; transition: transform 0.2s;" + (s.pickOpen ? " transform: rotate(180deg);" : ""),
+      setHotel: function (ev) { var v = ev && ev.target ? ev.target.value : null; if (v) self.setState({ hotel: v }); },
+      arriveStyle: "position: absolute; left: 0; right: 0; top: " + Y(720) + "px; border-top: 2px dashed #8A6508; z-index: 1;", arriveLabelStyle: "position: absolute; left: 8px; right: 8px; top: " + (Y(720) + 4) + "px; box-sizing: border-box; font-size: 12px; line-height: 1.3; font-weight: 700; color: #4A3B05; background: #FBF6E6; border: 1px dashed #8A6508; padding: 4px 12px; border-radius: 999px; text-align: center; z-index: 1;",
+      returnOn: !!(TK && s.hotel), returnStyle: "position: absolute; left: 0; right: 0; top: " + Y(1260) + "px; border-top: 2px dashed #8A6508; z-index: 1;",
+      returnLabelStyle: "position: absolute; left: 8px; right: 8px; top: " + (Y(1260) + 4) + "px; box-sizing: border-box; font-size: 12px; line-height: 1.3; font-weight: 700; color: #4A3B05; background: #FBF6E6; border: 1px dashed #8A6508; padding: 4px 12px; border-radius: 999px; text-align: center; z-index: 1;",
+      appSent: s.appSent, appNotSent: !s.appSent, sendToApp: function () { self.setState({ appSent: true, lastAdded: "Sent your day to the PCC app." }); },
+      bookOpen: s.bookOpen, bookHint: s.bookOpen ? "" : "Load your booking",
+      toggleBook: function () { self.setState({ bookOpen: !s.bookOpen }); },
+      bookChevStyle: "flex-shrink: 0; margin-left: auto; transition: transform 0.2s;" + (s.bookOpen ? " transform: rotate(180deg);" : ""),
+      bookBoxStyle: "display: flex; flex-direction: column; gap: 2px; background: #FFFFFF; border: 1px solid #C9DAE0; border-radius: 14px; flex-shrink: 0;",
+      hasTicket: !!TK, noTicket: !TK, ticket: TK || {}, showSales: s.plan.length > 0 && !TK, confInput: s.conf, confError: s.confErr,
+      tourOn: tourOn, tourStyle: tourStyle, tourLabel: tourLabel, tourSub: tourSub, tourAria: tourAria,
+      setConf: function (ev) { self.setState({ conf: ev && ev.target ? ev.target.value : "", confErr: false }); },
+      findBooking: function () { if (!String(s.conf).trim()) { self.setState({ confErr: true }); return; } loadTicket("luau"); },
+      loadLuau: function () { loadTicket("luau"); }, loadGuided: function () { loadTicket("guided"); },
+      unloadTicket: function () { self.setState({ hotel: null, ticket: null, plan: [], conf: "", appSent: false, lastAdded: "Booking removed. Plan your day from scratch, or find another booking." }); }, planCountLabel: s.plan.length + (s.plan.length === 1 ? " stop" : " stops") + (s.plan.length ? " · " + hm(totalMin) : ""),
+      dragEnd: function () { self.drag = null; if (s.dragging || s.ghost) self.setState({ dragging: false, ghost: null }); },
+      railOver: railOver, railLeave: railLeave, railDrop: railDrop,
+      railStyle: "position: relative; height: " + railHeight + "px; border-left: 1px solid #C9DAE0; border-radius: 0 12px 12px 0; background: #FFFFFF; transition: background 0.15s;" + (s.dragging ? " background: #F0F6F7; outline: 2px dashed #215968; outline-offset: -2px;" : ""),
+      ghostOn: !!ghost,
+      ghostLabel: ghost ? "Drop at " + fmt(ghost.t) + " · " + durText(ghost.e) : "",
+      ghostStyle: ghost ? "position: absolute; left: 8px; right: 8px; top: " + (Y(ghost.t) + 1) + "px; height: " + (Math.max(Math.round(durOf(ghost.e) / 60 * PX), 30) - 2) + "px; box-sizing: border-box; border: 2px dashed #215968; background: rgba(33,89,104,0.12); border-radius: 10px; padding: 4px 10px; font-size: 13px; font-weight: 700; color: #153A45; pointer-events: none; z-index: 5;" : "",
+      railHeight: railHeight, railHours: railHours, railLines: railLines, railBlocks: railBlocks, railWalks: railWalks,
+      cultureKey: CULTURE_ORDER.map(function (id) { var c = CULTURE[id]; return { code: c.code, name: c.name, badge: badgeCss({ code: c.code, color: c.color, village: true }, 20) }; })
+        .concat([{ code: "LU", name: "Dinner", badge: badgeCss({ color: EVENING.luau.color, village: true }, 20) }, { code: "HĀ", name: "HĀ show", badge: badgeCss({ color: EVENING.theater.color, village: true }, 20) }, { code: "HU", name: "Around the Center", badge: badgeCss({ color: CENTER_COLOR, village: false }, 20) }]),
+      villageTop: Y(750), villageHeight: Y(1050) - Y(750), villageLabelTop: Y(750) + 4,
+      anytime: anytime, hasAnytime: anytime.length > 0, conflicts: conflicts, hasConflicts: conflicts.length > 0,
+      hasGap: !!gap, gap: gap || {},
+      planEmpty: s.plan.length === 0, planHas: s.plan.length > 0, pkg: pkg, cartShown: s.cart,
+      shareLabel: s.shared ? "Link copied: send it to your group" : "Share this plan with your group",
+      sharePlan: function () { self.setState({ shared: true }); },
+      buildDay: function () {
+        var tkb = s.ticket ? TICKETS[s.ticket] : null;
+        if (tkb) {
+          var base = ticketPlan(tkb), have = base.map(function (x) { return x.e; });
+          BUILD.forEach(function (b) {
+            if (have.indexOf(b[0]) >= 0 || b[1] == null) return;
+            if (tkb.guided && b[1] >= tkb.tour[0] && b[1] < tkb.tour[1]) return;
+            base.push({ p: findExp(b[0]).p.id, e: b[0], t: b[1] });
+          });
+          self.setState({ plan: base, cart: false, shared: false, lastAdded: tkb.guided ? "Filled in the time around your guided tour. Your ticket items stay as booked." : "Added a suggested afternoon around your lūʻau and HĀ. Change anything you like." });
+          return;
+        }
+        var plan = BUILD.filter(function (b) { var f = findExp(b[0]); return b[1] == null ? fitsAvail(f.p, f.e) : inAvail(b[1], durOf(f.e)); })
+          .map(function (b) { var f = findExp(b[0]); return { p: f.p.id, e: b[0], t: b[1] }; });
+        var names = plan.filter(function (x) { return x.t != null; }).map(function (x) { return findExp(x.e).e.title; });
+        self.setState({ plan: plan, cart: false, shared: false, lastAdded: allDay ? "We built a sample day: Huki, five villages, the lūʻau and HĀ. Change anything you like." : "We built a day for " + fmt(A) + " to " + fmt(B) + ": " + names.length + " timed stops. Change anything you like." });
+      },
+      clearPlan: function () { var tkc = s.ticket ? TICKETS[s.ticket] : null; self.setState({ plan: tkc ? ticketPlan(tkc) : [], cart: false, shared: false, lastAdded: tkc ? "Cleared your extras. Your ticket items are back as booked." : "Cleared your day." }); },
+      toCart: function () { self.setState({ cart: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
