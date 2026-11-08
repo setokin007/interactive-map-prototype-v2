@@ -18,18 +18,31 @@ a{color:#215968}a:hover{color:#153A45}
 button,input{font-family:inherit}
 [hidden]{display:none !important}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #215968;outline-offset:2px}
-#explore,#plan,#ticket{scroll-margin-top:16px}
+#explore,#plan,#ticket,#map{scroll-margin-top:12px}
 .villages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 @media (max-width:1100px){.villages{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.villages{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .stats{display:flex;flex-wrap:wrap;gap:8px 28px}
-.planner{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
-.prefs{flex:1 1 300px;max-width:360px;min-width:0}
-.tl{flex:999 1 460px;min-width:0}
-.side{flex:1 1 360px;min-width:0;position:sticky;top:16px}
-@media (max-width:1180px){.prefs{max-width:none}.side{position:static}}
+.qs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:1280px){.qs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:800px){.qs{grid-template-columns:minmax(0,1fr)}}
+.more{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1100px){.more{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.more{grid-template-columns:minmax(0,1fr)}}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.tl-block{touch-action:none;user-select:none}
+.map-band{position:relative;overflow:hidden;border-radius:18px;background:#CFE0D6;border:1px solid #C9D6CC;touch-action:none;user-select:none;cursor:grab}
+.map-band:active{cursor:grabbing}
+.map-legend{max-width:calc(100% - 420px)}
+@media (max-width:900px){.map-legend{max-width:calc(100% - 28px)}}
+.map-card{position:absolute;right:14px;top:14px;bottom:14px;width:370px;z-index:20;overflow-y:auto;overscroll-behavior:contain}
+@media (max-width:900px){.map-card{position:static;width:auto;max-height:none;margin-top:12px}}
+.pin{position:absolute;transform:translate(-50%,-50%);border:none;padding:0;cursor:pointer;font-family:Lato,sans-serif}
+.pin-label{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;font-size:12px;font-weight:700;color:#27201B;background:rgba(255,255,255,0.92);padding:2px 7px;border-radius:999px;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.strip-wrap{overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #E3DED4;border-radius:14px;background:#FFFFFF}
+.blk{touch-action:none;user-select:none}
+.below{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.below-list{flex:999 1 520px;min-width:0}
+.below-side{flex:1 1 320px;min-width:0}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F6F4EF; color: #27201B; font-family: Lato, 'Helvetica Neue', Arial, sans-serif;">
@@ -39,288 +52,351 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2159
 <a href="#" style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; color: #27201B; text-decoration: none; letter-spacing: -0.01em;">Polynesian Cultural Center</a>
 <span style="flex-grow: 1;"></span>
 <div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px;">
-<a href="#explore" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Explore</a>
 <a href="#plan" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Plan your day</a>
+<a href="#map" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Map</a>
+<a href="#explore" style="color: #5E5642; text-decoration: none; padding: 10px 0;">The villages</a>
 <a href="#ticket" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Have tickets?</a>
 </div>
 </div>
 </nav>
 
-<main style="max-width: 1400px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 56px;">
+<main style="max-width: 1400px; margin: 0 auto; padding: 24px 24px 64px; display: flex; flex-direction: column; gap: 20px;">
 
-<!-- STAGE 1 · EXPLORE: asks nothing -->
-<section id="explore" aria-labelledby="explore-h" style="display: flex; flex-direction: column; gap: 20px;">
-<div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Lāʻie, Oʻahu · North Shore</span>
-<h1 id="explore-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.01em;">Six island nations. One day. Plan to stay.</h1>
-<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #4A4336;">Walk from Samoa to Hawaiʻi across 42 acres of villages, lagoon and gardens. Most guests spend about five hours in the villages before dinner and the evening show, and still wish they had more. Tell us a little about your visit and we'll plan the day for you.</p>
+<section id="plan" aria-labelledby="plan-h" style="display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px;">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 820px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Lāʻie, Oʻahu · 42 acres · six island villages</span>
+<h1 id="plan-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: clamp(32px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.01em;">Plan your day at the Center</h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.5; color: #4A4336;">{{introText}}</p>
 </div>
-<div class="stats" role="list" aria-label="The day at a glance">
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">6</span><span style="font-size: 14px; color: #5E5642;">island villages</span></div>
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">42</span><span style="font-size: 14px; color: #5E5642;">acres to explore</span></div>
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">~5 h</span><span style="font-size: 14px; color: #5E5642;">in the villages</span></div>
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">30+</span><span style="font-size: 14px; color: #5E5642;">presentations and activities a day</span></div>
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">3 days</span><span style="font-size: 14px; color: #5E5642;">to come back free to the villages</span></div>
-</div>
-<div class="villages" role="list" aria-label="The six island villages">
-<sc-for list="{{villages}}" as="v" hint-placeholder-count="6">
-<article role="listitem" style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
-<img src="{{v.img}}" alt="{{v.alt}}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #E3DED4;">
-<div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px;">
-<div style="display: flex; align-items: center; gap: 8px;">
-<span aria-hidden="true" style="{{v.badge}}">{{v.code}}</span>
-<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{v.name}}</h3>
-</div>
-<span style="font-family: Fraunces, Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: #215968;">{{v.greeting}}</span>
-<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #4A4336;">{{v.promise}}</p>
-</div>
-</article>
-</sc-for>
-</div>
-</section>
-
-<!-- STAGES 2–4 · PLAN: build the itinerary -->
-<section id="plan" aria-labelledby="plan-h" style="display: flex; flex-direction: column; gap: 20px;">
-<div style="display: flex; flex-direction: column; gap: 6px;">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Plan your day</span>
-<h2 id="plan-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 36px; line-height: 1.1;">Your itinerary, built around you</h2>
-<p style="margin: 0; font-size: 16px; color: #5E5642; max-width: 760px;">Answer the first four questions and your day appears, with that date's times and the walks in between. Fine-tune it with the rest. Then swap, add, remove or drag anything.</p>
 </div>
 
-<div class="planner">
+<!-- QUESTIONS: full until the day exists, then a one-line summary -->
+<sc-if value="{{showSummary}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 14px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5642;">Your visit</span>
+<sc-for list="{{summaryChips}}" as="sc" hint-placeholder-count="6"><span style="font-size: 14px; padding: 6px 10px; border-radius: 999px; background: #F6F4EF; border: 1px solid #E3DED4;">{{sc}}</span></sc-for>
+<span style="flex-grow: 1;"></span>
+<button type="button" onClick="{{openPrefs}}" aria-expanded="false" aria-controls="prefs" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">Change</button>
+</div>
+</sc-if>
 
-<!-- PREFERENCES -->
-<form class="prefs" aria-label="Your visit" onSubmit="{{noSubmit}}" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-if value="{{showPrefs}}" hint-placeholder-val="{{ true }}">
+<form id="prefs" aria-label="Your visit" onSubmit="{{noSubmit}}" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 16px;">
+<div class="qs">
 
-<section id="ticket" aria-labelledby="ticket-h" style="padding: 16px; background: #FFFFFF; border: 1px solid #C9DAE0; border-radius: 14px; display: flex; flex-direction: column; gap: 10px;">
+<section id="ticket" aria-labelledby="ticket-h" style="padding: 12px; background: #F2F7F8; border: 1px solid #C9DAE0; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
 <sc-if value="{{noTicket}}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 8px;">
-<h3 id="ticket-h" style="margin: 0; font-size: 16px; font-weight: 700;">Already have tickets?</h3>
-<span style="font-size: 14px; line-height: 1.45; color: #5E5642;">Pull up your ticket and we'll build your day around what's on it.</span>
-<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<h2 id="ticket-h" style="margin: 0; font-size: 15px; font-weight: 700;">Already have tickets?</h2>
+<span style="font-size: 13px; line-height: 1.4; color: #5E5642;">We'll build the day around what's on your ticket.</span>
 <label for="conf" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Confirmation number</label>
-<input id="conf" type="text" value="{{confInput}}" onChange="{{setConf}}" placeholder="Confirmation number" autocomplete="off" style="flex: 1 1 140px; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #857D69; border-radius: 10px; font-size: 15px;">
+<input id="conf" type="text" value="{{confInput}}" onChange="{{setConf}}" placeholder="Confirmation number" autocomplete="off" style="min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #857D69; border-radius: 10px; font-size: 15px; width: 100%;">
 <button type="button" onClick="{{findTicket}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 15px; cursor: pointer;">Pull up my ticket</button>
-</div>
 <sc-if value="{{confErr}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; color: #8A1C12;">{{confErr}}</p></sc-if>
-<div style="display: flex; flex-wrap: wrap; gap: 0 10px; font-size: 13px; color: #5E5642; align-items: center;"><span>Prototype samples:</span>
-<sc-for list="{{samples}}" as="sm" hint-placeholder-count="4"><button type="button" onClick="{{sm.pick}}" style="min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">{{sm.label}}</button></sc-for>
+<div style="display: flex; flex-wrap: wrap; gap: 0 10px; font-size: 12px; color: #5E5642; align-items: center;"><span>Samples:</span>
+<sc-for list="{{samples}}" as="sm" hint-placeholder-count="4"><button type="button" onClick="{{sm.pick}}" style="min-height: 30px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 12px; cursor: pointer;">{{sm.label}}</button></sc-for>
 </div>
 </div>
 </sc-if>
 <sc-if value="{{hasTicket}}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
 <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">Your ticket · {{tk.conf}}</span>
-<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{tk.name}}</h3>
-<span style="font-size: 14px; color: #4A4336;">{{tk.when}}</span>
-<ul style="margin: 0; padding: 0 0 0 18px; font-size: 14px; line-height: 1.5; color: #4A4336;"><sc-for list="{{tk.includes}}" as="inc" hint-placeholder-count="3"><li>{{inc}}</li></sc-for></ul>
-<span style="font-size: 13px; color: #5E5642;">Times on your ticket are already in your day. Plan everything else around them.</span>
-<button type="button" onClick="{{clearTicket}}" style="align-self: flex-start; min-height: 36px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Use a different ticket</button>
+<h2 id="ticket-h" style="margin: 0; font-size: 16px; font-weight: 700;">{{tk.name}}</h2>
+<span style="font-size: 13px; color: #4A4336;">{{tk.when}}</span>
+<ul style="margin: 0; padding: 0 0 0 16px; font-size: 13px; line-height: 1.45; color: #4A4336;"><sc-for list="{{tk.includes}}" as="inc" hint-placeholder-count="3"><li>{{inc}}</li></sc-for></ul>
+<button type="button" onClick="{{clearTicket}}" style="align-self: flex-start; min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">Use a different ticket</button>
 </div>
 </sc-if>
 </section>
 
-<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num1}}">1</span> Who's coming?</legend>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num1}}">1</span> Who's coming?</legend>
 <sc-for list="{{parties}}" as="o" hint-placeholder-count="3">
-<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 </fieldset>
 
-<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num2}}">2</span> When?</legend>
-<sc-if value="{{dateLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px;"><strong>{{dateLong}}</strong> · on your ticket</span></sc-if>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num2}}">2</span> When?</legend>
+<sc-if value="{{dateLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px;"><strong>{{dateLong}}</strong><br><span style="font-size: 13px; color: #5E5642;">From your ticket</span></span></sc-if>
 <sc-if value="{{dateFree}}" hint-placeholder-val="{{ true }}">
-<div role="group" aria-label="Date" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
-<sc-for list="{{dates}}" as="d" hint-placeholder-count="8">
-<button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
+<div role="group" aria-label="Date" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;">
+<sc-for list="{{dates}}" as="d" hint-placeholder-count="10">
+<button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
 </sc-for>
 </div>
-<span style="font-size: 12px; color: #5E5642;">Closed Sundays and Wednesdays in this sample.</span>
+<span style="font-size: 11px; color: #5E5642;">Closed Sundays and Wednesdays in this sample.</span>
 </sc-if>
 </fieldset>
 
-<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num3}}">3</span> How long can you stay?</legend>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num3}}">3</span> How long can you stay?</legend>
 <sc-for list="{{hours}}" as="o" hint-placeholder-count="4">
-<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 </fieldset>
 
-<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num4}}">4</span> Where are you staying?</legend>
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num4}}">4</span> Where are you staying?</legend>
 <sc-for list="{{stays}}" as="o" hint-placeholder-count="4">
-<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
+<button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 <sc-if value="{{isCruise}}" hint-placeholder-val="{{ false }}">
-<div role="group" aria-labelledby="aboard-l" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: #F6F4EF; border-radius: 12px;">
-<span id="aboard-l" style="font-size: 14px; font-weight: 700;">What time is all aboard?</span>
+<div role="group" aria-labelledby="aboard-l" style="display: flex; flex-direction: column; gap: 6px; padding: 8px 10px; background: #F6F4EF; border-radius: 12px;">
+<span id="aboard-l" style="font-size: 13px; font-weight: 700;">What time is all aboard?</span>
 <div class="chips"><sc-for list="{{aboards}}" as="ab" hint-placeholder-count="4"><button type="button" aria-pressed="{{ab.on}}" onClick="{{ab.pick}}" style="{{ab.style}}">{{ab.label}}</button></sc-for></div>
-<span style="font-size: 12px; color: #5E5642;">We'll leave about 75 minutes to get back to Honolulu Harbor, plus a margin.</span>
 </div>
 </sc-if>
 </fieldset>
+</div>
 
-<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;">Make it yours <span style="font-weight: 400; color: #5E5642;">· optional</span></legend>
-
+<div style="border-top: 1px solid #E3DED4; padding-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+<span style="font-size: 15px; font-weight: 700;">Make it yours <span style="font-weight: 400; color: #5E5642;">· optional</span></span>
+<div class="more">
 <div role="group" aria-labelledby="eve-l" style="display: flex; flex-direction: column; gap: 6px;">
-<span id="eve-l" style="font-size: 14px; font-weight: 700;">Your evening</span>
+<span id="eve-l" style="font-size: 13px; font-weight: 700; color: #4A4336;">Your evening</span>
 <sc-if value="{{eveningLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #4A4336;">{{eveningFromTicket}}</span></sc-if>
 <sc-if value="{{eveningFree}}" hint-placeholder-val="{{ true }}"><div class="chips"><sc-for list="{{evenings}}" as="c" hint-placeholder-count="4"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div></sc-if>
 </div>
-
 <div role="group" aria-labelledby="pace-l" style="display: flex; flex-direction: column; gap: 6px;">
-<span id="pace-l" style="font-size: 14px; font-weight: 700;">Pace</span>
+<span id="pace-l" style="font-size: 13px; font-weight: 700; color: #4A4336;">Pace</span>
 <div class="chips"><sc-for list="{{paces}}" as="c" hint-placeholder-count="3"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
 <span style="font-size: 12px; color: #5E5642;">{{paceNote}}</span>
 </div>
-
 <div role="group" aria-labelledby="must-l" style="display: flex; flex-direction: column; gap: 6px;">
-<span id="must-l" style="font-size: 14px; font-weight: 700;">Don't let me miss</span>
+<span id="must-l" style="font-size: 13px; font-weight: 700; color: #4A4336;">Don't let me miss <span style="font-weight: 400;">· or tap places on the map</span></span>
 <div class="chips"><sc-for list="{{musts}}" as="c" hint-placeholder-count="10"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
 </div>
-
 <div role="group" aria-labelledby="int-l" style="display: flex; flex-direction: column; gap: 6px;">
-<span id="int-l" style="font-size: 14px; font-weight: 700;">We love</span>
+<span id="int-l" style="font-size: 13px; font-weight: 700; color: #4A4336;">We love</span>
 <div class="chips"><sc-for list="{{interests}}" as="c" hint-placeholder-count="5"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
 </div>
-<sc-if value="{{hasEdits}}" hint-placeholder-val="{{ false }}">
-<p style="margin: 0; font-size: 12px; line-height: 1.45; color: #5E5642;">Stops you've changed by hand stay put when you change these. <button type="button" onClick="{{resetEdits}}" style="padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 12px; cursor: pointer;">Start fresh</button></p>
-</sc-if>
-</fieldset>
-</form>
-
-<!-- ITINERARY -->
-<section class="tl" aria-labelledby="day-h" style="display: flex; flex-direction: column; gap: 12px;">
-<sc-if value="{{notReady}}" hint-placeholder-val="{{ true }}">
-<div style="padding: 40px 24px; border: 1px dashed #C9C0AE; border-radius: 16px; text-align: center; color: #5E5642; font-size: 16px; background: #FFFFFF;">
-<h3 id="day-h" style="margin: 0 0 6px; font-size: 20px; color: #27201B;">Your day will appear here</h3>
-<span>{{waitingText}}</span>
 </div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+<sc-if value="{{hasEdits}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: #5E5642;">Stops you've changed by hand stay put when you change these. <button type="button" onClick="{{resetEdits}}" style="padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 12px; cursor: pointer;">Start fresh</button></span></sc-if>
+<span style="flex-grow: 1;"></span>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{closePrefs}}" style="min-height: 44px; padding: 0 18px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 15px; cursor: pointer;">Done</button></sc-if>
+</div>
+</div>
+</form>
 </sc-if>
-<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; flex-direction: column; gap: 10px;">
+
+<!-- MAP -->
+<section id="map" aria-labelledby="map-h" style="display: flex; flex-direction: column; gap: 10px;">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;">
 <div style="display: flex; flex-direction: column; gap: 2px;">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">{{dayEyebrow}}</span>
-<h3 id="day-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.1;">{{dayTitle}}</h3>
+<h2 id="map-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">{{mapTitle}}</h2>
+<span style="font-size: 14px; color: #5E5642;">{{mapSub}}</span>
 </div>
-<span style="font-size: 14px; color: #5E5642;">{{daySummary}}</span>
+<span style="font-size: 13px; color: #5E5642;">Drag to move · + and − to zoom (− shows the whole map) · tap any place</span>
 </div>
-<sc-if value="{{note}}" hint-placeholder-val="{{ false }}">
-<div role="note" style="padding: 10px 14px; background: #E6EFF1; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #153A45;">{{note}}</div>
-</sc-if>
-<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}">
-<p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{msg}}</p>
-</sc-if>
-<span style="font-size: 13px; color: #5E5642;">Tap a stop to swap, move or remove it, or drag it to another time. Tap a gap to add something.</span>
-<div role="list" aria-label="Your itinerary" style="{{tlStyle}}">
-<sc-for list="{{hourLines}}" as="h" hint-placeholder-count="10">
-<div aria-hidden="true" style="{{h.style}}"><span style="position: absolute; left: 0; top: -9px; width: 48px; font-size: 12px; color: #5E5642; text-align: right;">{{h.label}}</span></div>
-</sc-for>
-<sc-for list="{{gaps}}" as="g" hint-placeholder-count="2">
-<button type="button" onClick="{{g.pick}}" aria-label="{{g.aria}}" style="{{g.style}}">+ {{g.label}}</button>
-</sc-for>
-<sc-for list="{{blocks}}" as="b" hint-placeholder-count="8">
-<div role="listitem" style="{{b.wrap}}">
-<button type="button" class="tl-block" onClick="{{b.select}}" onPointerDown="{{b.down}}" aria-label="{{b.aria}}" aria-pressed="{{b.on}}" style="{{b.style}}">
-<span aria-hidden="true" style="{{b.badge}}">{{b.code}}</span>
-<span style="display: flex; flex-direction: column; min-width: 0; text-align: left;">
-<span style="font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{b.time}} · {{b.title}}</span>
-<sc-if value="{{b.showSub}}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; color: #5E5642; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{b.sub}}</span></sc-if>
-</span>
-<sc-if value="{{b.tag}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: #EFEBE2; color: #4A4336;">{{b.tag}}</span></sc-if>
-</button>
-<sc-if value="{{b.conflict}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: 8px; bottom: -9px; z-index: 3; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: #B42318; color: #FFFFFF;">{{b.conflict}}</span></sc-if>
-</div>
+<div class="map-wrap" style="position: relative;">
+<div class="map-band" style="{{bandStyle}}" onPointerDown="{{panDown}}" onDoubleClick="{{zoomIn}}">
+<div role="img" aria-label="{{mapAria}}" style="{{layerStyle}}">
+<img src="assets/d497d5da52a9fbf62bdad6bd124bd428.webp" alt="" draggable="false" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;">
+<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none;">
+<path d="{{routeD}}" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" opacity="0.85"></path>
+<path d="{{routeD}}" fill="none" stroke="#153A45" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+</svg>
+<sc-for list="{{pins}}" as="pin" hint-placeholder-count="15">
+<button type="button" class="pin" onClick="{{pin.pick}}" aria-label="{{pin.aria}}" aria-pressed="{{pin.on}}" style="{{pin.style}}"><span style="{{pin.dotStyle}}">{{pin.text}}</span><sc-if value="{{pin.showLabel}}" hint-placeholder-val="{{ false }}"><span class="pin-label">{{pin.label}}</span></sc-if></button>
 </sc-for>
 </div>
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-<button type="button" onClick="{{sendToApp}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 16px; cursor: pointer;">Send to the PCC app</button>
-<button type="button" onClick="{{shareDay}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 16px; cursor: pointer;">Share this day</button>
-<a href="App-Today.dc.html" style="font-size: 14px; font-weight: 700;">Preview it in the app</a>
-</div>
-<sc-if value="{{sentMsg}}" hint-placeholder-val="{{ false }}"><p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{sentMsg}}</p></sc-if>
-
-<section aria-labelledby="return-h" style="padding: 16px 18px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 6px;">
-<h4 id="return-h" style="margin: 0; font-size: 16px; font-weight: 700;">Coming back? Your villages ticket is good for 3 days</h4>
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{returnText}}</p>
-<sc-if value="{{hasLeftover}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Save for your return:</strong> {{leftover}}</p></sc-if>
-<span style="font-size: 12px; color: #5E5642;">Planning a second day is coming soon.</span>
-</section>
-</div>
-</sc-if>
-</section>
-
-<!-- SIDE: selected stop, map -->
-<aside class="side" aria-label="Details" style="display: flex; flex-direction: column; gap: 14px;">
-<div style="position: relative; width: 100%; aspect-ratio: 2601 / 1100; border-radius: 14px; overflow: hidden; background: #DCE7D9; border: 1px solid #E3DED4;">
-<img src="assets/d497d5da52a9fbf62bdad6bd124bd428.webp" alt="Map of the Center with your stops numbered in order" style="position: absolute; left: 0; top: 18%; width: 100%; height: 64%; display: block;">
-<div style="position: absolute; left: 0; top: 18%; width: 100%; height: 64%;">
-<sc-for list="{{mapPins}}" as="pin" hint-placeholder-count="6"><span aria-hidden="true" style="{{pin.style}}">{{pin.label}}</span></sc-for>
-</div>
+<div style="position: absolute; left: 14px; top: 14px; z-index: 15; display: flex; flex-direction: column; gap: 6px;">
+<button type="button" onClick="{{zoomIn}}" aria-label="Zoom in" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 22px; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">+</button>
+<button type="button" onClick="{{zoomOut}}" disabled="{{atMinZoom}}" aria-label="Zoom out" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 22px; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">−</button>
+<button type="button" onClick="{{fitMap}}" aria-label="Center on my day" title="Center on my day" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #D8CCB6; background: #FFFFFF; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></svg></button>
+<button type="button" onClick="{{toggleBig}}" aria-pressed="{{big}}" aria-label="{{bigLabel}}" title="{{bigLabel}}" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #D8CCB6; background: #FFFFFF; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{bigIcon}}"></path></svg></button>
 </div>
 
-<sc-if value="{{panelNone}}" hint-placeholder-val="{{ true }}">
-<div style="padding: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 8px;">
-<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{sumTitle}}</h3>
-<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
-<sc-for list="{{stats}}" as="st" hint-placeholder-count="4"><li style="display: flex; flex-direction: column; padding: 10px 12px; background: #F6F4EF; border-radius: 10px;"><span style="font-size: 20px; font-weight: 700; color: #215968;">{{st.value}}</span><span style="font-size: 13px; color: #5E5642;">{{st.label}}</span></li></sc-for>
+<div style="position: absolute; left: 14px; bottom: 14px; z-index: 15; display: flex; flex-wrap: wrap; gap: 6px; " class="map-legend">
+<button type="button" onClick="{{toggleLabels}}" aria-pressed="{{labels}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">{{labelsText}}</button>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{toggleRoute}}" aria-pressed="{{route}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">{{routeText}}</button></sc-if>
+<span style="min-height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,0.94); font-size: 12px; color: #4A4336; box-shadow: 0 2px 6px rgba(0,0,0,0.12);"><span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #215968; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;">1</span>In your day <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #857D69; opacity: 0.8;"></span>Not in your day</span>
+</div>
+
+</div>
+<!-- CARD on the map: a place, a stop, or a free gap -->
+<sc-if value="{{cardOpen}}" hint-placeholder-val="{{ false }}">
+<div class="map-card" onPointerDown="{{stop}}" style="background: #FFFFFF; border-radius: 16px; box-shadow: 0 12px 32px rgba(21,58,69,0.28); padding: 16px; display: flex; flex-direction: column; gap: 10px; box-sizing: border-box; cursor: auto;">
+
+<sc-if value="{{cardPlace}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; align-items: flex-start; gap: 10px;">
+<span aria-hidden="true" style="{{plc.badge}}">{{plc.code}}</span>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto;">
+<h3 style="margin: 0; font-size: 19px; font-weight: 700;">{{plc.name}}</h3>
+<span style="font-size: 13px; color: #5E5642;">{{plc.zone}}</span>
+</div>
+<button type="button" onClick="{{closePanel}}" aria-label="Close" style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; cursor: pointer; font-size: 18px; color: #27201B;">×</button>
+</div>
+<sc-if value="{{plc.img}}" hint-placeholder-val="{{ false }}"><img src="{{plc.img}}" alt="{{plc.alt}}" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: #E3DED4;"></sc-if>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{plc.promise}}</p>
+<sc-if value="{{plc.canMust}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{plc.toggleMust}}" aria-pressed="{{plc.must}}" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: {{plc.mustBg}}; color: {{plc.mustFg}}; font-weight: 700; font-size: 13px; cursor: pointer;">{{plc.mustLabel}}</button></sc-if>
+<h4 style="margin: 4px 0 0; font-size: 14px; font-weight: 700;">{{plc.listTitle}}</h4>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
+<sc-for list="{{plc.events}}" as="pe" hint-placeholder-count="4">
+<li style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border: 1px solid #E3DED4; border-radius: 10px; background: {{pe.bg}};">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;"><span style="font-size: 14px; font-weight: 700;">{{pe.title}}</span><span style="font-size: 12px; color: #5E5642; white-space: nowrap;">{{pe.dur}}</span></div>
+<span style="font-size: 12px; color: #5E5642;">{{pe.times}}</span>
+<sc-if value="{{pe.inDay}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{pe.open}}" style="align-self: flex-start; min-height: 36px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 13px; cursor: pointer; text-decoration: underline;">{{pe.inDayLabel}}</button></sc-if>
+<sc-if value="{{pe.canAdd}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{pe.add}}" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 13px; cursor: pointer;">{{pe.addLabel}}</button></sc-if>
+<sc-if value="{{pe.noFit}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: #5E5642;">{{pe.noFit}}</span></sc-if>
+</li>
+</sc-for>
 </ul>
-<span style="font-size: 13px; line-height: 1.45; color: #5E5642;">{{sumNote}}</span>
 </div>
 </sc-if>
 
-<sc-if value="{{panelStop}}" hint-placeholder-val="{{ false }}">
-<section aria-labelledby="sel-h" style="padding: 16px; background: #FFFFFF; border: 2px solid #215968; border-radius: 14px; display: flex; flex-direction: column; gap: 10px;">
+<sc-if value="{{cardStop}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
 <div style="display: flex; align-items: flex-start; gap: 10px;">
 <span aria-hidden="true" style="{{sel.badge}}">{{sel.code}}</span>
 <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto;">
-<h3 id="sel-h" style="margin: 0; font-size: 18px; font-weight: 700;">{{sel.title}}</h3>
-<span style="font-size: 14px; color: #4A4336;">{{sel.meta}}</span>
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">{{sel.step}}</span>
+<h3 style="margin: 0; font-size: 18px; font-weight: 700;">{{sel.title}}</h3>
+<span style="font-size: 13px; color: #4A4336;">{{sel.meta}}</span>
 </div>
 <button type="button" onClick="{{closePanel}}" aria-label="Close" style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; cursor: pointer; font-size: 18px; color: #27201B;">×</button>
 </div>
 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{sel.what}}</p>
+<sc-if value="{{sel.walk}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #153A45;">{{sel.walk}}</p></sc-if>
 <sc-if value="{{sel.why}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #215968;">{{sel.why}}</p></sc-if>
 <sc-if value="{{sel.conflict}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; font-weight: 700; color: #B42318;">{{sel.conflict}}</p></sc-if>
-<sc-if value="{{sel.fromTicket}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #5E5642;">This time is on your ticket. Removing it here only changes your plan.</p></sc-if>
-<div style="display: flex; flex-wrap: wrap; gap: 8px;">
-<button type="button" onClick="{{sel.earlier}}" disabled="{{sel.noEarlier}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #27201B; cursor: pointer;">{{sel.earlierLabel}}</button>
-<button type="button" onClick="{{sel.later}}" disabled="{{sel.noLater}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #27201B; cursor: pointer;">{{sel.laterLabel}}</button>
-<button type="button" onClick="{{sel.remove}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #8A1C12; cursor: pointer;">Remove</button>
+<sc-if value="{{sel.fromTicket}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 12px; color: #5E5642;">This time is on your ticket. Changing it here only changes your plan.</p></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<button type="button" onClick="{{sel.earlier}}" disabled="{{sel.noEarlier}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 13px; color: #27201B; cursor: pointer;">{{sel.earlierLabel}}</button>
+<button type="button" onClick="{{sel.later}}" disabled="{{sel.noLater}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 13px; color: #27201B; cursor: pointer;">{{sel.laterLabel}}</button>
+<button type="button" onClick="{{sel.remove}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 13px; color: #8A1C12; cursor: pointer;">Remove</button>
 </div>
-<div style="display: flex; flex-direction: column; gap: 6px;">
-<h4 style="margin: 4px 0 0; font-size: 14px; font-weight: 700;">{{altTitle}}</h4>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+<button type="button" onClick="{{sel.prev}}" disabled="{{sel.isFirst}}" style="min-height: 36px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 13px; cursor: pointer;">← Previous stop</button>
+<button type="button" onClick="{{sel.next}}" disabled="{{sel.isLast}}" style="min-height: 36px; padding: 0; border: none; background: none; color: #215968; font-weight: 700; font-size: 13px; cursor: pointer;">Next stop →</button>
+</div>
+<h4 style="margin: 2px 0 0; font-size: 14px; font-weight: 700;">{{altTitle}}</h4>
 <sc-if value="{{noAlts}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5642;">Nothing else fits this slot. Try moving a neighboring stop.</span></sc-if>
 <sc-for list="{{alts}}" as="a" hint-placeholder-count="4">
 <button type="button" onClick="{{a.pick}}" style="min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 10px; border: 1px solid #E3DED4; background: #FFFFFF; cursor: pointer; text-align: left; color: #27201B;"><span aria-hidden="true" style="{{a.badge}}">{{a.code}}</span><span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 14px; font-weight: 700;">{{a.time}} · {{a.title}}</span><span style="font-size: 12px; color: #5E5642;">{{a.sub}}</span></span></button>
 </sc-for>
 </div>
-</section>
 </sc-if>
 
-<sc-if value="{{panelGap}}" hint-placeholder-val="{{ false }}">
-<section aria-labelledby="gap-h" style="padding: 16px; background: #FFFFFF; border: 2px solid #215968; border-radius: 14px; display: flex; flex-direction: column; gap: 8px;">
+<sc-if value="{{cardGap}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px;">
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-<h3 id="gap-h" style="margin: 0; font-size: 17px; font-weight: 700;">{{gapTitle}}</h3>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{gapTitle}}</h3>
 <button type="button" onClick="{{closePanel}}" aria-label="Close" style="width: 40px; height: 40px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; cursor: pointer; font-size: 18px; color: #27201B;">×</button>
 </div>
+<span style="font-size: 13px; color: #5E5642;">Ranked for you, with the walk already counted.</span>
 <sc-if value="{{noAlts}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5642;">Nothing fits this gap. It's a good moment to rest or wander.</span></sc-if>
 <sc-for list="{{alts}}" as="a" hint-placeholder-count="4">
 <button type="button" onClick="{{a.pick}}" style="min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 10px; border: 1px solid #E3DED4; background: #FFFFFF; cursor: pointer; text-align: left; color: #27201B;"><span aria-hidden="true" style="{{a.badge}}">{{a.code}}</span><span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 14px; font-weight: 700;">{{a.time}} · {{a.title}}</span><span style="font-size: 12px; color: #5E5642;">{{a.sub}}</span></span></button>
 </sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+
+<!-- DAY STRIP under the map -->
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;">
+<span style="font-size: 14px; font-weight: 700;">Your day</span>
+<span style="font-size: 13px; color: #5E5642;">Drag a stop along the line to change its time · tap + to fill a gap</span>
+<span style="flex-grow: 1;"></span>
+<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}"><span role="status" style="font-size: 13px; color: #153A45; font-weight: 700;">{{msg}}</span></sc-if>
+</div>
+<div class="strip-wrap">
+<div role="list" aria-label="Your day on a timeline" style="{{stripStyle}}">
+<sc-for list="{{ticks}}" as="tk2" hint-placeholder-count="10">
+<span aria-hidden="true" style="{{tk2.style}}">{{tk2.label}}</span>
+</sc-for>
+<sc-for list="{{gaps}}" as="g" hint-placeholder-count="2">
+<button type="button" onClick="{{g.pick}}" aria-label="{{g.aria}}" title="{{g.aria}}" style="{{g.style}}">+</button>
+</sc-for>
+<sc-for list="{{blocks}}" as="b" hint-placeholder-count="10">
+<div role="listitem" style="{{b.wrap}}">
+<button type="button" class="blk" onClick="{{b.select}}" onPointerDown="{{b.down}}" aria-label="{{b.aria}}" aria-pressed="{{b.on}}" title="{{b.aria}}" style="{{b.style}}">
+<span aria-hidden="true" style="{{b.badge}}">{{b.n}}</span>
+<sc-if value="{{b.wide}}" hint-placeholder-val="{{ true }}"><span style="display: flex; flex-direction: column; min-width: 0; text-align: left; line-height: 1.2;"><span style="font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{b.title}}</span><span style="font-size: 11px; color: #5E5642; white-space: nowrap;">{{b.time}}</span></span></sc-if>
+</button>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+</section>
+
+<!-- STEP BY STEP + actions -->
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<section aria-labelledby="day-h" class="below">
+<div class="below-list" style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">{{dayEyebrow}}</span>
+<h2 id="day-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">{{dayTitle}}</h2>
+<span style="font-size: 14px; color: #5E5642;">{{daySummary}}</span>
+</div>
+<sc-if value="{{note}}" hint-placeholder-val="{{ false }}"><div role="note" style="padding: 10px 14px; background: #E6EFF1; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #153A45;">{{note}}</div></sc-if>
+<ol aria-label="Your day, step by step" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="10">
+<li style="display: flex; flex-direction: column;">
+<sc-if value="{{st.walk}}" hint-placeholder-val="{{ false }}"><span style="margin-left: 108px; padding: 3px 0 3px 12px; border-left: 2px dotted #C9C0AE; font-size: 12px; color: #5E5642;">{{st.walk}}</span></sc-if>
+<button type="button" onClick="{{st.open}}" aria-pressed="{{st.on}}" style="{{st.style}}">
+<span style="width: 72px; flex-shrink: 0; white-space: nowrap; font-weight: 700; font-size: 14px; text-align: left;">{{st.time}}</span>
+<span aria-hidden="true" style="{{st.badge}}">{{st.n}}</span>
+<span style="display: flex; flex-direction: column; min-width: 0; text-align: left; flex: 1 1 auto;"><span style="font-size: 15px; font-weight: 700;">{{st.title}}</span><span style="font-size: 12px; color: #5E5642;">{{st.sub}}</span></span>
+<sc-if value="{{st.tag}}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #EFEBE2; color: #4A4336;">{{st.tag}}</span></sc-if>
+<sc-if value="{{st.conflict}}" hint-placeholder-val="{{ false }}"><span style="flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #B42318; color: #FFFFFF;">{{st.conflict}}</span></sc-if>
+</button>
+</li>
+</sc-for>
+</ol>
+</div>
+<div class="below-side" style="display: flex; flex-direction: column; gap: 14px;">
+<div style="padding: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px;">
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{stats}}" as="sx" hint-placeholder-count="4"><li style="display: flex; flex-direction: column; padding: 10px 12px; background: #F6F4EF; border-radius: 10px;"><span style="font-size: 20px; font-weight: 700; color: #215968;">{{sx.value}}</span><span style="font-size: 13px; color: #5E5642;">{{sx.label}}</span></li></sc-for>
+</ul>
+<button type="button" onClick="{{sendToApp}}" style="min-height: 48px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 16px; cursor: pointer;">Send to the PCC app</button>
+<button type="button" onClick="{{shareDay}}" style="min-height: 48px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 16px; cursor: pointer;">Share this day</button>
+<a href="App-Today.dc.html" style="text-align: center; font-size: 14px; font-weight: 700; padding: 6px 0;">Preview it in the app</a>
+<sc-if value="{{sentMsg}}" hint-placeholder-val="{{ false }}"><p role="status" style="margin: 0; font-size: 13px; color: #153A45;">{{sentMsg}}</p></sc-if>
+</div>
+<section aria-labelledby="return-h" style="padding: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 6px;">
+<h3 id="return-h" style="margin: 0; font-size: 16px; font-weight: 700;">Coming back? Your villages ticket is good for 3 days</h3>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{returnText}}</p>
+<sc-if value="{{hasLeftover}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Save for your return:</strong> {{leftover}}</p></sc-if>
+<span style="font-size: 12px; color: #5E5642;">Planning a second day is coming soon.</span>
+</section>
+</div>
 </section>
 </sc-if>
-</aside>
+
+<!-- THE VILLAGES -->
+<section id="explore" aria-labelledby="explore-h" style="display: flex; flex-direction: column; gap: 14px; margin-top: 24px;">
+<h2 id="explore-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 28px;">Six island nations, one walk around the lagoon</h2>
+<div class="villages" role="list" aria-label="The six island villages">
+<sc-for list="{{villages}}" as="v" hint-placeholder-count="6">
+<article role="listitem" style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
+<img src="{{v.img}}" alt="{{v.alt}}" style="display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #E3DED4;">
+<div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="{{v.badge}}">{{v.code}}</span><h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{v.name}}</h3></div>
+<span style="font-family: Fraunces, Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: #215968;">{{v.greeting}}</span>
+<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #4A4336;">{{v.promise}}</p>
+<a href="#map" onClick="{{v.show}}" style="font-size: 14px; font-weight: 700;">Show on the map</a>
+</div>
+</article>
+</sc-for>
 </div>
 </section>
 </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2600}}'>
 // ---- Event times, in the shape PCC's scheduling app is expected to supply them.
 // Sample data until the app can be read. Times in minutes after midnight; "win" = come any time in that window.
 var EVENTS = [
@@ -550,52 +626,111 @@ function conflictOf(plan, i) {
   return "";
 }
 
-var PX = 2.2; // timeline pixels per minute
+// What each non-village place is, for the map card.
+var PLACE_INFO = {
+  huki: { zone: "Lagoon show · daily at 1:00 PM", promise: "Performers from every island arrive by canoe and dance across the lagoon. The day's highlight; lagoon-side seats fill early.", img: "assets/34da04980b4c60daefc9f678815bacc2.webp", alt: "Performers dance on double-hulled canoes across the lagoon" },
+  canoe: { zone: "Lagoon · South and North Canoe Landings", promise: "Glide through the Center's lagoon with a guide, past the villages and gardens.", img: "assets/d9331cccec8b8d69a08806bedf12dae7.webp", alt: "Guests ride a canoe on the lagoon" },
+  mission: { zone: "Exhibit", promise: "A mission home, school house and chapel that tell the story of the community the Center grew from." },
+  iosepa: { zone: "Exhibit · near the North Canoe Landing", promise: "Iosepa, a 60-foot double-hulled voyaging canoe, and the carvers who keep the craft alive." },
+  journey: { zone: "Show and exhibit", promise: "An immersive film about Hawaiʻi, and a museum and gallery of the ʻukulele." },
+  market: { zone: "At the entrance · free to visit", promise: "A 1950s-style marketplace with Pounders Restaurant, food trucks and local shops, open to everyone." },
+  gateway: { zone: "Evening dining", promise: "An island buffet with live music, before the evening show." },
+  luau: { zone: "Evening dining · Hale Aloha", promise: "The Aliʻi Lūʻau: a royal feast with the imu ceremony and the royal court.", img: "assets/67eb68cba7f8dc710502053c3f85a920.jpg", alt: "Hula dancers in purple holokū at the Aliʻi Lūʻau" },
+  theater: { zone: "Evening show · Pacific Theater", promise: "HĀ: Breath of Life. More than 100 performers tell one life in song, dance and fire.", img: "assets/4a9b88a1746b3d047fe516697c53704e.jpg", alt: "Fire knife dancers spinning circles of fire at night" }
+};
+var IMG_RATIO = 704 / 2601;
+var PXH = 2.6; // day strip pixels per minute
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { ticket: null, confInput: "", confErr: "", party: null, date: null, hours: null, stay: null, aboard: null, evening: null, pace: "balanced", must: {}, interests: {},
-      plan: null, excluded: {}, sel: null, ghost: null, msg: "", sentMsg: "" };
+      plan: null, excluded: {}, sel: null, ghost: null, msg: "", sentMsg: "", prefsOpen: true,
+      vw: 1440, vh: 900, big: false, z: null, cx: 58, cy: 50, labels: true, route: true };
+  }
+  // ---- map geometry
+  band(st) {
+    st = st || this.state;
+    var w = Math.min(st.vw, 1400) - 48, h = st.big ? Math.max(420, st.vh - 90) : Math.max(380, Math.min(680, Math.round(st.vh * 0.68)));
+    if (st.vw < 700) h = Math.max(360, Math.round(st.vh * 0.55));
+    return { w: w, h: h };
+  }
+  fillZ(st) { var b = this.band(st); return Math.max(100, Math.round(b.h / (b.w * IMG_RATIO) * 100)); }
+  clampView(z, cx, cy, st) {
+    var b = this.band(st), lw = b.w * z / 100, lh = lw * IMG_RATIO;
+    var hx = b.w / 2 / lw * 100, hy = b.h / 2 / lh * 100;
+    // With a card open on the right, allow panning far enough to bring the map's right edge clear of it.
+    var extra = st.sel && st.vw > 900 ? 390 / lw * 100 : 0;
+    cx = lw <= b.w ? 50 : Math.min(100 - hx + extra, Math.max(hx, cx));
+    cy = lh <= b.h ? 50 : Math.min(100 - hy, Math.max(hy, cy));
+    return { z: z, cx: cx, cy: cy };
+  }
+  view(st) { st = st || this.state; var z = st.z == null ? this.fillZ(st) : st.z; return this.clampView(z, st.cx, st.cy, st); }
+  flyTo(placeId, extra) {
+    var pl = PLACES[placeId]; if (!pl) { if (extra) this.setState(extra); return; }
+    var v = this.view(), z = Math.max(v.z, this.fillZ());
+    var st2 = Object.assign({}, this.state, extra || {}), lwz = this.band(st2).w * z / 100;
+    var c = this.clampView(z, pl.x + (st2.sel && st2.vw > 900 ? 195 / lwz * 100 : 0), pl.y, st2);
+    this.setState(Object.assign({ z: c.z, cx: c.cx, cy: c.cy }, extra || {}));
+  }
+  fitDay() {
+    var plan = (this.state.plan || []).filter(function (x) { return PLACES[placeOf(x)]; });
+    var pts = plan.length ? plan.map(function (x) { return PLACES[placeOf(x)]; }) : VILLAGE_IDS.map(function (v) { return PLACES[v]; });
+    var minX = Math.min.apply(null, pts.map(function (p) { return p.x; })), maxX = Math.max.apply(null, pts.map(function (p) { return p.x; }));
+    // Fill the frame (no empty bands) and center on the middle of the day.
+    var meanX = pts.reduce(function (a, p) { return a + p.x; }, 0) / pts.length;
+    var z = this.fillZ(), c = this.clampView(z, (meanX + (minX + maxX) / 2) / 2, 50, this.state);
+    this.setState({ z: c.z, cx: c.cx, cy: c.cy });
   }
   componentDidMount() {
     var self = this;
+    this.onResize = function () { try { self.setState({ vw: window.innerWidth || 1440, vh: window.innerHeight || 900 }); } catch (err) {} };
+    this.onResize();
     this.onMove = function (ev) {
       var d = self.drag; if (!d) return;
-      var dy = ev.clientY - d.y; if (Math.abs(dy) > 4) d.moved = true;
-      if (d.moved) self.setState({ ghost: { key: d.key, t: Math.round((d.t0 + dy / PX) / 5) * 5 } });
+      var dx = ev.clientX - d.x, dy = ev.clientY - d.y;
+      if (Math.abs(dx) + Math.abs(dy) > 5) d.moved = true;
+      if (!d.moved) return;
+      if (d.type === "pan") {
+        var b = self.band(), lw = b.w * d.z / 100, lh = lw * IMG_RATIO;
+        var c = self.clampView(d.z, d.cx - dx / lw * 100, d.cy - dy / lh * 100, self.state);
+        self.setState({ cx: c.cx, cy: c.cy, z: d.z });
+      } else self.setState({ ghost: { key: d.key, t: Math.round((d.t0 + dx / PXH) / 5) * 5 } });
     };
     this.onUp = function () {
-      var d = self.drag; self.drag = null; if (!d || !d.moved) { if (d) self.setState({ ghost: null }); return; }
-      self._justDragged = true; setTimeout(function () { self._justDragged = false; }, 50);
+      var d = self.drag; self.drag = null; if (!d) return;
+      if (d.moved) { self._justDragged = true; setTimeout(function () { self._justDragged = false; }, 60); }
+      if (d.type !== "block" || !d.moved) { if (d.type === "block") self.setState({ ghost: null }); return; }
       var g = self.state.ghost, plan = self.state.plan || [], it = plan.filter(function (x) { return x.key === d.key; })[0];
       if (!g || !it) { self.setState({ ghost: null }); return; }
       var ts = validTimes(BYID[it.id]); if (it.id === "break") { ts = []; for (var t = 720; t <= 1230; t += 5) ts.push(t); }
-      var best = ts.reduce(function (b, t) { return b == null || Math.abs(t - g.t) < Math.abs(b - g.t) ? t : b; }, null);
-      self.retime(d.key, best == null ? it.t : best, true);
+      var best = ts.reduce(function (bb, t) { return bb == null || Math.abs(t - g.t) < Math.abs(bb - g.t) ? t : bb; }, null);
+      self.retime(d.key, best == null ? it.t : best);
     };
-    try { window.addEventListener("pointermove", this.onMove); window.addEventListener("pointerup", this.onUp); window.addEventListener("pointercancel", this.onUp); } catch (err) {}
-    // A link from a confirmation email (?b=PCC-48213) pulls up that ticket.
+    try { window.addEventListener("resize", this.onResize); window.addEventListener("pointermove", this.onMove); window.addEventListener("pointerup", this.onUp); window.addEventListener("pointercancel", this.onUp); } catch (err) {}
+    // A link with a confirmation number (?b=PCC-48213) pulls up that ticket.
     try { var m = ((window.location.search || "") + "&" + (window.location.hash || "")).match(/[?&#]b=([A-Za-z0-9-]+)/); if (m) this.loadTicket(m[1].toUpperCase()); } catch (err) {}
   }
-  componentWillUnmount() { try { window.removeEventListener("pointermove", this.onMove); window.removeEventListener("pointerup", this.onUp); window.removeEventListener("pointercancel", this.onUp); } catch (err) {} }
+  componentWillUnmount() { try { window.removeEventListener("resize", this.onResize); window.removeEventListener("pointermove", this.onMove); window.removeEventListener("pointerup", this.onUp); window.removeEventListener("pointercancel", this.onUp); } catch (err) {} }
   componentDidUpdate(pp, psIn) {
     var s = this.state, ps = psIn || this._ps || {}; this._ps = s;
     if (ps.plan === s.plan || !s.plan) return;
     var tk = s.ticket ? TICKETS[s.ticket] : null;
     var plan = s.plan.map(function (x) { var ev = BYID[x.id]; return { p: placeOf(x), e: x.id, t: x.t, dur: ev.dur, fixed: x.kind === "ticket", title: ev.title, place: PLACES[placeOf(x)] ? PLACES[placeOf(x)].name : "" }; });
-    // Shaped for more than one day: the 3-day villages pass allows a return visit.
+    // Stored as a list of days: the 3-day villages pass allows a return visit.
     saveRec({ v: 2, source: "itinerary", party: s.party, date: s.date, ticket: s.ticket, conf: s.ticket, ticketName: tk ? tk.name : null, stay: s.stay,
       days: [{ date: s.date, plan: plan }], plan: plan });
   }
   ready(st) { return !!(st.party && st.date !== null && st.hours && st.stay && (st.stay !== "cruise" || st.aboard)); }
-  // Change preferences and rebuild, keeping hand-edited stops.
   setPrefs(patch, msg, fresh) {
-    var st = Object.assign({}, this.state, patch);
+    var st = Object.assign({}, this.state, patch), wasReady = this.ready(this.state);
     var keep = fresh ? [] : (this.state.plan || []).filter(function (x) { return x.kind === "edited"; });
     st.plan = this.ready(st) ? generate(st, keep) : null;
     var dropped = st.plan && st.plan._dropped && st.plan._dropped.length ? st.plan._dropped.join(" and ") + " didn't fit your hours, so we left " + (st.plan._dropped.length > 1 ? "them" : "it") + " out." : "";
-    this.setState(Object.assign(patch, { plan: st.plan, sel: null, msg: msg || dropped, sentMsg: "" }));
+    var extra = { plan: st.plan, sel: null, msg: msg || dropped, sentMsg: "" };
+    if (!wasReady && st.plan) { extra.prefsOpen = false; extra.msg = extra.msg || "Here's your day. Tap a stop on the map or the timeline to change it."; }
+    this.setState(Object.assign(patch, extra));
+    if (!wasReady && st.plan) { var self = this; setTimeout(function () { self.fitDay(); try { document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} }, 30); }
   }
   loadTicket(conf) {
     var tk = TICKETS[conf];
@@ -603,55 +738,85 @@ class Component extends DCLogic {
     this.setPrefs({ ticket: conf, confErr: "", confInput: "", date: tk.date, party: this.state.party || (tk.kids ? "family" : "couple"), hours: this.state.hours || (tk.evening === "none" ? "afternoon" : "allday"),
       stay: tk.coach ? "waikiki" : this.state.stay, excluded: {} }, "Built around your " + tk.name + ".", true);
   }
-  edit(newPlan, msg) { newPlan.sort(function (a, b) { return a.t - b.t; }); this.setState({ plan: newPlan, msg: msg || "", sentMsg: "" }); }
-  retime(key, t, keepSel) {
+  edit(newPlan, msg, extra) { newPlan.sort(function (a, b) { return a.t - b.t; }); this.setState(Object.assign({ plan: newPlan, msg: msg || "", sentMsg: "" }, extra || {})); }
+  retime(key, t) {
     var plan = (this.state.plan || []).map(function (x) { return x.key === key ? Object.assign({}, x, { t: t, kind: x.kind === "ticket" ? "ticket" : "edited" }) : x; });
     var it = plan.filter(function (x) { return x.key === key; })[0];
-    this.setState({ ghost: null }); this.edit(plan, BYID[it.id].title + " moved to " + fmt(t) + ".");
-    if (keepSel) this.setState({ sel: { type: "stop", key: key } });
+    this.edit(plan, BYID[it.id].title + " moved to " + fmt(t) + ".", { ghost: null, sel: { type: "stop", key: key } });
+  }
+  selectStop(x) { this.flyTo(placeOf(x), { sel: { type: "stop", key: x.key } }); }
+  // Earliest time an event fits around the current day, walking included.
+  slotFor(ev, plan, W) {
+    var ts = validTimes(ev);
+    for (var i = 0; i < ts.length; i++) {
+      var t = ts[i]; if (W && (t < W[0] || t + ev.dur > W[1])) continue;
+      var prev = null, next = null;
+      plan.forEach(function (x) { if (x.t <= t) prev = x; else if (!next) next = x; });
+      if (prev && prev.t + durOf(prev) + walkMin(placeOf(prev), ev.p) > t) continue;
+      if (next && t + ev.dur + walkMin(ev.p, placeOf(next)) > next.t) continue;
+      return t;
+    }
+    return null;
   }
   renderVals() {
     var s = this.state, self = this, ready = this.ready(s), plan = s.plan || [];
-    var tk = s.ticket ? TICKETS[s.ticket] : null;
-    var W = windowOf(s);
+    var tk = s.ticket ? TICKETS[s.ticket] : null, W = windowOf(s);
     var d = s.date !== null ? DATES[s.date] : null, dateLong = d ? LONG_DOW[d[0]] + ", " + d[1] : "";
+    var stopsOnly = plan.filter(function (x) { return x.id !== "break"; });
+    var numOf = {}; stopsOnly.forEach(function (x, n) { numOf[x.key] = n + 1; });
 
-    // ---- timeline geometry
+    // ---- map
+    var b = this.band(), v = this.view(), lw = b.w * v.z / 100;
+    var selIt = s.sel && s.sel.type === "stop" ? plan.filter(function (x) { return x.key === s.sel.key; })[0] : null;
+    var selPlace = s.sel && s.sel.type === "place" ? s.sel.p : selIt ? placeOf(selIt) : null;
+    var byPlace = {}; stopsOnly.forEach(function (x) { var p = placeOf(x); (byPlace[p] = byPlace[p] || []).push(numOf[x.key]); });
+    var pins = Object.keys(PLACES).map(function (pid) {
+      var pl = PLACES[pid], nums = byPlace[pid], inDay = !!nums, on = selPlace === pid;
+      var big = pl.village || inDay, size = inDay ? (on ? 40 : 34) : (pl.village ? 34 : 26);
+      var text = inDay ? nums.join("·") : pl.code;
+      var wpx = inDay && nums.length > 1 ? size + (nums.length - 1) * 16 : size;
+      return { label: pl.name, text: text, on: on, showLabel: s.labels || on,
+        aria: pl.name + (inDay ? ", stop " + nums.join(" and ") + " in your day" : ready ? ", not in your day" : "") + ". Show what's on here.",
+        style: "left: " + pl.x + "%; top: " + pl.y + "%; z-index: " + (on ? 9 : inDay ? 6 : 4) + "; background: none;",
+        dotStyle: "display: flex; align-items: center; justify-content: center; min-width: " + wpx + "px; height: " + size + "px; padding: 0 4px; box-sizing: border-box; border-radius: " + (inDay ? 999 : 9) + "px; " +
+          "background: " + (inDay ? pl.color : ready ? "rgba(133,125,105,0.85)" : pl.color) + "; color: #FFFFFF; font-weight: 700; font-size: " + (inDay ? 14 : 12) + "px; " +
+          "border: " + (on ? "3px solid #F4EB96" : "2px solid #FFFFFF") + "; box-shadow: 0 2px 8px rgba(0,0,0," + (on ? 0.5 : 0.35) + ");" + (!big ? " opacity: 0.95;" : ""),
+        pick: function () { if (self._justDragged) return; self.flyTo(pid, { sel: { type: "place", p: pid } }); } };
+    });
+    var routePts = []; stopsOnly.forEach(function (x) { var p = PLACES[placeOf(x)]; if (!p) return; var last = routePts[routePts.length - 1]; if (!last || last.x !== p.x || last.y !== p.y) routePts.push(p); });
+    var routeD = ready && s.route && routePts.length > 1 ? routePts.map(function (p, i) { return (i ? "L" : "M") + p.x + " " + p.y; }).join(" ") : "";
+
+    // ---- day strip
     var ghostT = function (x) { return s.ghost && s.ghost.key === x.key ? s.ghost.t : x.t; };
-    var first = plan.length ? Math.min(plan[0].t, W ? W[0] : 720) : 660, last = plan.length ? Math.max.apply(null, plan.map(function (x) { return x.t + durOf(x); })) : 1245;
-    var T0 = Math.floor(first / 60) * 60, T1 = Math.ceil(last / 60) * 60;
-    var y = function (t) { return Math.round((t - T0) * PX); };
-    var hourLines = []; for (var h = T0; h <= T1; h += 60) hourLines.push({ label: fmt(h).replace(":00", ""), style: "position: absolute; left: 0; right: 0; top: " + y(h) + "px; height: 0; border-top: 1px solid #E3DED4;" });
-
+    var T0 = plan.length ? Math.floor(Math.min(plan[0].t, W ? W[0] : 720) / 60) * 60 : 660;
+    var T1 = plan.length ? Math.ceil(Math.max.apply(null, plan.map(function (x) { return x.t + durOf(x); })) / 60) * 60 : 1260;
+    var X = function (t) { return Math.round((t - T0) * PXH) + 12; };
+    var ticks = []; for (var h = T0; h <= T1; h += 30) ticks.push({ label: h % 60 ? "" : fmt(h).replace(":00", ""), style: "position: absolute; top: 0; bottom: 0; left: " + X(h) + "px; border-left: 1px " + (h % 60 ? "dotted #EFEBE2" : "solid #E3DED4") + "; font-size: 11px; color: #5E5642; padding: 4px 0 0 4px; white-space: nowrap;" });
+    var lane = {}, lastEnd = -1;
+    plan.forEach(function (x) { lane[x.key] = x.t < lastEnd ? 1 : 0; lastEnd = Math.max(lastEnd, x.t + durOf(x)); });
     var blocks = plan.map(function (x, i) {
-      var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", code: "··", color: "#857D69" }, t = ghostT(x), on = s.sel && s.sel.type === "stop" && s.sel.key === x.key;
-      var h2 = Math.max(Math.round(ev.dur * PX), 30), conflict = conflictOf(plan, i);
-      var w = i > 0 ? walkMin(placeOf(plan[i - 1]), placeOf(x)) : 0;
-      var tag = x.kind === "ticket" ? "On your ticket" : x.kind === "set" ? "Evening" : x.kind === "edited" ? "Your pick" : "";
-      return {
-        time: fmtS(t), title: ev.title, code: pl.code, badge: badge(pl.color, 26), tag: tag, conflict: conflict, on: on,
-        sub: (pl.name ? pl.name + " · " : "") + (ev.est ? "about " : "") + ev.dur + " min" + (w ? " · " + w + " min walk here" : ""), showSub: h2 >= 44,
-        aria: fmt(t) + ", " + ev.title + (pl.name ? ", " + pl.name : "") + ", " + ev.dur + " minutes" + (tag ? ", " + tag : "") + (conflict ? ". " + conflict : "") + ". Select to swap, move or remove.",
-        wrap: "position: absolute; left: 56px; right: 0; top: " + y(t) + "px; height: " + h2 + "px; z-index: " + (on || (s.ghost && s.ghost.key === x.key) ? 4 : 2) + ";",
-        style: "width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 10px; cursor: grab; color: #27201B; overflow: hidden; " +
-          "background: " + (x.id === "break" ? "#F6F4EF" : "#FFFFFF") + "; border: " + (on ? "2px solid #215968" : conflict ? "2px solid #B42318" : "1px solid #D8CCB6") + "; border-left: 5px solid " + pl.color + ";" + (s.ghost && s.ghost.key === x.key ? " box-shadow: 0 8px 20px rgba(21,58,69,0.25);" : ""),
-        select: function () { if (self._justDragged) return; self.setState({ sel: on ? null : { type: "stop", key: x.key } }); },
-        down: function (e) { if (e && e.button && e.button !== 0) return; self.drag = { key: x.key, y: e.clientY, t0: x.t, moved: false }; }
-      };
+      var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", code: "··", color: "#857D69" }, t = ghostT(x), on = selIt && selIt.key === x.key;
+      var wpx = Math.max(Math.round(ev.dur * PXH), 30), conflict = conflictOf(plan, i), dragging = s.ghost && s.ghost.key === x.key;
+      return { n: x.id === "break" ? "☕" : String(numOf[x.key]), title: ev.title, time: fmtS(t) + "–" + fmtS(t + ev.dur), on: on, wide: wpx >= 96,
+        aria: fmt(t) + ", " + ev.title + (pl.name ? ", " + pl.name : "") + (conflict ? ". " + conflict : "") + ". Select to change it, or drag to another time.",
+        badge: "flex-shrink: 0; min-width: 22px; height: 22px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: " + (x.id === "break" ? "#E3DED4" : pl.color) + "; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;",
+        wrap: "position: absolute; left: " + X(t) + "px; top: " + (26 + lane[x.key] * 50) + "px; width: " + wpx + "px; height: 44px; z-index: " + (on || dragging ? 5 : 2) + ";",
+        style: "width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 6px; border-radius: 9px; cursor: grab; color: #27201B; overflow: hidden; background: " + (x.id === "break" ? "#F6F4EF" : "#FFFFFF") + "; " +
+          "border: " + (on ? "2px solid #215968" : conflict ? "2px solid #B42318" : "1px solid #D8CCB6") + "; border-bottom: 4px solid " + pl.color + ";" + (dragging ? " box-shadow: 0 8px 18px rgba(21,58,69,0.3);" : ""),
+        select: function () { if (self._justDragged) return; self.selectStop(x); },
+        down: function (e) { if (e && e.button) return; if (e && e.stopPropagation) e.stopPropagation(); self.drag = { type: "block", key: x.key, x: e.clientX, y: e.clientY, t0: x.t, moved: false }; } };
     });
     var gaps = [];
     plan.forEach(function (x, i) {
       var n = plan[i + 1]; if (!n) return;
-      var end = x.t + durOf(x), free = n.t - end - walkMin(placeOf(x), placeOf(n));
-      if (free < 25) return;
-      var mid = end + (n.t - end) / 2, on = s.sel && s.sel.type === "gap" && s.sel.from === end;
-      gaps.push({ label: hm(n.t - end) + " free", aria: "Add something between " + fmt(end) + " and " + fmt(n.t),
-        style: "position: absolute; left: 64px; top: " + (y(mid) - 15) + "px; z-index: 1; min-height: 30px; padding: 0 12px; border-radius: 999px; border: 1px dashed " + (on ? "#215968" : "#A39A86") + "; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; color: #215968; font-size: 13px; font-weight: 700; cursor: pointer;",
-        pick: function () { self.setState({ sel: { type: "gap", from: end, fromPlace: placeOf(x), to: n.t, toPlace: placeOf(n) } }); } });
+      var end = x.t + durOf(x), free = n.t - end - walkMin(placeOf(x), placeOf(n)); if (free < 20) return;
+      var on = s.sel && s.sel.type === "gap" && s.sel.from === end;
+      gaps.push({ aria: "Add something between " + fmt(end) + " and " + fmt(n.t) + " (" + hm(n.t - end) + " free)",
+        style: "position: absolute; left: " + (X(end + (n.t - end) / 2) - 16) + "px; top: 32px; width: 32px; height: 32px; border-radius: 50%; border: 1px dashed " + (on ? "#215968" : "#857D69") + "; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; color: #215968; font-size: 18px; font-weight: 700; cursor: pointer; z-index: 3;",
+        pick: function () { self.flyTo(placeOf(x), { sel: { type: "gap", from: end, fromPlace: placeOf(x), to: n.t, toPlace: placeOf(n) } }); } });
     });
 
-    // ---- side panel
-    var selIt = s.sel && s.sel.type === "stop" ? plan.filter(function (x) { return x.key === s.sel.key; })[0] : null;
+    // ---- card: stop
     var sel = {}, alts = [], altTitle = "";
     if (selIt) {
       var i = plan.indexOf(selIt), ev = BYID[selIt.id], pl = PLACES[placeOf(selIt)] || { name: "", code: "··", color: "#857D69" };
@@ -659,49 +824,79 @@ class Component extends DCLogic {
       var ts = validTimes(ev), ti = ts.indexOf(selIt.t);
       var earlierT = selIt.id === "break" ? selIt.t - 15 : (ti > 0 ? ts[ti - 1] : null), laterT = selIt.id === "break" ? selIt.t + 15 : (ti >= 0 && ti < ts.length - 1 ? ts[ti + 1] : null);
       if (ev.win && ti >= 0) { earlierT = ti >= 3 ? ts[ti - 3] : (ti > 0 ? ts[0] : null); laterT = ti + 3 < ts.length ? ts[ti + 3] : (ti < ts.length - 1 ? ts[ts.length - 1] : null); }
-      var why = selIt.kind === "auto" ? (s.must[ev.p] ? "You asked not to miss " + pl.name + "." : ev.kids && s.party === "family" ? "A favorite with kids." : ev.couples && s.party === "couple" ? "A favorite with couples." : ev.sig ? "The village's main presentation." : (ev.cat || []).some(function (c) { return s.interests[c]; }) ? "Matches what you love." : "") : "";
-      sel = { title: ev.title, code: pl.code, badge: badge(pl.color, 40), meta: fmt(selIt.t) + "–" + fmt(selIt.t + ev.dur) + (pl.name ? " · " + pl.name : ""), what: ev.what, why: why, conflict: conflictOf(plan, i) || (next ? conflictOf(plan, i + 1) : ""),
-        fromTicket: selIt.kind === "ticket", noEarlier: earlierT == null, noLater: laterT == null,
+      var why = selIt.kind === "auto" ? (s.must[ev.p] ? "You asked not to miss " + pl.name + "." : ev.kids && s.party === "family" ? "A favorite with kids." : ev.couples && s.party === "couple" ? "A favorite with couples." : ev.sig ? "The main presentation here." : (ev.cat || []).some(function (c) { return s.interests[c]; }) ? "Matches what you love." : "") : selIt.kind === "edited" ? "You added this." : "";
+      var wk = prev ? walkMin(placeOf(prev), placeOf(selIt)) : 0;
+      sel = { step: selIt.id === "break" ? "Break" : "Stop " + numOf[selIt.key] + " of " + stopsOnly.length, title: ev.title, code: pl.code, badge: badge(pl.color, 42), meta: fmt(selIt.t) + "–" + fmt(selIt.t + ev.dur) + (pl.name ? " · " + pl.name : ""),
+        what: ev.what, why: why, walk: wk ? wk + " min walk from " + (PLACES[placeOf(prev)] ? PLACES[placeOf(prev)].name : "your last stop") + ", shown as the dotted line." : "",
+        conflict: conflictOf(plan, i) || (next ? conflictOf(plan, i + 1) : ""), fromTicket: selIt.kind === "ticket",
+        noEarlier: earlierT == null, noLater: laterT == null,
         earlierLabel: earlierT != null ? "Earlier · " + fmtS(earlierT) : "Earlier", laterLabel: laterT != null ? "Later · " + fmtS(laterT) : "Later",
-        earlier: function () { if (earlierT != null) self.retime(selIt.key, earlierT, true); }, later: function () { if (laterT != null) self.retime(selIt.key, laterT, true); },
-        remove: function () { var ex = Object.assign({}, s.excluded); ex[selIt.id] = true; self.setState({ excluded: ex, sel: null }); self.edit(plan.filter(function (x) { return x.key !== selIt.key; }), "Removed " + ev.title + "."); } };
+        earlier: function () { if (earlierT != null) self.retime(selIt.key, earlierT); }, later: function () { if (laterT != null) self.retime(selIt.key, laterT); },
+        remove: function () { var ex = Object.assign({}, s.excluded); ex[selIt.id] = true; self.edit(plan.filter(function (x) { return x.key !== selIt.key; }), "Removed " + ev.title + ".", { excluded: ex, sel: { type: "place", p: placeOf(selIt) } }); },
+        isFirst: i === 0, isLast: i === plan.length - 1,
+        prev: function () { if (prev) self.selectStop(prev); }, next: function () { if (next) self.selectStop(next); } };
       var from = prev ? prev.t + durOf(prev) : (W ? W[0] : 660), to = next ? next.t : (W ? W[1] : 1245);
       alts = fitsBetween(s, plan, from, prev ? placeOf(prev) : "market", to, next ? placeOf(next) : null, selIt.key);
-      altTitle = "Swap for something between " + fmtS(from) + " and " + fmtS(to);
+      altTitle = "Or swap for something between " + fmtS(from) + " and " + fmtS(to);
       alts = alts.map(function (a) { return { ev: a.ev, t: a.t, pick: function () {
-        var ex = Object.assign({}, s.excluded); ex[selIt.id] = true; self.setState({ excluded: ex });
-        var np = plan.filter(function (x) { return x.key !== selIt.key; }); var k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
-        self.edit(np, "Swapped " + ev.title + " for " + a.ev.title + " at " + fmt(a.t) + "."); self.setState({ sel: { type: "stop", key: k } }); } }; });
+        var ex = Object.assign({}, s.excluded); ex[selIt.id] = true;
+        var np = plan.filter(function (x) { return x.key !== selIt.key; }), k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
+        self.edit(np, "Swapped " + ev.title + " for " + a.ev.title + " at " + fmt(a.t) + ".", { excluded: ex }); self.flyTo(a.ev.p, { sel: { type: "stop", key: k } }); } }; });
     }
     if (s.sel && s.sel.type === "gap") {
       alts = fitsBetween(s, plan, s.sel.from, s.sel.fromPlace, s.sel.to, s.sel.toPlace, null).map(function (a) { return { ev: a.ev, t: a.t, pick: function () {
         var np = plan.slice(), k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
-        self.edit(np, "Added " + a.ev.title + " at " + fmt(a.t) + "."); self.setState({ sel: { type: "stop", key: k } }); } }; });
+        self.edit(np, "Added " + a.ev.title + " at " + fmt(a.t) + "."); self.flyTo(a.ev.p, { sel: { type: "stop", key: k } }); } }; });
     }
-    var altRows = alts.map(function (a) { var pl = PLACES[a.ev.p]; return { title: a.ev.title, time: fmtS(a.t), code: pl.code, badge: badge(pl.color, 28), sub: pl.name + " · " + (a.ev.est ? "about " : "") + a.ev.dur + " min · " + a.ev.kind, pick: a.pick }; });
+    var altRows = alts.map(function (a) { var pp = PLACES[a.ev.p]; return { title: a.ev.title, time: fmtS(a.t), code: pp.code, badge: badge(pp.color, 28), sub: pp.name + " · " + (a.ev.est ? "about " : "") + a.ev.dur + " min · " + a.ev.kind, pick: a.pick }; });
+
+    // ---- card: place
+    var plc = {};
+    if (s.sel && s.sel.type === "place") {
+      var pid = s.sel.p, P = PLACES[pid], vil = VILLAGES.filter(function (vv) { return vv.id === pid; })[0], info = PLACE_INFO[pid] || {};
+      var evs = EVENTS.filter(function (e) { return e.p === pid && !e.ticketOnly && (!e.evening || !tk); });
+      var mustKey = MUSTS.filter(function (m) { return m[0] === pid; })[0];
+      plc = { name: P.name + (vil ? " village" : ""), code: P.code, badge: badge(P.color, 42), zone: vil ? vil.greeting + " · Island village" : info.zone || "",
+        promise: vil ? vil.promise : info.promise || "", img: vil ? vil.img : info.img || "", alt: vil ? vil.alt : info.alt || "",
+        canMust: !!mustKey, must: !!(mustKey && s.must[pid]), mustLabel: mustKey && s.must[pid] ? "✓ Won't miss it" : "Don't let me miss it",
+        mustBg: mustKey && s.must[pid] ? "#215968" : "#FFFFFF", mustFg: mustKey && s.must[pid] ? "#FFFFFF" : "#215968",
+        toggleMust: function () { var mm = Object.assign({}, s.must); if (mm[pid]) delete mm[pid]; else mm[pid] = true; self.setPrefs({ must: mm }, mm[pid] ? "We've built " + P.name + " into your day." : ""); self.setState({ sel: { type: "place", p: pid } }); },
+        listTitle: ready ? "What's on here " + (d ? d[0] + ", " + d[1] : "") : "What's on here",
+        events: evs.map(function (e) {
+          var inPlan = plan.filter(function (x) { return x.id === e.id; })[0];
+          var slot = ready && !inPlan ? self.slotFor(e, plan, W) : null;
+          return { title: e.title, dur: (e.est ? "about " : "") + e.dur + " min",
+            times: e.times ? e.times.map(fmtS).join(" · ") : "Any time " + fmtS(e.win[0]) + "–" + fmtS(e.win[1]),
+            bg: inPlan ? "#F2F7F8" : "#FFFFFF", inDay: !!inPlan, inDayLabel: inPlan ? "In your day at " + fmt(inPlan.t) + " · change it" : "",
+            open: function () { if (inPlan) self.setState({ sel: { type: "stop", key: inPlan.key } }); },
+            canAdd: slot != null, addLabel: slot != null ? "Add at " + fmt(slot) : "",
+            add: function () { var np = plan.slice(), k = "e" + e.id + Date.now(); np.push({ key: k, id: e.id, t: slot, kind: "edited" }); var ex = Object.assign({}, s.excluded); delete ex[e.id]; self.edit(np, "Added " + e.title + " at " + fmt(slot) + ".", { excluded: ex, sel: { type: "stop", key: k } }); },
+            noFit: ready && !inPlan && slot == null ? (e.evening ? "Choose this evening in “Make it yours”." : "No free time for this around your day. Remove or move something to make room.") : "" };
+        }) };
+    }
 
     // ---- summary
-    var stops = plan.filter(function (x) { return x.id !== "break"; });
-    var villagesSeen = VILLAGE_IDS.filter(function (v) { return plan.some(function (x) { return placeOf(x) === v; }); });
-    var walkTotal = 0; plan.forEach(function (x, i) { if (i) walkTotal += walkMin(placeOf(plan[i - 1]), placeOf(x)); });
-    var conflicts = plan.filter(function (x, i) { return conflictOf(plan, i); }).length;
+    var villagesSeen = VILLAGE_IDS.filter(function (vv) { return plan.some(function (x) { return placeOf(x) === vv; }); });
+    var walkTotal = 0; plan.forEach(function (x, k) { if (k) walkTotal += walkMin(placeOf(plan[k - 1]), placeOf(x)); });
+    var conflicts = plan.filter(function (x, k) { return conflictOf(plan, k); }).length;
     var lastIt = plan[plan.length - 1];
-    var missed = VILLAGE_IDS.filter(function (v) { return villagesSeen.indexOf(v) < 0; }).map(function (v) { return PLACES[v].name; });
+    var missed = VILLAGE_IDS.filter(function (vv) { return villagesSeen.indexOf(vv) < 0; }).map(function (vv) { return PLACES[vv].name; });
     var mustMissed = MUSTS.filter(function (m) { return s.must[m[0]] && !plan.some(function (x) { return placeOf(x) === m[0]; }); }).map(function (m) { return m[1]; });
     var leftover = missed.concat(["canoe", "iosepa", "mission"].filter(function (p) { return !plan.some(function (x) { return placeOf(x) === p; }); }).map(function (p) { return MUSTS.filter(function (m) { return m[0] === p; })[0][1]; }).slice(0, 2));
-    var pins = plan.filter(function (x) { return PLACES[placeOf(x)] && x.id !== "break"; }).map(function (x, n) { var pl = PLACES[placeOf(x)], on = selIt && selIt.key === x.key;
-      return { label: String(n + 1), style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%) translate(" + ((n % 3) - 1) * 9 + "px, " + (Math.floor(n / 3) % 2 ? 6 : 0) + "px); z-index: " + (on ? 4 : 2) + "; width: " + (on ? 30 : 22) + "px; height: " + (on ? 30 : 22) + "px; border-radius: 50%; background: " + pl.color + "; color: #FFFFFF; border: 2px solid " + (on ? "#F4EB96" : "#FFFFFF") + "; box-shadow: 0 2px 6px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font: 700 11px Lato, sans-serif;" }; });
-
     var left = []; if (!s.party) left.push("who's coming"); if (s.date === null) left.push("the date"); if (!s.hours) left.push("how long you can stay"); if (!s.stay) left.push("where you're staying"); else if (s.stay === "cruise" && !s.aboard) left.push("your all-aboard time");
     var note = "";
     if (s.stay === "cruise" && s.aboard && W) note = "All aboard at " + fmt(s.aboard) + ": your day ends by " + fmt(W[1]) + ", leaving about 75 minutes to Honolulu Harbor plus a margin.";
     else if (s.stay === "waikiki" || (tk && tk.coach)) note = "Coach guests arrive at noon, in time for Huki at 1:00. The coach leaves after HĀ.";
     if (mustMissed.length) note = (note ? note + " " : "") + mustMissed.join(" and ") + " didn't fit; try a longer stay or remove something.";
+    var ev0 = eveningOf(s), H = HOURS.filter(function (hh) { return hh.id === s.hours; })[0], STY = STAYS.filter(function (x) { return x.id === s.stay; })[0], PTY = PARTIES.filter(function (x) { return x.id === s.party; })[0];
+    var bigOn = !!s.big;
 
-    var ev0 = eveningOf(s);
     return {
-      villages: VILLAGES.map(function (v) { var pl = PLACES[v.id]; return { name: pl.name, code: pl.code, badge: badge(pl.color, 28), greeting: v.greeting, promise: v.promise, img: v.img, alt: v.alt }; }),
+      introText: ready ? "Your day is on the map below. Tap any place to see what's on there, or any stop to change it." : "Answer four quick questions and we'll plan your day with that date's times and the walks in between. Explore the map below while you do.",
       noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); },
+      showPrefs: !ready || s.prefsOpen, showSummary: ready && !s.prefsOpen,
+      openPrefs: function () { self.setState({ prefsOpen: true }); }, closePrefs: function () { self.setState({ prefsOpen: false }); },
+      summaryChips: ready ? [tk ? "Ticket " + s.ticket : null, PTY && PTY.label, dateLong, H && H.label, STY && STY.label, tk ? null : (EVENINGS.filter(function (e) { return e.id === ev0; })[0] || {}).label, (PACES[s.pace] || {}).label + " pace"].filter(Boolean) : [],
       // ticket
       noTicket: !tk, hasTicket: !!tk, confInput: s.confInput, confErr: s.confErr,
       setConf: function (e) { self.setState({ confInput: e && e.target ? e.target.value : "", confErr: "" }); },
@@ -714,14 +909,14 @@ class Component extends DCLogic {
       parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ party: p.id }); } }; }),
       dateLocked: !!tk, dateFree: !tk, dateLong: dateLong,
       dates: DATES.map(function (dd, k) { var on = s.date === k; return { dow: dd[0], day: dd[1].split(" ")[1], closed: dd[2], on: on, aria: LONG_DOW[dd[0]] + " " + dd[1] + (dd[2] ? ", closed" : ""),
-        style: "min-width: 46px; min-height: 52px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 15px; cursor: " + (dd[2] ? "not-allowed" : "pointer") + "; " + (dd[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
+        style: "min-height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 14px; cursor: " + (dd[2] ? "not-allowed" : "pointer") + "; " + (dd[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
         pick: function () { if (!dd[2]) self.setPrefs({ date: k }); } }; }),
-      hours: HOURS.map(function (h) { var on = s.hours === h.id; return { label: h.label, note: h.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ hours: h.id }); } }; }),
+      hours: HOURS.map(function (hh) { var on = s.hours === hh.id; return { label: hh.label, note: hh.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ hours: hh.id }); } }; }),
       stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ stay: x.id }); } }; }),
       isCruise: s.stay === "cruise",
       aboards: ABOARD.map(function (a) { var on = s.aboard === a[0]; return { label: a[1], on: on, style: chipStyle(on), pick: function () { self.setPrefs({ aboard: a[0] }); } }; }),
       eveningLocked: !!tk, eveningFree: !tk,
-      eveningFromTicket: tk ? (tk.evening === "none" ? "Your ticket covers the villages only. We'll plan the afternoon." : "From your ticket: " + EVENINGS.filter(function (e) { return e.id === tk.evening; })[0].label + ".") : "",
+      eveningFromTicket: tk ? (tk.evening === "none" ? "Your ticket covers the villages only." : "From your ticket: " + EVENINGS.filter(function (e) { return e.id === tk.evening; })[0].label + ".") : "",
       evenings: EVENINGS.map(function (e) { var on = ev0 === e.id; return { label: e.label, on: on, style: chipStyle(on), pick: function () { var ex = Object.assign({}, s.excluded); ["luau", "buffet", "ha", "market-snack"].forEach(function (k) { delete ex[k]; }); self.setPrefs({ evening: e.id, excluded: ex }); } }; }),
       paces: Object.keys(PACES).map(function (k) { var on = s.pace === k; return { label: PACES[k].label, on: on, style: chipStyle(on), pick: function () { self.setPrefs({ pace: k }); } }; }),
       paceNote: (PACES[s.pace] || PACES.balanced).note,
@@ -729,27 +924,51 @@ class Component extends DCLogic {
       interests: INTERESTS.map(function (m) { var on = !!s.interests[m[0]]; return { label: m[1], on: on, style: chipStyle(on), pick: function () { var mm = Object.assign({}, s.interests); if (on) delete mm[m[0]]; else mm[m[0]] = true; self.setPrefs({ interests: mm }); } }; }),
       hasEdits: plan.some(function (x) { return x.kind === "edited"; }) || Object.keys(s.excluded).length > 0,
       resetEdits: function () { self.setPrefs({ excluded: {} }, "Started fresh from your choices.", true); },
-      // itinerary
-      ready: ready, notReady: !ready, waitingText: left.length ? "Tell us " + left.join(", ").replace(/, ([^,]*)$/, " and $1") + "." : "",
+      ready: ready,
+      // map
+      mapTitle: ready ? "Your day on the map" : "Explore the Center",
+      mapSub: ready ? stopsOnly.length + " stops in order, with the walking route · " + villagesSeen.length + " of 6 villages" : "Every village, show and place to eat. Tap one to see what's on there.",
+      mapAria: ready ? "Map of the Center with your " + stopsOnly.length + " stops numbered in order and the walking route between them." : "Illustrated map of the Center: the Marketplace and theater at the entrance, the lagoon through the middle and the six villages around it.",
+      bandStyle: "height: " + b.h + "px;",
+      layerStyle: "position: absolute; width: " + v.z + "%; aspect-ratio: 2601 / 704; left: " + (50 - v.cx * v.z / 100) + "%; top: 50%; transform: translateY(-" + v.cy + "%);" + (self.drag ? "" : " transition: left 0.35s ease, width 0.35s ease, transform 0.35s ease;"),
+      pins: pins, routeD: routeD,
+      panDown: function (e) { if (e && e.button) return; var vv = self.view(); self.drag = { type: "pan", x: e.clientX, y: e.clientY, z: vv.z, cx: vv.cx, cy: vv.cy, moved: false }; },
+      stop: function (e) { if (e && e.stopPropagation) e.stopPropagation(); },
+      zoomIn: function (e) { if (e && e.stopPropagation) e.stopPropagation(); var vv = self.view(), c = self.clampView(Math.min(500, Math.round(vv.z * 1.35)), vv.cx, vv.cy, s); self.setState(c); },
+      zoomOut: function () { var vv = self.view(), c = self.clampView(Math.max(100, Math.round(vv.z / 1.35)), vv.cx, vv.cy, s); self.setState(c); },
+      atMinZoom: v.z <= 100, fitMap: function () { self.fitDay(); },
+      big: bigOn, bigLabel: bigOn ? "Smaller map" : "Bigger map", bigIcon: bigOn ? "M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" : "M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5",
+      toggleBig: function () { var st2 = Object.assign({}, s, { big: !bigOn }); var c = self.clampView(s.z == null ? self.fillZ(st2) : Math.max(s.z, self.fillZ(st2)), s.cx, s.cy, st2); self.setState({ big: !bigOn, z: c.z, cx: c.cx, cy: c.cy }); setTimeout(function () { try { document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} }, 30); },
+      labels: s.labels, labelsText: s.labels ? "Hide names" : "Show names", toggleLabels: function () { self.setState({ labels: !s.labels }); },
+      route: s.route, routeText: s.route ? "Hide route" : "Show route", toggleRoute: function () { self.setState({ route: !s.route }); },
+      cardOpen: !!s.sel, cardPlace: !!(s.sel && s.sel.type === "place"), cardStop: !!selIt, cardGap: !!(s.sel && s.sel.type === "gap"),
+      plc: plc, sel: sel, alts: altRows, noAlts: (!!selIt || !!(s.sel && s.sel.type === "gap")) && altRows.length === 0, altTitle: altTitle,
+      gapTitle: s.sel && s.sel.type === "gap" ? "Add something, " + fmtS(s.sel.from) + " to " + fmtS(s.sel.to) : "",
+      closePanel: function () { self.setState({ sel: null }); },
+      // strip
+      msg: s.msg, ticks: ticks, blocks: blocks, gaps: gaps,
+      stripStyle: "position: relative; height: " + (plan.some(function (x) { return lane[x.key]; }) ? 126 : 80) + "px; width: " + (X(T1) + 16) + "px; min-width: 100%;",
+      // step by step
       dayEyebrow: tk ? "Built around ticket " + s.ticket : "Suggested for you",
       dayTitle: dateLong + (plan.length ? ", " + fmt(plan[0].t) + " to " + fmt(lastIt.t + durOf(lastIt)) : ""),
-      daySummary: stops.length + " stops · " + villagesSeen.length + " of 6 villages · " + walkTotal + " min walking" + (conflicts ? " · " + conflicts + " to fix" : ""),
-      note: note, msg: s.msg, hourLines: hourLines, blocks: blocks, gaps: gaps,
-      tlStyle: "position: relative; height: " + (y(T1) + 16) + "px; margin-top: 12px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; padding: 0 12px 0 0;",
+      daySummary: stopsOnly.length + " stops · " + villagesSeen.length + " of 6 villages · " + walkTotal + " min walking" + (conflicts ? " · " + conflicts + " to fix" : ""),
+      note: note,
+      steps: plan.map(function (x, k) {
+        var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", color: "#857D69" }, w = k ? walkMin(placeOf(plan[k - 1]), placeOf(x)) : 0, on = selIt && selIt.key === x.key;
+        var tag = x.kind === "ticket" ? "On your ticket" : x.kind === "set" ? "Evening" : x.kind === "edited" ? "Your pick" : "";
+        return { time: fmt(x.t), title: ev.title, n: x.id === "break" ? "☕" : String(numOf[x.key]), sub: (pl.name ? pl.name + " · " : "") + (ev.est ? "about " : "") + ev.dur + " min", tag: tag, conflict: conflictOf(plan, k), on: on,
+          walk: w ? w + " min walk" : "", badge: "flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: " + (x.id === "break" ? "#E3DED4" : pl.color) + "; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;",
+          style: "width: 100%; min-height: 52px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; cursor: pointer; color: #27201B; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; border: " + (on ? "2px solid #215968" : "1px solid #E3DED4") + ";",
+          open: function () { self.selectStop(x); try { document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} } };
+      }),
+      stats: [{ value: String(stopsOnly.length), label: "stops" }, { value: villagesSeen.length + "/6", label: "villages" }, { value: walkTotal + " min", label: "walking" }, { value: conflicts ? String(conflicts) : "None", label: "conflicts" }],
       sendToApp: function () { self.setState({ sentMsg: "Sent. Open the PCC app" + (tk ? " and sign in with " + s.ticket : "") + ": your day, the map and reminders will be there on the day." }); },
       shareDay: function () { self.setState({ sentMsg: "Link copied (prototype). Anyone you send it to can see this day and plan alongside you." }); },
       sentMsg: s.sentMsg,
       returnText: (tk ? "Your ticket includes" : "Islands of Polynesia tickets include") + " a free return visit to the villages within 3 days. Evening shows and dinner aren't included on the return day.",
       hasLeftover: leftover.length > 0, leftover: leftover.join(", "),
-      // side
-      mapPins: pins, panelNone: !selIt && !(s.sel && s.sel.type === "gap"), panelStop: !!selIt, panelGap: !!(s.sel && s.sel.type === "gap"),
-      sumTitle: ready ? "Your day at a glance" : "How it works",
-      stats: ready ? [{ value: String(stops.length), label: "stops" }, { value: villagesSeen.length + "/6", label: "villages" }, { value: walkTotal + " min", label: "walking" }, { value: conflicts ? String(conflicts) : "None", label: "conflicts" }]
-        : [{ value: "4", label: "quick questions" }, { value: "Real", label: "times for your date" }, { value: "Walks", label: "between stops" }, { value: "Yours", label: "to change" }],
-      sumNote: ready ? "Numbers on the map follow your day. Select a stop to see it here." : "We suggest the main presentation in each village, Huki on the lagoon, and the moments that suit your group, then leave room to wander.",
-      sel: sel, alts: altRows, noAlts: (!!selIt || !!(s.sel && s.sel.type === "gap")) && altRows.length === 0, altTitle: altTitle,
-      gapTitle: s.sel && s.sel.type === "gap" ? "Add something, " + fmtS(s.sel.from) + " to " + fmtS(s.sel.to) : "",
-      closePanel: function () { self.setState({ sel: null }); }
+      villages: VILLAGES.map(function (vv) { var pl = PLACES[vv.id]; return { name: pl.name, code: pl.code, badge: badge(pl.color, 28), greeting: vv.greeting, promise: vv.promise, img: vv.img, alt: vv.alt,
+        show: function () { self.flyTo(vv.id, { sel: { type: "place", p: vv.id } }); } }; })
     };
   }
 }

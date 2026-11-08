@@ -29,11 +29,19 @@ live at https://interactive-map-prototype-blush.vercel.app) is kept for referenc
    ticket items, adds Huki, then repeatedly picks the best next stop that can be reached in time,
    scoring each candidate by the guest's must-sees, interests and party, favoring villages not yet
    seen, and penalizing waiting and walking. Walking times come from the map at an easy pace.
-5. **Editing**: select a stop to see why it's there, move it to an earlier or later showtime, remove
+5. **The map is the centerpiece.** It fills the width of the page and fills its frame: drag to
+   pan, + and − to zoom (− all the way shows the whole map), a button to center on the day and
+   one to make the map taller. Every place is a pin; stops in the day are numbered in order with
+   the walking route drawn between them. Tapping a place opens a card on the map with what's on
+   there that day, an "Add at …" button that finds the first time it fits around the day, and
+   "Don't let me miss it". Tapping a stop opens its card with times, walk, reason, swap options
+   and previous/next. A horizontal day strip under the map shows the day on a time line; drag a
+   stop along it to retime it, or tap + in a gap. A step-by-step list follows below.
+6. **Editing**: select a stop to see why it's there, move it to an earlier or later showtime, remove
    it, or swap it for something that fits the same gap. Tap a free gap to add something. Drag a stop
    to another time; it snaps to the nearest real showtime. Overlaps and too-short walks are flagged.
    Hand edits are kept when the guest changes their answers; "Start fresh" clears them.
-6. **Return visits**: Islands of Polynesia tickets allow a free return to the villages within 3 days.
+7. **Return visits**: Islands of Polynesia tickets allow a free return to the villages within 3 days.
    The page says so and lists what the day leaves out; the saved day is stored as a list of days
    so a second day can be added later.
 
