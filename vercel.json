@@ -7,24 +7,12 @@
       "destination": "/Shape.dc.html"
     },
     {
-      "source": "/explore",
+      "source": "/plan",
       "destination": "/Shape.dc.html"
     },
     {
-      "source": "/packages",
-      "destination": "/Discover.dc.html"
-    },
-    {
-      "source": "/tickets",
-      "destination": "/Discover.dc.html"
-    },
-    {
       "source": "/myday",
-      "destination": "/Main.dc.html"
-    },
-    {
-      "source": "/plan",
-      "destination": "/Main.dc.html"
+      "destination": "/Shape.dc.html"
     },
     {
       "source": "/app",
@@ -41,6 +29,14 @@
     {
       "source": "/app-alert",
       "destination": "/App-Alert.dc.html"
+    },
+    {
+      "source": "/v1/packages",
+      "destination": "/Discover.dc.html"
+    },
+    {
+      "source": "/v1/planner",
+      "destination": "/Main.dc.html"
     }
   ],
   "headers": [

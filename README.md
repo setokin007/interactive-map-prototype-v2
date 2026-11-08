@@ -1,38 +1,45 @@
 # PCC Interactive Map & Day Planner — Prototype, Version 2
 
-Version 2 reworks the Version 1 prototype
+Version 2 focuses on one job: **building a great itinerary for each guest**. Ticket and package
+recommendations are out of scope. Version 1
 ([setokin007/interactive-map-prototype](https://github.com/setokin007/interactive-map-prototype),
-live at https://interactive-map-prototype-blush.vercel.app) around where the guest is in their
-journey, as set out in the PRD's *Version 2: one guest, five stages* section.
+live at https://interactive-map-prototype-blush.vercel.app) is kept for reference.
 
 **Live:** https://interactive-map-prototype-v2.vercel.app (Vercel project `interactive-map-prototype-v2`)
 
-| Stage | Guest's question | Page | Route | Design source |
-| --- | --- | --- | --- | --- |
-| 1 · Dreaming | Is this worth a day of my trip? | Explore: breadth, map, the six villages | `/` or `/explore` | `design/explore-and-shape.dc.html` |
-| 2 · Comparing | What would my day look like? | Shape your day in three taps: party, date and hours, where staying | `/#shape` | same page |
-| 3 · Booking | Which package fits that day? | Package matched to the shaped day, then the confirmation email | `/#book`; full comparison at `/packages` | same page; `design/your-day-and-tickets.dc.html` |
-| 4 · Booked, preparing | How do I make the most of it? | My Day: booking loaded from the email link or confirmation number, "Before you come", the full builder | `/myday` | `design/plan-my-day.dc.html` |
-| 5 · On the day | What's next and where is it? | PCC app screens (iOS and Android): Today, Map, Running behind, Schedule change | `/app`, `/app-map`, `/app-replan`, `/app-alert` | `design/app-*.dc.html` |
+| Page | What it does | Route | Design source |
+| --- | --- | --- | --- |
+| Plan your day | Explore the Center, then generate and edit an itinerary, with or without a ticket | `/` (also `/plan`, `/myday`; `?b=PCC-48213` pulls up a ticket) | `design/plan-your-day.dc.html` |
+| PCC app screens (iOS and Android) | Today (runs on the saved day), Map, Running behind, Schedule change | `/app`, `/app-map`, `/app-replan`, `/app-alert` | `design/app-*.dc.html` |
+| Version 1 pages (archive) | Packages page and day builder, no longer linked | `/v1/packages`, `/v1/planner` | `design/your-day-and-tickets.dc.html`, `design/plan-my-day.dc.html` |
 
-Decisions behind it (PRD, Nov 8):
+## How the itinerary is built
 
-- One suggested day per party type: **couple** and **family with young kids**; other groups
-  start from the couple day. Party type changes the order of suggestions and the package suggested.
-- Exact times for the chosen date. They will come from PCC's scheduling app; until it can be read,
-  `SCHEDULE` in the Explore page holds sample times in the shape the app is expected to supply.
-- Waikīkī guests on the coach arrive at noon, so their suggested day starts with Huki.
-- Cruise guests give their all-aboard time; the day ends with about 75 minutes to Honolulu Harbor
-  plus a margin, and drops dinner and HĀ when the show won't fit.
-- My Day opens straight from the confirmation email link (`/myday?b=PCC-48213`). Unknown numbers
-  ask the guest to check the email; `&after=1` previews the thank-you page shown after the visit.
-- Booked guests see "Make more of your day" upgrades that fit their booking (HĀ, lūʻau, coach, guide).
-- The app's Today screen runs on the day saved on the website; a prototype time slider moves
-  through the day (up next, happening now, running behind, done).
-- "Book this day" saves the day to the shared record (`pcc-shared-day-v1` in the browser) and shows
-  the confirmation email; its "Open my day" link opens My Day with the booking loaded.
+1. **Four questions** produce a day: who's coming (couple, family with young kids, group),
+   the date, how long they can stay, and where they're staying (cruise guests add their
+   all-aboard time).
+2. **Optional choices** sharpen it: the evening (lūʻau and HĀ, buffet and HĀ, just HĀ, or none),
+   pace (Relaxed adds breaks and fewer stops, See it all packs the day), must-sees (any village,
+   Huki, the canoe tour, Iosepa, the Mission Settlement) and interests (shows, trying things,
+   food, history, kid favorites).
+3. **A ticket** can be pulled up by confirmation number or from the email link. Its date, party
+   and set times (lūʻau, buffet, HĀ, guided tour, coach arrival at noon) become fixed points and
+   the rest of the day is planned around them.
+4. **The generator** (in the page's script) fills the day in time order: it fixes the evening and
+   ticket items, adds Huki, then repeatedly picks the best next stop that can be reached in time,
+   scoring each candidate by the guest's must-sees, interests and party, favoring villages not yet
+   seen, and penalizing waiting and walking. Walking times come from the map at an easy pace.
+5. **Editing**: select a stop to see why it's there, move it to an earlier or later showtime, remove
+   it, or swap it for something that fits the same gap. Tap a free gap to add something. Drag a stop
+   to another time; it snaps to the nearest real showtime. Overlaps and too-short walks are flagged.
+   Hand edits are kept when the guest changes their answers; "Start fresh" clears them.
+6. **Return visits**: Islands of Polynesia tickets allow a free return to the villages within 3 days.
+   The page says so and lists what the day leaves out; the saved day is stored as a list of days
+   so a second day can be added later.
 
-## Updating the site after design changes (Version 2)
+Event times are sample data in `EVENTS`, in the shape PCC's scheduling app is expected to supply.
+
+## Updating the site after design changes
 
 Edit on the "PCC Interactive Map — Version 2" design canvas, then export each changed page:
 

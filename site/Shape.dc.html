@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Shape your day · Polynesian Cultural Center</title>
+<title>Plan your day · Polynesian Cultural Center</title>
 <script src="./vendor/react.js"></script>
 <script src="./vendor/react-dom.js"></script>
 <script src="./support.js"></script>
@@ -15,60 +15,53 @@
 <style>
 body{margin:0;background:#F6F4EF}
 a{color:#215968}a:hover{color:#153A45}
-button{font-family:inherit}
+button,input{font-family:inherit}
 [hidden]{display:none !important}
-button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2px}
-#explore,#shape,#your-day,#book{scroll-margin-top:16px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #215968;outline-offset:2px}
+#explore,#plan,#ticket{scroll-margin-top:16px}
 .villages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 @media (max-width:1100px){.villages{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.villages{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.taps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-@media (max-width:960px){.taps{grid-template-columns:minmax(0,1fr)}}
-.result{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
-.result-day{flex:999 1 520px;min-width:0}
-.result-pkg{flex:1 1 320px;min-width:0;position:sticky;top:16px}
-@media (max-width:900px){.result-pkg{position:static}}
 .stats{display:flex;flex-wrap:wrap;gap:8px 28px}
+.planner{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.prefs{flex:1 1 300px;max-width:360px;min-width:0}
+.tl{flex:999 1 460px;min-width:0}
+.side{flex:1 1 360px;min-width:0;position:sticky;top:16px}
+@media (max-width:1180px){.prefs{max-width:none}.side{position:static}}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.tl-block{touch-action:none;user-select:none}
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #F6F4EF; color: #27201B; font-family: Lato, 'Helvetica Neue', Arial, sans-serif;">
 
 <nav aria-label="Site" style="background: #FFFFFF; border-bottom: 1px solid #E3DED4;">
-<div style="max-width: 1240px; margin: 0 auto; padding: 0 24px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
+<div style="max-width: 1400px; margin: 0 auto; padding: 0 24px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
 <a href="#" style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 19px; color: #27201B; text-decoration: none; letter-spacing: -0.01em;">Polynesian Cultural Center</a>
 <span style="flex-grow: 1;"></span>
 <div style="display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px;">
-<a href="#explore" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Explore</a>
-<a href="#shape" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Shape your day</a>
-<a href="Discover.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Packages</a>
-<a href="Main.dc.html" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Already booked? My Day</a>
+<a href="#explore" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Explore</a>
+<a href="#plan" aria-current="page" style="color: #27201B; text-decoration: none; padding: 10px 0; border-bottom: 2px solid #215968;">Plan your day</a>
+<a href="#ticket" style="color: #5E5642; text-decoration: none; padding: 10px 0;">Have tickets?</a>
 </div>
 </div>
 </nav>
 
-<main style="max-width: 1240px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 56px;">
+<main style="max-width: 1400px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 56px;">
 
-<!-- STAGE 1 · DREAMING: asks nothing -->
+<!-- STAGE 1 · EXPLORE: asks nothing -->
 <section id="explore" aria-labelledby="explore-h" style="display: flex; flex-direction: column; gap: 20px;">
 <div style="display: flex; flex-direction: column; gap: 10px; max-width: 760px;">
 <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Lāʻie, Oʻahu · North Shore</span>
 <h1 id="explore-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.01em;">Six island nations. One day. Plan to stay.</h1>
-<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #4A4336;">Walk from Samoa to Hawaiʻi across 42 acres of villages, lagoon and gardens. Most guests spend about five hours in the villages before dinner and the evening show, and still wish they had more.</p>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #4A4336;">Walk from Samoa to Hawaiʻi across 42 acres of villages, lagoon and gardens. Most guests spend about five hours in the villages before dinner and the evening show, and still wish they had more. Tell us a little about your visit and we'll plan the day for you.</p>
 </div>
 <div class="stats" role="list" aria-label="The day at a glance">
 <div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">6</span><span style="font-size: 14px; color: #5E5642;">island villages</span></div>
 <div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">42</span><span style="font-size: 14px; color: #5E5642;">acres to explore</span></div>
 <div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">~5 h</span><span style="font-size: 14px; color: #5E5642;">in the villages</span></div>
 <div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">30+</span><span style="font-size: 14px; color: #5E5642;">presentations and activities a day</span></div>
-<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">100+</span><span style="font-size: 14px; color: #5E5642;">performers in HĀ at night</span></div>
+<div role="listitem" style="display: flex; flex-direction: column;"><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 30px; color: #215968;">3 days</span><span style="font-size: 14px; color: #5E5642;">to come back free to the villages</span></div>
 </div>
-<div style="position: relative; width: 100%; aspect-ratio: 2601 / 704; border-radius: 16px; overflow: hidden; background: #E3DED4; border: 1px solid #E3DED4;">
-<img src="assets/d497d5da52a9fbf62bdad6bd124bd428.webp" alt="Illustrated map of the Center: the Hukilau Marketplace and Pacific Theater at the entrance, the lagoon through the middle, and the six island villages around it" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
-<sc-for list="{{mapPins}}" as="pin" hint-placeholder-count="6">
-<span aria-hidden="true" style="{{pin.style}}">{{pin.label}}</span>
-</sc-for>
-</div>
-<p style="margin: 0; font-size: 14px; color: #5E5642;">{{mapCaption}}</p>
 <div class="villages" role="list" aria-label="The six island villages">
 <sc-for list="{{villages}}" as="v" hint-placeholder-count="6">
 <article role="listitem" style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
@@ -84,199 +77,317 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 </article>
 </sc-for>
 </div>
-<p style="margin: 0; font-size: 15px; color: #5E5642;">Plus Huki, the canoe celebration on the lagoon, a royal lūʻau and HĀ: Breath of Life after dark. The rest we'll save for your visit.</p>
 </section>
 
-<!-- STAGE 2 · COMPARING: three taps -->
-<section id="shape" aria-labelledby="shape-h" style="display: flex; flex-direction: column; gap: 20px; padding: 28px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 20px;">
+<!-- STAGES 2–4 · PLAN: build the itinerary -->
+<section id="plan" aria-labelledby="plan-h" style="display: flex; flex-direction: column; gap: 20px;">
 <div style="display: flex; flex-direction: column; gap: 6px;">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Shape your day</span>
-<h2 id="shape-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.1;">What would your day look like? Three taps.</h2>
-<p style="margin: 0; font-size: 16px; color: #5E5642;">We'll suggest a day with that date's real times. You can change any stop.</p>
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Plan your day</span>
+<h2 id="plan-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 36px; line-height: 1.1;">Your itinerary, built around you</h2>
+<p style="margin: 0; font-size: 16px; color: #5E5642; max-width: 760px;">Answer the first four questions and your day appears, with that date's times and the walks in between. Fine-tune it with the rest. Then swap, add, remove or drag anything.</p>
 </div>
-<div class="taps">
 
-<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step1Num}}">1</span> Who's coming?</legend>
+<div class="planner">
+
+<!-- PREFERENCES -->
+<form class="prefs" aria-label="Your visit" onSubmit="{{noSubmit}}" style="display: flex; flex-direction: column; gap: 14px;">
+
+<section id="ticket" aria-labelledby="ticket-h" style="padding: 16px; background: #FFFFFF; border: 1px solid #C9DAE0; border-radius: 14px; display: flex; flex-direction: column; gap: 10px;">
+<sc-if value="{{noTicket}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h3 id="ticket-h" style="margin: 0; font-size: 16px; font-weight: 700;">Already have tickets?</h3>
+<span style="font-size: 14px; line-height: 1.45; color: #5E5642;">Pull up your ticket and we'll build your day around what's on it.</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<label for="conf" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Confirmation number</label>
+<input id="conf" type="text" value="{{confInput}}" onChange="{{setConf}}" placeholder="Confirmation number" autocomplete="off" style="flex: 1 1 140px; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #857D69; border-radius: 10px; font-size: 15px;">
+<button type="button" onClick="{{findTicket}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 15px; cursor: pointer;">Pull up my ticket</button>
+</div>
+<sc-if value="{{confErr}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; color: #8A1C12;">{{confErr}}</p></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 0 10px; font-size: 13px; color: #5E5642; align-items: center;"><span>Prototype samples:</span>
+<sc-for list="{{samples}}" as="sm" hint-placeholder-count="4"><button type="button" onClick="{{sm.pick}}" style="min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">{{sm.label}}</button></sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{hasTicket}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">Your ticket · {{tk.conf}}</span>
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{tk.name}}</h3>
+<span style="font-size: 14px; color: #4A4336;">{{tk.when}}</span>
+<ul style="margin: 0; padding: 0 0 0 18px; font-size: 14px; line-height: 1.5; color: #4A4336;"><sc-for list="{{tk.includes}}" as="inc" hint-placeholder-count="3"><li>{{inc}}</li></sc-for></ul>
+<span style="font-size: 13px; color: #5E5642;">Times on your ticket are already in your day. Plan everything else around them.</span>
+<button type="button" onClick="{{clearTicket}}" style="align-self: flex-start; min-height: 36px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Use a different ticket</button>
+</div>
+</sc-if>
+</section>
+
+<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num1}}">1</span> Who's coming?</legend>
 <sc-for list="{{parties}}" as="o" hint-placeholder-count="3">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 </fieldset>
 
-<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step2Num}}">2</span> When, and for how long?</legend>
+<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num2}}">2</span> When?</legend>
+<sc-if value="{{dateLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px;"><strong>{{dateLong}}</strong> · on your ticket</span></sc-if>
+<sc-if value="{{dateFree}}" hint-placeholder-val="{{ true }}">
 <div role="group" aria-label="Date" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px;">
 <sc-for list="{{dates}}" as="d" hint-placeholder-count="8">
-<button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
+<button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
 </sc-for>
 </div>
 <span style="font-size: 12px; color: #5E5642;">Closed Sundays and Wednesdays in this sample.</span>
-<div role="group" aria-label="How long" style="display: flex; flex-direction: column; gap: 6px;">
+</sc-if>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num3}}">3</span> How long can you stay?</legend>
 <sc-for list="{{hours}}" as="o" hint-placeholder-count="4">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
-</div>
 </fieldset>
 
-<fieldset style="margin: 0; padding: 16px; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0;">
-<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{step3Num}}">3</span> Where are you staying?</legend>
+<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num4}}">4</span> Where are you staying?</legend>
 <sc-for list="{{stays}}" as="o" hint-placeholder-count="4">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 <sc-if value="{{isCruise}}" hint-placeholder-val="{{ false }}">
 <div role="group" aria-labelledby="aboard-l" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: #F6F4EF; border-radius: 12px;">
 <span id="aboard-l" style="font-size: 14px; font-weight: 700;">What time is all aboard?</span>
-<div style="display: flex; flex-wrap: wrap; gap: 6px;">
-<sc-for list="{{aboards}}" as="ab" hint-placeholder-count="4">
-<button type="button" aria-pressed="{{ab.on}}" onClick="{{ab.pick}}" style="{{ab.style}}">{{ab.label}}</button>
-</sc-for>
-</div>
-<span style="font-size: 12px; color: #5E5642;">It's in your cruise app or daily planner. We'll leave time to get back to Honolulu Harbor.</span>
+<div class="chips"><sc-for list="{{aboards}}" as="ab" hint-placeholder-count="4"><button type="button" aria-pressed="{{ab.on}}" onClick="{{ab.pick}}" style="{{ab.style}}">{{ab.label}}</button></sc-for></div>
+<span style="font-size: 12px; color: #5E5642;">We'll leave about 75 minutes to get back to Honolulu Harbor, plus a margin.</span>
 </div>
 </sc-if>
 </fieldset>
+
+<fieldset style="margin: 0; padding: 14px; border: 1px solid #E3DED4; border-radius: 14px; background: #FFFFFF; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+<legend style="padding: 0 6px; font-size: 15px; font-weight: 700;">Make it yours <span style="font-weight: 400; color: #5E5642;">· optional</span></legend>
+
+<div role="group" aria-labelledby="eve-l" style="display: flex; flex-direction: column; gap: 6px;">
+<span id="eve-l" style="font-size: 14px; font-weight: 700;">Your evening</span>
+<sc-if value="{{eveningLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #4A4336;">{{eveningFromTicket}}</span></sc-if>
+<sc-if value="{{eveningFree}}" hint-placeholder-val="{{ true }}"><div class="chips"><sc-for list="{{evenings}}" as="c" hint-placeholder-count="4"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div></sc-if>
 </div>
 
+<div role="group" aria-labelledby="pace-l" style="display: flex; flex-direction: column; gap: 6px;">
+<span id="pace-l" style="font-size: 14px; font-weight: 700;">Pace</span>
+<div class="chips"><sc-for list="{{paces}}" as="c" hint-placeholder-count="3"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
+<span style="font-size: 12px; color: #5E5642;">{{paceNote}}</span>
+</div>
+
+<div role="group" aria-labelledby="must-l" style="display: flex; flex-direction: column; gap: 6px;">
+<span id="must-l" style="font-size: 14px; font-weight: 700;">Don't let me miss</span>
+<div class="chips"><sc-for list="{{musts}}" as="c" hint-placeholder-count="10"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
+</div>
+
+<div role="group" aria-labelledby="int-l" style="display: flex; flex-direction: column; gap: 6px;">
+<span id="int-l" style="font-size: 14px; font-weight: 700;">We love</span>
+<div class="chips"><sc-for list="{{interests}}" as="c" hint-placeholder-count="5"><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button></sc-for></div>
+</div>
+<sc-if value="{{hasEdits}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 12px; line-height: 1.45; color: #5E5642;">Stops you've changed by hand stay put when you change these. <button type="button" onClick="{{resetEdits}}" style="padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 12px; cursor: pointer;">Start fresh</button></p>
+</sc-if>
+</fieldset>
+</form>
+
+<!-- ITINERARY -->
+<section class="tl" aria-labelledby="day-h" style="display: flex; flex-direction: column; gap: 12px;">
 <sc-if value="{{notReady}}" hint-placeholder-val="{{ true }}">
-<div style="padding: 20px; border: 1px dashed #C9C0AE; border-radius: 14px; text-align: center; color: #5E5642; font-size: 16px;">{{waitingText}}</div>
+<div style="padding: 40px 24px; border: 1px dashed #C9C0AE; border-radius: 16px; text-align: center; color: #5E5642; font-size: 16px; background: #FFFFFF;">
+<h3 id="day-h" style="margin: 0 0 6px; font-size: 20px; color: #27201B;">Your day will appear here</h3>
+<span>{{waitingText}}</span>
+</div>
+</sc-if>
+<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">{{dayEyebrow}}</span>
+<h3 id="day-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.1;">{{dayTitle}}</h3>
+</div>
+<span style="font-size: 14px; color: #5E5642;">{{daySummary}}</span>
+</div>
+<sc-if value="{{note}}" hint-placeholder-val="{{ false }}">
+<div role="note" style="padding: 10px 14px; background: #E6EFF1; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #153A45;">{{note}}</div>
+</sc-if>
+<sc-if value="{{msg}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{msg}}</p>
+</sc-if>
+<span style="font-size: 13px; color: #5E5642;">Tap a stop to swap, move or remove it, or drag it to another time. Tap a gap to add something.</span>
+<div role="list" aria-label="Your itinerary" style="{{tlStyle}}">
+<sc-for list="{{hourLines}}" as="h" hint-placeholder-count="10">
+<div aria-hidden="true" style="{{h.style}}"><span style="position: absolute; left: 0; top: -9px; width: 48px; font-size: 12px; color: #5E5642; text-align: right;">{{h.label}}</span></div>
+</sc-for>
+<sc-for list="{{gaps}}" as="g" hint-placeholder-count="2">
+<button type="button" onClick="{{g.pick}}" aria-label="{{g.aria}}" style="{{g.style}}">+ {{g.label}}</button>
+</sc-for>
+<sc-for list="{{blocks}}" as="b" hint-placeholder-count="8">
+<div role="listitem" style="{{b.wrap}}">
+<button type="button" class="tl-block" onClick="{{b.select}}" onPointerDown="{{b.down}}" aria-label="{{b.aria}}" aria-pressed="{{b.on}}" style="{{b.style}}">
+<span aria-hidden="true" style="{{b.badge}}">{{b.code}}</span>
+<span style="display: flex; flex-direction: column; min-width: 0; text-align: left;">
+<span style="font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{b.time}} · {{b.title}}</span>
+<sc-if value="{{b.showSub}}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; color: #5E5642; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{b.sub}}</span></sc-if>
+</span>
+<sc-if value="{{b.tag}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: #EFEBE2; color: #4A4336;">{{b.tag}}</span></sc-if>
+</button>
+<sc-if value="{{b.conflict}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: 8px; bottom: -9px; z-index: 3; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: #B42318; color: #FFFFFF;">{{b.conflict}}</span></sc-if>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+<button type="button" onClick="{{sendToApp}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: none; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 16px; cursor: pointer;">Send to the PCC app</button>
+<button type="button" onClick="{{shareDay}}" style="min-height: 48px; padding: 0 20px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 16px; cursor: pointer;">Share this day</button>
+<a href="App-Today.dc.html" style="font-size: 14px; font-weight: 700;">Preview it in the app</a>
+</div>
+<sc-if value="{{sentMsg}}" hint-placeholder-val="{{ false }}"><p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{sentMsg}}</p></sc-if>
+
+<section aria-labelledby="return-h" style="padding: 16px 18px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 6px;">
+<h4 id="return-h" style="margin: 0; font-size: 16px; font-weight: 700;">Coming back? Your villages ticket is good for 3 days</h4>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{returnText}}</p>
+<sc-if value="{{hasLeftover}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Save for your return:</strong> {{leftover}}</p></sc-if>
+<span style="font-size: 12px; color: #5E5642;">Planning a second day is coming soon.</span>
+</section>
+</div>
 </sc-if>
 </section>
 
-<sc-if value="{{ready}}" hint-placeholder-val="{{ false }}">
-<section id="your-day" aria-labelledby="day-h" class="result">
-<div class="result-day" style="display: flex; flex-direction: column; gap: 16px;">
-<div style="display: flex; flex-direction: column; gap: 4px;">
-<span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #215968;">Suggested for {{partyName}}</span>
-<h2 id="day-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 32px; line-height: 1.1;">{{dayTitle}}</h2>
-<p style="margin: 0; font-size: 15px; color: #5E5642;">{{daySub}}</p>
+<!-- SIDE: selected stop, map -->
+<aside class="side" aria-label="Details" style="display: flex; flex-direction: column; gap: 14px;">
+<div style="position: relative; width: 100%; aspect-ratio: 2601 / 1100; border-radius: 14px; overflow: hidden; background: #DCE7D9; border: 1px solid #E3DED4;">
+<img src="assets/d497d5da52a9fbf62bdad6bd124bd428.webp" alt="Map of the Center with your stops numbered in order" style="position: absolute; left: 0; top: 18%; width: 100%; height: 64%; display: block;">
+<div style="position: absolute; left: 0; top: 18%; width: 100%; height: 64%;">
+<sc-for list="{{mapPins}}" as="pin" hint-placeholder-count="6"><span aria-hidden="true" style="{{pin.style}}">{{pin.label}}</span></sc-for>
 </div>
-<div role="note" style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; background: #E6EFF1; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #153A45;">
-<span aria-hidden="true" style="font-weight: 700;">i</span>
-<span>{{arrivalNote}}</span>
-</div>
-<ol aria-label="Your suggested day" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0;">
-<sc-for list="{{stops}}" as="st" hint-placeholder-count="7">
-<li style="display: flex; flex-direction: column;">
-<sc-if value="{{st.walk}}" hint-placeholder-val="{{ false }}">
-<span style="margin-left: 90px; padding: 4px 0 4px 14px; border-left: 2px dotted #C9C0AE; font-size: 12px; color: #5E5642;">{{st.walk}}</span>
-</sc-if>
-<div style="{{st.rowStyle}}">
-<span style="width: 76px; flex-shrink: 0; white-space: nowrap; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; padding-top: 2px;">{{st.time}}</span>
-<span aria-hidden="true" style="{{st.badge}}">{{st.code}}</span>
-<div style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-<span style="font-weight: 700; font-size: 16px;">{{st.title}}</span>
-<span style="font-size: 13px; color: #5E5642;">{{st.meta}}</span>
-<sc-if value="{{st.why}}" hint-placeholder-val="{{ false }}">
-<span style="font-size: 13px; color: #215968;">{{st.why}}</span>
-</sc-if>
-</div>
-<sc-if value="{{st.canSwap}}" hint-placeholder-val="{{ false }}">
-<button type="button" onClick="{{st.swap}}" aria-label="{{st.swapAria}}" style="flex-shrink: 0; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">Swap</button>
-</sc-if>
-<sc-if value="{{st.lockLabel}}" hint-placeholder-val="{{ false }}">
-<span style="flex-shrink: 0; align-self: center; font-size: 12px; font-weight: 700; color: #5E5642; padding: 4px 10px; border-radius: 999px; background: #EFEBE2;">{{st.lockLabel}}</span>
-</sc-if>
-</div>
-</li>
-</sc-for>
-</ol>
-<sc-if value="{{emptyDay}}" hint-placeholder-val="{{ false }}">
-<p role="status" style="margin: 0; padding: 14px 16px; background: #FFFFFF; border: 1px dashed #C9C0AE; border-radius: 12px; font-size: 15px; line-height: 1.5;">Nothing fits between those hours and your all-aboard time. Try "All day" or "Afternoon": the villages open at 12:15 PM.</p>
-</sc-if>
-<sc-if value="{{swapMsg}}" hint-placeholder-val="{{ false }}">
-<p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{swapMsg}}</p>
-</sc-if>
-<p style="margin: 0; font-size: 13px; line-height: 1.5; color: #5E5642;">{{sourceNote}}</p>
 </div>
 
-<aside id="book" class="result-pkg" aria-labelledby="pkg-h" style="display: flex; flex-direction: column; gap: 14px; padding: 22px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 18px; box-shadow: 0 10px 30px rgba(39,32,27,0.06);">
-<sc-if value="{{notBooked}}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; gap: 14px;">
-<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5642;">The package for this day</span>
-<h2 id="pkg-h" style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">{{pkg.name}}</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A4336;">{{pkg.why}}</p>
-<ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.45;">
-<sc-for list="{{pkg.includes}}" as="inc" hint-placeholder-count="3"><li>{{inc}}</li></sc-for>
+<sc-if value="{{panelNone}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 16px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">{{sumTitle}}</h3>
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+<sc-for list="{{stats}}" as="st" hint-placeholder-count="4"><li style="display: flex; flex-direction: column; padding: 10px 12px; background: #F6F4EF; border-radius: 10px;"><span style="font-size: 20px; font-weight: 700; color: #215968;">{{st.value}}</span><span style="font-size: 13px; color: #5E5642;">{{st.label}}</span></li></sc-for>
 </ul>
-<div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 0; border-top: 1px solid #E3DED4; border-bottom: 1px solid #E3DED4;">
-<span style="font-size: 14px; color: #5E5642;">{{partyLine}}</span>
-<span style="font-size: 14px; color: #5E5642;">{{transportLine}}</span>
-<span style="font-size: 20px; font-weight: 700; margin-top: 4px;">[TOTAL]</span>
-</div>
-<button type="button" onClick="{{book}}" style="min-height: 52px; border: none; border-radius: 999px; background: #D6420F; color: #FFFFFF; font-weight: 700; font-size: 17px; cursor: pointer;">Book this day</button>
-<a href="Discover.dc.html" onClick="{{keepDay}}" style="text-align: center; font-size: 15px; font-weight: 700; padding: 10px 0;">Compare all packages</a>
-<p style="margin: 0; font-size: 13px; line-height: 1.45; color: #5E5642;">Your day comes with you. After you book, it's waiting in My Day with every time and walk, ready to fine-tune.</p>
+<span style="font-size: 13px; line-height: 1.45; color: #5E5642;">{{sumNote}}</span>
 </div>
 </sc-if>
-<sc-if value="{{booked}}" hint-placeholder-val="{{ false }}">
-<div role="status" style="display: flex; flex-direction: column; gap: 14px;">
-<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #215968;">Booked · prototype</span>
-<h2 style="margin: 0; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.1;">Mahalo! Your day is saved to booking {{bookedConf}}.</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A4336;">This is the confirmation email a guest would receive. One tap opens their day. No account, no typing.</p>
-<div style="border: 1px solid #E3DED4; border-radius: 12px; overflow: hidden;">
-<div style="padding: 10px 14px; background: #F6F4EF; font-size: 13px; color: #5E5642; display: flex; flex-direction: column; gap: 2px;"><span><strong style="color: #27201B;">From:</strong> Polynesian Cultural Center</span><span><strong style="color: #27201B;">Subject:</strong> You're booked for {{dateLong}}</span></div>
-<div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.5;">
-<span>Aloha! {{pkg.name}}, {{dateLong}}. Confirmation {{bookedConf}}.</span>
-<span>We've saved the day you shaped. Open it to see every time, the walks between stops, and what to bring.</span>
-<a href="Main.dc.html" style="align-self: flex-start; min-height: 48px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; background: #215968; color: #FFFFFF; font-weight: 700; text-decoration: none;">Open my day</a>
-<span style="font-size: 13px; color: #5E5642;">The button links to polynesia.com/myday?b={{bookedConf}} and works until your visit; after it, it opens a thank-you page. Lost the email? Enter {{bookedConf}} at polynesia.com/myday.</span>
+
+<sc-if value="{{panelStop}}" hint-placeholder-val="{{ false }}">
+<section aria-labelledby="sel-h" style="padding: 16px; background: #FFFFFF; border: 2px solid #215968; border-radius: 14px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; align-items: flex-start; gap: 10px;">
+<span aria-hidden="true" style="{{sel.badge}}">{{sel.code}}</span>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto;">
+<h3 id="sel-h" style="margin: 0; font-size: 18px; font-weight: 700;">{{sel.title}}</h3>
+<span style="font-size: 14px; color: #4A4336;">{{sel.meta}}</span>
 </div>
+<button type="button" onClick="{{closePanel}}" aria-label="Close" style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; cursor: pointer; font-size: 18px; color: #27201B;">×</button>
 </div>
-<button type="button" onClick="{{unbook}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Start over</button>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{sel.what}}</p>
+<sc-if value="{{sel.why}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #215968;">{{sel.why}}</p></sc-if>
+<sc-if value="{{sel.conflict}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; font-weight: 700; color: #B42318;">{{sel.conflict}}</p></sc-if>
+<sc-if value="{{sel.fromTicket}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #5E5642;">This time is on your ticket. Removing it here only changes your plan.</p></sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button type="button" onClick="{{sel.earlier}}" disabled="{{sel.noEarlier}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #27201B; cursor: pointer;">{{sel.earlierLabel}}</button>
+<button type="button" onClick="{{sel.later}}" disabled="{{sel.noLater}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #27201B; cursor: pointer;">{{sel.laterLabel}}</button>
+<button type="button" onClick="{{sel.remove}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-weight: 700; font-size: 14px; color: #8A1C12; cursor: pointer;">Remove</button>
 </div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<h4 style="margin: 4px 0 0; font-size: 14px; font-weight: 700;">{{altTitle}}</h4>
+<sc-if value="{{noAlts}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5642;">Nothing else fits this slot. Try moving a neighboring stop.</span></sc-if>
+<sc-for list="{{alts}}" as="a" hint-placeholder-count="4">
+<button type="button" onClick="{{a.pick}}" style="min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 10px; border: 1px solid #E3DED4; background: #FFFFFF; cursor: pointer; text-align: left; color: #27201B;"><span aria-hidden="true" style="{{a.badge}}">{{a.code}}</span><span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 14px; font-weight: 700;">{{a.time}} · {{a.title}}</span><span style="font-size: 12px; color: #5E5642;">{{a.sub}}</span></span></button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{panelGap}}" hint-placeholder-val="{{ false }}">
+<section aria-labelledby="gap-h" style="padding: 16px; background: #FFFFFF; border: 2px solid #215968; border-radius: 14px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+<h3 id="gap-h" style="margin: 0; font-size: 17px; font-weight: 700;">{{gapTitle}}</h3>
+<button type="button" onClick="{{closePanel}}" aria-label="Close" style="width: 40px; height: 40px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; cursor: pointer; font-size: 18px; color: #27201B;">×</button>
+</div>
+<sc-if value="{{noAlts}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5E5642;">Nothing fits this gap. It's a good moment to rest or wander.</span></sc-if>
+<sc-for list="{{alts}}" as="a" hint-placeholder-count="4">
+<button type="button" onClick="{{a.pick}}" style="min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 10px; border: 1px solid #E3DED4; background: #FFFFFF; cursor: pointer; text-align: left; color: #27201B;"><span aria-hidden="true" style="{{a.badge}}">{{a.code}}</span><span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 14px; font-weight: 700;">{{a.time}} · {{a.title}}</span><span style="font-size: 12px; color: #5E5642;">{{a.sub}}</span></span></button>
+</sc-for>
+</section>
 </sc-if>
 </aside>
+</div>
 </section>
-</sc-if>
-
 </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
 // ---- Event times, in the shape PCC's scheduling app is expected to supply them.
-// Until the app can be read, these sample times live here. Times are local, "HH:MM".
-var SCHEDULE = {
-  source: "sample",
-  events: [
-    { id: "market-lunch", title: "Early lunch at the Hukilau Marketplace", place: "market", kind: "Food", dur: 45, times: ["11:00"] },
-    { id: "huki-show", title: "Huki: A Canoe Celebration", place: "huki", kind: "Show", dur: 20, times: ["13:00"], note: "Pre-show at 12:50" },
-    { id: "samoa-pres", title: "Way of Life in Samoa", place: "samoa", kind: "Presentation", dur: 20, times: ["13:00", "14:00", "15:00", "16:00", "16:30"] },
-    { id: "samoa-fire", title: "Fire-making", place: "samoa", kind: "Demonstration", dur: 15, times: ["13:30", "14:30", "15:30", "16:30"] },
-    { id: "aotearoa-pres", title: "Haka and Māori culture", place: "aotearoa", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30"] },
-    { id: "fiji-pres", title: "History Through Chants and Dance", place: "fiji", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30"] },
-    { id: "fiji-oil", title: "Coconut oil making", place: "fiji", kind: "Demonstration", dur: 15, times: ["13:00", "14:00", "15:00", "16:00", "17:00"] },
-    { id: "hawaii-pres", title: "Tradition of Lasting Tide", place: "hawaii", kind: "Presentation", dur: 20, times: ["13:00", "14:00", "15:00", "16:00", "17:00"] },
-    { id: "hawaii-games", title: "Traditional Hawaiian games", place: "hawaii", kind: "Hands-on", dur: 15, times: ["13:30", "14:30", "15:30", "16:30"], kids: true },
-    { id: "tahiti-drums", title: "Drums of the Islands", place: "tahiti", kind: "Presentation", dur: 20, times: ["13:30", "14:00"] },
-    { id: "tahiti-wedding", title: "Ancient Tahitian Wedding", place: "tahiti", kind: "Presentation", dur: 20, times: ["15:00", "16:00"], couples: true },
-    { id: "tonga-pres", title: "Echoing the Sounds of Respect", place: "tonga", kind: "Presentation", dur: 20, times: ["13:30", "14:30", "15:30", "16:30", "17:00"] },
-    { id: "tonga-nafa", title: "Nafa drums for kids", place: "tonga", kind: "Hands-on", dur: 15, times: ["13:00", "14:00", "15:00", "16:00"], kids: true },
-    { id: "buffet", title: "Gateway Buffet", place: "gateway", kind: "Dinner", dur: 75, times: ["16:30", "18:00"] },
-    { id: "luau", title: "Aliʻi Lūʻau", place: "luau", kind: "Dinner and show", dur: 90, times: ["17:00"] },
-    { id: "market-snack", title: "A bite at the food trucks", place: "market", kind: "Food", dur: 20, times: ["18:45"] },
-    { id: "ha", title: "HĀ: Breath of Life", place: "theater", kind: "Evening show", dur: 75, times: ["19:30"] }
-  ]
-};
-function toMin(t) { var p = t.split(":"); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
-function fmt(m) { var h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? "PM" : "AM", h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm + " " + ap; }
-function evById(id) { for (var i = 0; i < SCHEDULE.events.length; i++) if (SCHEDULE.events[i].id === id) return SCHEDULE.events[i]; return null; }
+// Sample data until the app can be read. Times in minutes after midnight; "win" = come any time in that window.
+var EVENTS = [
+  { id: "market-lunch", title: "Lunch at the Hukilau Marketplace", p: "market", kind: "Food", dur: 45, times: [660, 690], cat: ["food"], est: true, what: "Pounders Restaurant, the Hukilau lunch and food trucks, steps from the entrance." },
+  { id: "market-shop", title: "Browse the island shops", p: "market", kind: "Shopping", dur: 30, win: [660, 1170], cat: [], est: true, what: "Island-made gifts, clothing and ʻukulele from local vendors." },
+  { id: "huki-show", title: "Huki: A Canoe Celebration", p: "huki", kind: "Show", dur: 20, times: [780], cat: ["show"], sig: true, kids: true, what: "Every island arrives by canoe, dancing across the lagoon. Pre-show at 12:50; arrive early for lagoon-side seats." },
+  { id: "samoa-pres", title: "Way of Life in Samoa", p: "samoa", kind: "Presentation", dur: 20, times: [780, 840, 900, 960, 990], cat: ["show"], sig: true, what: "Fire from two sticks, a coconut cracked with a rock and a 40-foot palm climbed barefoot, all with Samoan humor." },
+  { id: "samoa-fire", title: "Fire-making", p: "samoa", kind: "Demonstration", dur: 15, times: [810, 870, 930, 990], cat: ["hands"], what: "Watch fire made the traditional way, by hand." },
+  { id: "samoa-food", title: "Samoan food presentation", p: "samoa", kind: "Tasting", dur: 15, times: [780, 900], cat: ["food"], what: "A taste of Samoan food prepared in the village." },
+  { id: "samoa-weave", title: "Weaving", p: "samoa", kind: "Hands-on", dur: 15, win: [765, 1050], cat: ["hands"], kids: true, est: true, what: "Weave a fish from coconut leaves with village hosts." },
+  { id: "aotearoa-pres", title: "Haka and Māori culture", p: "aotearoa", kind: "Presentation", dur: 20, times: [810, 870, 930, 990], cat: ["show"], sig: true, what: "An introduction to the haka and what it means." },
+  { id: "aotearoa-games", title: "Māori games and skills", p: "aotearoa", kind: "Hands-on", dur: 15, win: [765, 1050], cat: ["hands"], kids: true, est: true, what: "Try poi balls and stick games." },
+  { id: "aotearoa-food", title: "Māori food", p: "aotearoa", kind: "Tasting", dur: 10, win: [765, 1050], cat: ["food"], est: true, what: "A taste of Māori food." },
+  { id: "tonga-pres", title: "Echoing the Sounds of Respect", p: "tonga", kind: "Presentation", dur: 20, times: [810, 870, 930, 990, 1020], cat: ["show"], sig: true, what: "Tongan drumming and dance, and the guests become the drummers." },
+  { id: "tonga-nafa", title: "Nafa drums for kids", p: "tonga", kind: "Hands-on", dur: 15, times: [780, 840, 900, 960], cat: ["hands"], kids: true, what: "Kids learn to play the nafa drum." },
+  { id: "tonga-tolo", title: "Tolo spear toss", p: "tonga", kind: "Hands-on", dur: 10, win: [765, 1050], cat: ["hands"], est: true, what: "Try the Tongan spear toss." },
+  { id: "fiji-pres", title: "History Through Chants and Dance", p: "fiji", kind: "Presentation", dur: 20, times: [810, 870, 930, 990], cat: ["show"], sig: true, what: "Fiji's history, told through chant and dance." },
+  { id: "fiji-oil", title: "Coconut oil making", p: "fiji", kind: "Demonstration", dur: 15, times: [780, 840, 900, 960, 1020], cat: ["hands", "history"], what: "See how coconut oil is made the traditional way." },
+  { id: "fiji-derua", title: "Derua bamboo music", p: "fiji", kind: "Demonstration", dur: 15, times: [780, 900, 1020], cat: ["show"], what: "A Fijian music tradition played on bamboo." },
+  { id: "fiji-lali", title: "Play the lali drum", p: "fiji", kind: "Hands-on", dur: 10, win: [765, 1050], cat: ["hands"], kids: true, est: true, what: "Try the lali, the Fijian log drum." },
+  { id: "tahiti-drums", title: "Drums of the Islands", p: "tahiti", kind: "Presentation", dur: 20, times: [810, 840], cat: ["show"], what: "The sounds of Tahitian drumming." },
+  { id: "tahiti-wedding", title: "Ancient Tahitian Wedding", p: "tahiti", kind: "Presentation", dur: 20, times: [900, 960], cat: ["show"], sig: true, couples: true, what: "A traditional Tahitian wedding ceremony. Fair warning: they'll get you dancing." },
+  { id: "tahiti-bread", title: "Coconut bread tasting", p: "tahiti", kind: "Tasting", dur: 10, win: [825, 1050], cat: ["food"], est: true, what: "Taste Tahitian coconut bread, after 1:45 PM." },
+  { id: "tahiti-spear", title: "Spear throwing", p: "tahiti", kind: "Hands-on", dur: 10, win: [765, 1050], cat: ["hands"], kids: true, est: true, what: "Try your aim at spear throwing." },
+  { id: "hawaii-pres", title: "Tradition of Lasting Tide", p: "hawaii", kind: "Presentation", dur: 20, times: [780, 840, 900, 960, 1020], cat: ["show", "history"], sig: true, what: "Hawaiian traditions and the ancient kapu system." },
+  { id: "hawaii-games", title: "Traditional Hawaiian games", p: "hawaii", kind: "Hands-on", dur: 15, times: [810, 870, 930, 990], cat: ["hands"], kids: true, what: "Games Hawaiian children have played for generations." },
+  { id: "hawaii-hula", title: "Hula lesson", p: "hawaii", kind: "Hands-on", dur: 15, win: [765, 1050], cat: ["hands"], couples: true, est: true, what: "Learn a few basic hula movements." },
+  { id: "hawaii-poi", title: "Poi tasting", p: "hawaii", kind: "Tasting", dur: 10, win: [765, 1050], cat: ["food"], est: true, what: "Try freshly made poi." },
+  { id: "canoe-tour", title: "Lagoon canoe tour", p: "canoe", kind: "Tour", dur: 30, win: [765, 1050], cat: ["history"], kids: true, est: true, what: "A guided ride across the lagoon past the villages." },
+  { id: "iosepa-visit", title: "Iosepa voyaging canoe", p: "iosepa", kind: "Exhibit", dur: 20, win: [765, 1050], cat: ["history"], est: true, what: "A 60-foot double-hulled canoe and the art of Polynesian wayfinding." },
+  { id: "mission-visit", title: "Hawaiian Mission Settlement", p: "mission", kind: "Exhibit", dur: 20, win: [765, 1050], cat: ["history"], est: true, what: "A mission home, school house and chapel from Lāʻie's past." },
+  { id: "journey-film", title: "Hawaiian Journey film", p: "journey", kind: "Show", dur: 15, win: [765, 1050], cat: ["show", "history"], kids: true, est: true, what: "An immersive film about Hawaiʻi. Showtimes to confirm." },
+  // Evening, placed from the evening choice or the guest's ticket
+  { id: "buffet", title: "Gateway Buffet", p: "gateway", kind: "Dinner", dur: 75, times: [990, 1080], evening: true, what: "Island buffet with live music." },
+  { id: "luau", title: "Aliʻi Lūʻau", p: "luau", kind: "Dinner and show", dur: 90, times: [1020], evening: true, what: "A royal feast with the imu ceremony and the royal court." },
+  { id: "market-snack", title: "Dinner at the food trucks", p: "market", kind: "Food", dur: 30, times: [1110], evening: true, what: "Plate lunches and shave ice at the Marketplace, a short walk from the theater." },
+  { id: "ha", title: "HĀ: Breath of Life", p: "theater", kind: "Evening show", dur: 75, times: [1170], evening: true, what: "More than 100 performers tell one life in song, dance and fire." },
+  // Only from a ticket
+  { id: "guided", title: "Your guided village tour", p: "huki", kind: "Tour", dur: 240, times: [750], ticketOnly: true, what: "Your guide walks you through the villages and saves you seats at Huki." },
+  { id: "break", title: "Rest and a cool drink", p: "", kind: "Break", dur: 20, ticketOnly: true, what: "Find some shade, refill water, maybe a shave ice." }
+];
+var BYID = {}; EVENTS.forEach(function (e) { BYID[e.id] = e; });
 
 var PLACES = {
-  samoa: { name: "Samoa", x: 51.5, y: 67.5, code: "SA", color: "#2B6E3A" },
-  aotearoa: { name: "Aotearoa", x: 64.6, y: 55.5, code: "AO", color: "#4338A0" },
-  tonga: { name: "Tonga", x: 68.5, y: 19.9, code: "TO", color: "#1F5BAA" },
-  fiji: { name: "Fiji", x: 75.0, y: 34.4, code: "FJ", color: "#13695F" },
-  tahiti: { name: "Tahiti", x: 81.7, y: 11.6, code: "TA", color: "#9A2F7C" },
-  hawaii: { name: "Hawaiʻi", x: 87.7, y: 42.4, code: "HI", color: "#71349E" },
+  samoa: { name: "Samoa", x: 51.5, y: 67.5, code: "SA", color: "#2B6E3A", village: true },
+  aotearoa: { name: "Aotearoa", x: 64.6, y: 55.5, code: "AO", color: "#4338A0", village: true },
+  tonga: { name: "Tonga", x: 68.5, y: 19.9, code: "TO", color: "#1F5BAA", village: true },
+  fiji: { name: "Fiji", x: 75.0, y: 34.4, code: "FJ", color: "#13695F", village: true },
+  tahiti: { name: "Tahiti", x: 81.7, y: 11.6, code: "TA", color: "#9A2F7C", village: true },
+  hawaii: { name: "Hawaiʻi", x: 87.7, y: 42.4, code: "HI", color: "#71349E", village: true },
   huki: { name: "Lagoon", x: 48.8, y: 44.3, code: "HU", color: "#4A4336" },
+  canoe: { name: "Canoe landing", x: 39.6, y: 35.6, code: "CT", color: "#4A4336" },
+  mission: { name: "Mission Settlement", x: 58.1, y: 26.1, code: "MS", color: "#4A4336" },
+  iosepa: { name: "Iosepa", x: 96.3, y: 44.3, code: "IO", color: "#4A4336" },
+  journey: { name: "Hawaiian Journey", x: 44.1, y: 33.5, code: "HJ", color: "#4A4336" },
   market: { name: "Hukilau Marketplace", x: 9.4, y: 83.6, code: "MK", color: "#4A4336" },
   gateway: { name: "Gateway Restaurant", x: 28.3, y: 56.3, code: "GB", color: "#6B4A33" },
   luau: { name: "Hale Aloha", x: 41.8, y: 72.5, code: "LU", color: "#6B4A33" },
   theater: { name: "Pacific Theater", x: 13.0, y: 44.3, code: "HĀ", color: "#2B2540" }
 };
-// Map length in metres and walking pace for a mid-age adult; estimates until a scaled site plan is measured.
-var MAP_M = 900, PACE = 80;
-function walkMin(a, b) { var A = PLACES[a], B = PLACES[b]; if (!A || !B || a === b) return 0; var dx = (A.x - B.x) / 100 * MAP_M, dy = (A.y - B.y) / 100 * MAP_M * (704 / 2601); return Math.max(2, Math.round(Math.sqrt(dx * dx + dy * dy) / PACE)); }
+var VILLAGE_IDS = ["samoa", "aotearoa", "tonga", "fiji", "tahiti", "hawaii"];
+// Map length in metres and an easy walking pace; estimates until a scaled site plan is measured.
+var MAP_M = 900, PACE_M = 80;
+function walkMin(a, b) { var A = PLACES[a], B = PLACES[b]; if (!A || !B || a === b) return 0; var dx = (A.x - B.x) / 100 * MAP_M, dy = (A.y - B.y) / 100 * MAP_M * (704 / 2601); return Math.max(2, Math.round(Math.sqrt(dx * dx + dy * dy) / PACE_M)); }
+function fmt(m) { var h = Math.floor(m / 60), mm = m % 60, ap = h >= 12 ? "PM" : "AM", h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm + " " + ap; }
+function fmtS(m) { var h = Math.floor(m / 60), mm = m % 60, h12 = h % 12 === 0 ? 12 : h % 12; return h12 + ":" + (mm < 10 ? "0" : "") + mm; }
+function hm(m) { return m >= 60 ? Math.floor(m / 60) + " h" + (m % 60 ? " " + (m % 60) + " min" : "") : m + " min"; }
 
 var VILLAGES = [
   { id: "samoa", greeting: "Talofa", img: "assets/0072284cd42a958df9861a57a6804bf0.jpg", alt: "A Samoan villager climbs a tall coconut palm barefoot", promise: "Fire from two sticks and a 40-foot palm, climbed barefoot." },
@@ -287,194 +398,359 @@ var VILLAGES = [
   { id: "hawaii", greeting: "Aloha", img: "assets/402ef4cb675883c62faac675f1703779.webp", alt: "Hula dancers in fern lei at the Hawaiian village", promise: "A hula step, fresh poi and ancient games." }
 ];
 
-// One suggested day per party type. Other groups start from the couple day.
-var TEMPLATES = {
-  couple: [["market-lunch", "11:00"], ["huki-show", "13:00"], ["samoa-pres", "14:00"], ["aotearoa-pres", "14:30"], ["tahiti-wedding", "15:00"], ["fiji-pres", "15:30"], ["hawaii-pres", "16:00"], ["tonga-pres", "16:30"], ["luau", "17:00"], ["ha", "19:30"]],
-  family: [["market-lunch", "11:00"], ["huki-show", "13:00"], ["tonga-nafa", "14:00"], ["aotearoa-pres", "14:30"], ["samoa-pres", "15:00"], ["hawaii-games", "15:30"], ["fiji-oil", "16:00"], ["buffet", "16:30"], ["ha", "19:30"]]
-};
-var WHY = {
-  "tonga-nafa": "Kids play the drums themselves.", "hawaii-games": "Games Hawaiian children have played for generations.",
-  "tahiti-wedding": "A favorite with couples.", "huki-show": "The daily highlight. Arrive early for lagoon-side seats.",
-  "luau": "Comes with your package.", "buffet": "Comes with your package.", "ha": "Comes with your package."
-};
-var LOCKED = { "huki-show": "Daily highlight", "luau": "In your package", "buffet": "In your package", "ha": "In your package", "market-lunch": "" };
-
 var PARTIES = [
-  { id: "couple", label: "Couple", note: "Two adults", template: "couple", adults: 2, kids: 0, name: "a couple" },
-  { id: "family", label: "Family with young kids", note: "Kids under about 10", template: "family", adults: 2, kids: 2, name: "a family with young kids" },
-  { id: "group", label: "Friends or another group", note: "Starts from the couple day", template: "couple", adults: 4, kids: 0, name: "your group" }
+  { id: "couple", label: "Couple", note: "Two adults" },
+  { id: "family", label: "Family with young kids", note: "Kids under about 10" },
+  { id: "group", label: "Friends or another group", note: "Adults travelling together" }
 ];
 var HOURS = [
-  { id: "allday", label: "All day", note: "Villages, dinner and HĀ. Recommended.", from: 660, to: 1245 },
-  { id: "afternoon", label: "Afternoon", note: "Huki and the villages, home before dinner", from: 660, to: 1050 },
-  { id: "lateday", label: "Afternoon into evening", note: "Villages from 2 PM, then dinner and HĀ", from: 840, to: 1245 },
-  { id: "evening", label: "Dinner and show", note: "Dinner, then HĀ", from: 990, to: 1245 }
+  { id: "allday", label: "All day", note: "Villages, then dinner and HĀ", from: 660, to: 1245 },
+  { id: "afternoon", label: "Afternoon", note: "Huki and the villages, gone before dinner", from: 660, to: 1050 },
+  { id: "lateday", label: "Afternoon into evening", note: "Villages from 2 PM, then the evening", from: 840, to: 1245 },
+  { id: "evening", label: "Evening only", note: "Dinner and HĀ", from: 990, to: 1245 }
 ];
 var STAYS = [
-  { id: "waikiki", label: "Waikīkī or Honolulu", note: "About an hour away. Add our coach.", hotel: "hhv" },
+  { id: "waikiki", label: "Waikīkī or Honolulu", note: "About an hour away; coach guests arrive at noon" },
   { id: "northshore", label: "North Shore", note: "A short drive. Free parking." },
-  { id: "cruise", label: "On a cruise ship", note: "We'll fit the day to your port times" },
+  { id: "cruise", label: "On a cruise ship", note: "We'll fit the day to your all-aboard time" },
   { id: "elsewhere", label: "Somewhere else on Oʻahu", note: "Driving. Free parking." }
 ];
-// Cruise guests: all-aboard times offered, and the time needed to get back to the ship.
-var ABOARD = [["16:30", "4:30 PM"], ["18:00", "6:00 PM"], ["20:00", "8:00 PM"], ["22:30", "10:30 PM or later"]];
-var PORT_TRAVEL = 75, PORT_BUFFER = 30; // minutes to Honolulu Harbor, plus a margin; to confirm with Transportation
+var ABOARD = [[990, "4:30 PM"], [1080, "6:00 PM"], [1200, "8:00 PM"], [1350, "10:30 PM or later"]];
+var PORT_TRAVEL = 75, PORT_BUFFER = 30;
+var EVENINGS = [
+  { id: "luau", label: "Lūʻau and HĀ", items: [["luau", 1020], ["ha", 1170]] },
+  { id: "buffet", label: "Buffet and HĀ", items: [["buffet", 990], ["ha", 1170]] },
+  { id: "ha", label: "Just HĀ", items: [["market-snack", 1110], ["ha", 1170]] },
+  { id: "none", label: "No evening plans", items: [] }
+];
+var PACES = {
+  relaxed: { label: "Relaxed", gap: 10, max: 6, breakEvery: 110, note: "Fewer stops, time between them and a break every couple of hours." },
+  balanced: { label: "Balanced", gap: 5, max: 9, note: "A full afternoon with a little breathing room." },
+  full: { label: "See it all", gap: 0, max: 14, note: "Back-to-back, as much as the day can hold." }
+};
+var MUSTS = [["samoa", "Samoa"], ["aotearoa", "Aotearoa"], ["tonga", "Tonga"], ["fiji", "Fiji"], ["tahiti", "Tahiti"], ["hawaii", "Hawaiʻi"], ["huki", "Huki canoe show"], ["canoe", "Canoe tour"], ["iosepa", "Iosepa canoe"], ["mission", "Mission Settlement"]];
+var INTERESTS = [["show", "Shows and dance"], ["hands", "Trying things"], ["food", "Food"], ["history", "History and exhibits"], ["kids", "Kid favorites"]];
 var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
 var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
-var PACKAGES = {
-  admission: { id: "admission", conf: "PCC-31907", name: "Islands of Polynesia", includes: ["All six island villages", "Huki: A Canoe Celebration", "Canoe rides and exhibits"] },
-  buffet: { id: "buffet", conf: "PCC-52640", name: "Gateway Buffet + HĀ", includes: ["All six island villages and Huki", "Gateway Buffet dinner with live music, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"] },
-  luau: { id: "luau", conf: "PCC-48213", name: "Aliʻi Lūʻau package", includes: ["All six island villages and Huki", "Aliʻi Lūʻau dinner and show, 5:00 PM", "HĀ: Breath of Life, reserved seating, 7:30 PM"] }
+
+// Sample bookings for the prototype. A ticket fixes the date, party and anything with a set time.
+var TICKETS = {
+  "PCC-48213": { label: "Lūʻau package", name: "Aliʻi Lūʻau package", date: 2, adults: 2, kids: 1, coach: true, evening: "luau", fixed: [["luau", 1020], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Ala Moana Hotel"] },
+  "PCC-52640": { label: "Buffet + HĀ", name: "Gateway Buffet + HĀ", date: 2, adults: 2, kids: 0, evening: "buffet", fixed: [["buffet", 990], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Gateway Buffet, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"] },
+  "PCC-31907": { label: "Villages only", name: "Islands of Polynesia", date: 2, adults: 2, kids: 0, evening: "none", fixed: [], includes: ["All six island villages and Huki", "Canoe rides and exhibits", "Free return within 3 days"] },
+  "PCC-77051": { label: "Guided tour", name: "Lūʻau package with guided tour", date: 2, adults: 2, kids: 0, coach: true, evening: "luau", fixed: [["guided", 750], ["luau", 1020], ["ha", 1170]], includes: ["Your own guide through the villages, 12:30–4:30 PM", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Hilton Hawaiian Village"] }
 };
+
 var REC_KEY = "pcc-shared-day-v1";
 function saveRec(r) { try { r.updated = Date.now(); window.localStorage.setItem(REC_KEY, JSON.stringify(r)); } catch (err) {} }
 
 function optStyle(on) {
-  return "min-height: 56px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; text-align: left; padding: 8px 14px; border-radius: 12px; cursor: pointer; font-size: 15px; color: #27201B; " +
+  return "min-height: 52px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; text-align: left; padding: 6px 12px; border-radius: 12px; cursor: pointer; font-size: 15px; color: #27201B; " +
     (on ? "background: #E6EFF1; border: 2px solid #215968;" : "background: #FFFFFF; border: 1px solid #D8CCB6;");
 }
-function numStyle(done) {
-  return "display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-right: 6px; border-radius: 50%; font-size: 13px; " +
-    (done ? "background: #215968; color: #FFFFFF;" : "background: #EFEBE2; color: #4A4336;");
+function chipStyle(on) { return "min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 14px; cursor: pointer; " + (on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF; font-weight: 700;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"); }
+function numStyle(done) { return "display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; font-size: 12px; " + (done ? "background: #215968; color: #FFFFFF;" : "background: #EFEBE2; color: #4A4336;"); }
+function badge(c, size) { return "display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: " + size + "px; height: " + size + "px; border-radius: 7px; background: " + c + "; color: #FFFFFF; font-size: " + Math.round(size * 0.4) + "px; font-weight: 700;"; }
+
+// ---- The itinerary engine -------------------------------------------------
+function placeOf(it) { return it.p || BYID[it.id].p; }
+function durOf(it) { return BYID[it.id].dur; }
+function validTimes(ev) { if (ev.times) return ev.times.slice(); var out = []; if (ev.win) for (var t = ev.win[0]; t + ev.dur <= ev.win[1]; t += 5) out.push(t); return out; }
+function earliestAt(ev, ready) { var ts = validTimes(ev); for (var i = 0; i < ts.length; i++) if (ts[i] >= ready) return ts[i]; return null; }
+function windowOf(st) {
+  var H = HOURS.filter(function (h) { return h.id === st.hours; })[0]; if (!H) return null;
+  var A = H.from, B = H.to, tk = st.ticket ? TICKETS[st.ticket] : null;
+  if (st.stay === "waikiki" || (tk && tk.coach)) A = Math.max(A, 720);
+  if (st.stay === "cruise" && st.aboard) B = Math.min(B, st.aboard - PORT_TRAVEL - PORT_BUFFER);
+  return [A, B];
 }
-function badge(c, size) { return "display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: " + size + "px; height: " + size + "px; border-radius: 8px; background: " + c + "; color: #FFFFFF; font-size: " + Math.round(size * 0.4) + "px; font-weight: 700; letter-spacing: 0.02em;"; }
+function eveningOf(st) {
+  if (st.ticket) return TICKETS[st.ticket].evening;
+  if (st.evening) return st.evening;
+  return st.party === "family" ? "buffet" : "luau";
+}
+function scoreOf(st, ev, t, ready, w, seen) {
+  var s = 10;
+  if (ev.sig) s += 25;
+  if (st.must[ev.p] && !seen[ev.p]) s += 140;
+  (ev.cat || []).forEach(function (c) { if (st.interests[c]) s += 18; });
+  if (ev.kids && (st.interests.kids || st.party === "family")) s += 22;
+  if (ev.couples && st.party === "couple") s += 18;
+  if (PLACES[ev.p] && PLACES[ev.p].village) s += seen[ev.p] ? -14 * seen[ev.p] : 30;
+  if (ev.id === "market-lunch") s += t < 735 ? 40 : -200;
+  if (ev.id === "market-shop") s -= 20;
+  if (ev.id === "huki-show") s += 60;
+  s -= (t - ready) * 0.6 + w * 1.2;
+  return s;
+}
+// Fill the day greedily in time order around the items that must stay (ticket times, evening, hand edits).
+function generate(st, keep) {
+  var W = windowOf(st); if (!W) return [];
+  var A = W[0], B = W[1], pace = PACES[st.pace] || PACES.balanced;
+  var items = keep.map(function (x) { return Object.assign({}, x); });
+  var has = function (id) { return items.some(function (x) { return x.id === id; }); };
+  var fixed = st.ticket ? TICKETS[st.ticket].fixed : (EVENINGS.filter(function (e) { return e.id === eveningOf(st); })[0] || EVENINGS[3]).items;
+  var dropped = [];
+  fixed.forEach(function (f) {
+    var ev = BYID[f[0]]; if (has(f[0]) || st.excluded[f[0]]) return;
+    if (f[1] < A || f[1] + ev.dur > B) { dropped.push(ev.title); return; }
+    items.push({ key: "k" + f[0], id: f[0], t: f[1], kind: st.ticket ? "ticket" : "set" });
+  });
+  if (!has("huki-show") && !st.excluded["huki-show"] && 780 >= A && 800 <= B && !has("guided")) items.push({ key: "khuki-show", id: "huki-show", t: 780, kind: "auto" });
+  var sortI = function () { items.sort(function (a, b) { return a.t - b.t; }); };
+  sortI();
+  var seen = {}; items.forEach(function (x) { var p = placeOf(x); seen[p] = (seen[p] || 0) + 1; });
+  var cursor = A, place = "market", lastBreak = Math.max(A, 800), autoN = 0, guard = 0; // breaks count from after Huki
+  while (cursor < B && guard++ < 300) {
+    var cover = items.filter(function (x) { return x.t <= cursor && cursor < x.t + durOf(x); })[0];
+    if (cover) { cursor = cover.t + durOf(cover); place = placeOf(cover) || place; continue; }
+    var nb = items.filter(function (x) { return x.t >= cursor; })[0];
+    var limit = nb ? nb.t : B, nbPlace = nb ? placeOf(nb) : null;
+    if (pace.breakEvery && autoN > 0 && cursor - lastBreak >= pace.breakEvery && limit - cursor >= 20 + (nbPlace ? walkMin(place, nbPlace) : 0) && cursor >= 735 && cursor < 1050) {
+      items.push({ key: "kbreak" + cursor, id: "break", p: place, t: cursor, kind: "auto" }); sortI(); cursor += 20; lastBreak = cursor; continue;
+    }
+    var best = null;
+    if (autoN < pace.max) EVENTS.forEach(function (ev) {
+      if (ev.evening || ev.ticketOnly || has(ev.id) || st.excluded[ev.id]) return;
+      var w = walkMin(place, ev.p), ready = cursor + w + (autoN || items.length ? pace.gap : 0);
+      var t = earliestAt(ev, ready); if (t == null || t > ready + 45) return;
+      var end = t + ev.dur; if (end > B || end + (nbPlace ? walkMin(ev.p, nbPlace) : 0) > limit) return;
+      var sc = scoreOf(st, ev, t, ready, w, seen);
+      if (!best || sc > best.sc) best = { ev: ev, t: t, sc: sc };
+    });
+    if (best) {
+      items.push({ key: "k" + best.ev.id, id: best.ev.id, t: best.t, kind: "auto" }); sortI();
+      seen[best.ev.p] = (seen[best.ev.p] || 0) + 1; autoN++; cursor = best.t + best.ev.dur; place = best.ev.p;
+    } else if (nb) { cursor = nb.t + durOf(nb); place = nbPlace || place; }
+    else cursor += 15;
+  }
+  sortI();
+  items._dropped = dropped;
+  return items;
+}
+// What fits between two moments, ranked for this guest.
+function fitsBetween(st, plan, from, fromPlace, to, toPlace, skipKey) {
+  var seen = {}; plan.forEach(function (x) { if (x.key !== skipKey) { var p = placeOf(x); seen[p] = (seen[p] || 0) + 1; } });
+  var out = [];
+  EVENTS.forEach(function (ev) {
+    if (ev.evening || ev.ticketOnly || plan.some(function (x) { return x.id === ev.id; })) return;
+    var w = walkMin(fromPlace, ev.p), ready = from + w;
+    var t = earliestAt(ev, ready); if (t == null) return;
+    if (t + ev.dur + (toPlace ? walkMin(ev.p, toPlace) : 0) > to) return;
+    out.push({ ev: ev, t: t, sc: scoreOf(st, ev, t, ready, w, seen) });
+  });
+  out.sort(function (a, b) { return b.sc - a.sc; });
+  return out.slice(0, 6);
+}
+function conflictOf(plan, i) {
+  if (i === 0) return "";
+  var a = plan[i - 1], b = plan[i], aEnd = a.t + durOf(a), w = walkMin(placeOf(a), placeOf(b));
+  if (b.t < aEnd) return "Overlaps " + BYID[a.id].title;
+  if (b.t < aEnd + w) return "Needs a " + w + " min walk, you have " + (b.t - aEnd);
+  return "";
+}
+
+var PX = 2.2; // timeline pixels per minute
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { party: null, date: null, hours: null, stay: null, aboard: null, swaps: {}, swapMsg: "", booked: false };
+    this.state = { ticket: null, confInput: "", confErr: "", party: null, date: null, hours: null, stay: null, aboard: null, evening: null, pace: "balanced", must: {}, interests: {},
+      plan: null, excluded: {}, sel: null, ghost: null, msg: "", sentMsg: "" };
   }
-  // Build the day: template, trimmed to the hours, with any swaps applied.
-  day() {
-    var s = this.state, P = null, H = null;
-    for (var i = 0; i < PARTIES.length; i++) if (PARTIES[i].id === s.party) P = PARTIES[i];
-    for (var j = 0; j < HOURS.length; j++) if (HOURS[j].id === s.hours) H = HOURS[j];
-    if (!P || !H) return [];
-    var tpl = TEMPLATES[P.template].slice();
-    // Afternoon-only days drop dinner and HĀ; evening-only days are dinner and HĀ.
-    // The Waikīkī coach arrives at noon, so nothing is planned before then.
-    var from = s.stay === "waikiki" ? Math.max(H.from, 720) : H.from;
-    var to = H.to;
-    if (s.stay === "cruise" && s.aboard) to = Math.min(to, toMin(s.aboard) - PORT_TRAVEL - PORT_BUFFER);
-    var out = [];
-    tpl.forEach(function (x, idx) {
-      var ev = evById(x[0]), t = toMin(x[1]);
-      if (!ev) return;
-      if (t < from || t + ev.dur > to) return;
-      out.push({ slot: P.template + ":" + idx, ev: ev, t: t });
-    });
-    // Dinner comes as part of a dinner-and-show package, so a day that can't fit HĀ drops it too.
-    if (!out.some(function (x) { return x.ev.id === "ha"; })) out = out.filter(function (x) { return x.ev.id !== "luau" && x.ev.id !== "buffet"; });
-    if (H.id === "evening" && P.template === "couple" && out.length && toMin("18:45") + 20 <= to) out.splice(1, 0, { slot: "snack", ev: evById("market-snack"), t: toMin("18:45") });
-    out = out.map(function (x) { var sw = s.swaps[x.slot]; if (sw) { var e2 = evById(sw.id); if (e2) return { slot: x.slot, ev: e2, t: sw.t, swapped: true }; } return x; });
-    out.sort(function (a, b) { return a.t - b.t; });
-    return out;
+  componentDidMount() {
+    var self = this;
+    this.onMove = function (ev) {
+      var d = self.drag; if (!d) return;
+      var dy = ev.clientY - d.y; if (Math.abs(dy) > 4) d.moved = true;
+      if (d.moved) self.setState({ ghost: { key: d.key, t: Math.round((d.t0 + dy / PX) / 5) * 5 } });
+    };
+    this.onUp = function () {
+      var d = self.drag; self.drag = null; if (!d || !d.moved) { if (d) self.setState({ ghost: null }); return; }
+      self._justDragged = true; setTimeout(function () { self._justDragged = false; }, 50);
+      var g = self.state.ghost, plan = self.state.plan || [], it = plan.filter(function (x) { return x.key === d.key; })[0];
+      if (!g || !it) { self.setState({ ghost: null }); return; }
+      var ts = validTimes(BYID[it.id]); if (it.id === "break") { ts = []; for (var t = 720; t <= 1230; t += 5) ts.push(t); }
+      var best = ts.reduce(function (b, t) { return b == null || Math.abs(t - g.t) < Math.abs(b - g.t) ? t : b; }, null);
+      self.retime(d.key, best == null ? it.t : best, true);
+    };
+    try { window.addEventListener("pointermove", this.onMove); window.addEventListener("pointerup", this.onUp); window.addEventListener("pointercancel", this.onUp); } catch (err) {}
+    // A link from a confirmation email (?b=PCC-48213) pulls up that ticket.
+    try { var m = ((window.location.search || "") + "&" + (window.location.hash || "")).match(/[?&#]b=([A-Za-z0-9-]+)/); if (m) this.loadTicket(m[1].toUpperCase()); } catch (err) {}
   }
-  alternatives(list, i) {
-    var cur = list[i], prevEnd = i > 0 ? list[i - 1].t + list[i - 1].ev.dur : 0, nextStart = i < list.length - 1 ? list[i + 1].t : 2000;
-    var used = {}; list.forEach(function (x) { used[x.ev.id] = true; });
-    var kidsFirst = this.state.party === "family", alts = [];
-    SCHEDULE.events.forEach(function (ev) {
-      if (used[ev.id] || LOCKED[ev.id] !== undefined || ev.id === "market-snack") return;
-      ev.times.forEach(function (tt) {
-        var t = toMin(tt);
-        if (Math.abs(t - cur.t) > 30) return;
-        if (t < prevEnd + walkMin(list[i - 1] ? list[i - 1].ev.place : ev.place, ev.place)) return;
-        if (t + ev.dur + (list[i + 1] ? walkMin(ev.place, list[i + 1].ev.place) : 0) > nextStart) return;
-        alts.push({ id: ev.id, t: t, rank: (kidsFirst && ev.kids ? 0 : 1) * 100 + Math.abs(t - cur.t) });
-      });
-    });
-    alts.sort(function (a, b) { return a.rank - b.rank; });
-    return alts;
+  componentWillUnmount() { try { window.removeEventListener("pointermove", this.onMove); window.removeEventListener("pointerup", this.onUp); window.removeEventListener("pointercancel", this.onUp); } catch (err) {} }
+  componentDidUpdate(pp, psIn) {
+    var s = this.state, ps = psIn || this._ps || {}; this._ps = s;
+    if (ps.plan === s.plan || !s.plan) return;
+    var tk = s.ticket ? TICKETS[s.ticket] : null;
+    var plan = s.plan.map(function (x) { var ev = BYID[x.id]; return { p: placeOf(x), e: x.id, t: x.t, dur: ev.dur, fixed: x.kind === "ticket", title: ev.title, place: PLACES[placeOf(x)] ? PLACES[placeOf(x)].name : "" }; });
+    // Shaped for more than one day: the 3-day villages pass allows a return visit.
+    saveRec({ v: 2, source: "itinerary", party: s.party, date: s.date, ticket: s.ticket, conf: s.ticket, ticketName: tk ? tk.name : null, stay: s.stay,
+      days: [{ date: s.date, plan: plan }], plan: plan });
+  }
+  ready(st) { return !!(st.party && st.date !== null && st.hours && st.stay && (st.stay !== "cruise" || st.aboard)); }
+  // Change preferences and rebuild, keeping hand-edited stops.
+  setPrefs(patch, msg, fresh) {
+    var st = Object.assign({}, this.state, patch);
+    var keep = fresh ? [] : (this.state.plan || []).filter(function (x) { return x.kind === "edited"; });
+    st.plan = this.ready(st) ? generate(st, keep) : null;
+    var dropped = st.plan && st.plan._dropped && st.plan._dropped.length ? st.plan._dropped.join(" and ") + " didn't fit your hours, so we left " + (st.plan._dropped.length > 1 ? "them" : "it") + " out." : "";
+    this.setState(Object.assign(patch, { plan: st.plan, sel: null, msg: msg || dropped, sentMsg: "" }));
+  }
+  loadTicket(conf) {
+    var tk = TICKETS[conf];
+    if (!tk) { this.setState({ confErr: "We couldn't find " + (conf || "that number") + ". It's in your confirmation email and starts with PCC-." }); return; }
+    this.setPrefs({ ticket: conf, confErr: "", confInput: "", date: tk.date, party: this.state.party || (tk.kids ? "family" : "couple"), hours: this.state.hours || (tk.evening === "none" ? "afternoon" : "allday"),
+      stay: tk.coach ? "waikiki" : this.state.stay, excluded: {} }, "Built around your " + tk.name + ".", true);
+  }
+  edit(newPlan, msg) { newPlan.sort(function (a, b) { return a.t - b.t; }); this.setState({ plan: newPlan, msg: msg || "", sentMsg: "" }); }
+  retime(key, t, keepSel) {
+    var plan = (this.state.plan || []).map(function (x) { return x.key === key ? Object.assign({}, x, { t: t, kind: x.kind === "ticket" ? "ticket" : "edited" }) : x; });
+    var it = plan.filter(function (x) { return x.key === key; })[0];
+    this.setState({ ghost: null }); this.edit(plan, BYID[it.id].title + " moved to " + fmt(t) + ".");
+    if (keepSel) this.setState({ sel: { type: "stop", key: key } });
   }
   renderVals() {
-    var s = this.state, self = this;
-    var P = null, H = null, ST = null;
-    PARTIES.forEach(function (p) { if (p.id === s.party) P = p; });
-    HOURS.forEach(function (h) { if (h.id === s.hours) H = h; });
-    STAYS.forEach(function (x) { if (x.id === s.stay) ST = x; });
-    var cruiseOk = !ST || ST.id !== "cruise" || !!s.aboard;
-    var ready = !!(P && H && ST && s.date !== null && cruiseOk);
-    var left = [];
-    if (!P) left.push("who's coming"); if (s.date === null || !H) left.push("when"); if (!ST) left.push("where you're staying"); else if (!cruiseOk) left.push("your all-aboard time");
-    var waitingText = left.length === 3 ? "Answer three quick questions and your suggested day appears here." : "Almost there: tell us " + left.join(" and ") + ".";
+    var s = this.state, self = this, ready = this.ready(s), plan = s.plan || [];
+    var tk = s.ticket ? TICKETS[s.ticket] : null;
+    var W = windowOf(s);
+    var d = s.date !== null ? DATES[s.date] : null, dateLong = d ? LONG_DOW[d[0]] + ", " + d[1] : "";
 
-    var list = ready ? this.day() : [];
-    var stops = list.map(function (x, i) {
-      var pl = PLACES[x.ev.place], prev = list[i - 1];
-      var w = prev ? walkMin(prev.ev.place, x.ev.place) : 0;
-      var alts = LOCKED[x.ev.id] === undefined ? self.alternatives(list, i) : [];
-      var lock = LOCKED[x.ev.id];
-      var meta = pl.name + " · " + x.ev.dur + " min" + (x.ev.note ? " · " + x.ev.note : "");
+    // ---- timeline geometry
+    var ghostT = function (x) { return s.ghost && s.ghost.key === x.key ? s.ghost.t : x.t; };
+    var first = plan.length ? Math.min(plan[0].t, W ? W[0] : 720) : 660, last = plan.length ? Math.max.apply(null, plan.map(function (x) { return x.t + durOf(x); })) : 1245;
+    var T0 = Math.floor(first / 60) * 60, T1 = Math.ceil(last / 60) * 60;
+    var y = function (t) { return Math.round((t - T0) * PX); };
+    var hourLines = []; for (var h = T0; h <= T1; h += 60) hourLines.push({ label: fmt(h).replace(":00", ""), style: "position: absolute; left: 0; right: 0; top: " + y(h) + "px; height: 0; border-top: 1px solid #E3DED4;" });
+
+    var blocks = plan.map(function (x, i) {
+      var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", code: "··", color: "#857D69" }, t = ghostT(x), on = s.sel && s.sel.type === "stop" && s.sel.key === x.key;
+      var h2 = Math.max(Math.round(ev.dur * PX), 30), conflict = conflictOf(plan, i);
+      var w = i > 0 ? walkMin(placeOf(plan[i - 1]), placeOf(x)) : 0;
+      var tag = x.kind === "ticket" ? "On your ticket" : x.kind === "set" ? "Evening" : x.kind === "edited" ? "Your pick" : "";
       return {
-        time: fmt(x.t), title: x.ev.title, meta: meta, code: pl.code, badge: badge(pl.color, 36),
-        why: x.swapped ? "" : (WHY[x.ev.id] || (s.party === "family" && x.ev.kids ? "Kids love it." : "")),
-        walk: w ? w + " min walk" : "",
-        rowStyle: "display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: " + (x.swapped ? "#FFFDF4" : "#FFFFFF") + "; border: 1px solid #E3DED4; border-radius: 12px;",
-        canSwap: alts.length > 0, lockLabel: lock || "",
-        swapAria: "Swap " + x.ev.title + " at " + fmt(x.t) + " for something else around the same time",
-        swap: function () {
-          var a = alts[0], sw = Object.assign({}, s.swaps); sw[x.slot] = { id: a.id, t: a.t };
-          self.setState({ swaps: sw, swapMsg: "Swapped in " + evById(a.id).title + " at " + fmt(a.t) + ". Tap Swap again for another option." });
-        }
+        time: fmtS(t), title: ev.title, code: pl.code, badge: badge(pl.color, 26), tag: tag, conflict: conflict, on: on,
+        sub: (pl.name ? pl.name + " · " : "") + (ev.est ? "about " : "") + ev.dur + " min" + (w ? " · " + w + " min walk here" : ""), showSub: h2 >= 44,
+        aria: fmt(t) + ", " + ev.title + (pl.name ? ", " + pl.name : "") + ", " + ev.dur + " minutes" + (tag ? ", " + tag : "") + (conflict ? ". " + conflict : "") + ". Select to swap, move or remove.",
+        wrap: "position: absolute; left: 56px; right: 0; top: " + y(t) + "px; height: " + h2 + "px; z-index: " + (on || (s.ghost && s.ghost.key === x.key) ? 4 : 2) + ";",
+        style: "width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 10px; cursor: grab; color: #27201B; overflow: hidden; " +
+          "background: " + (x.id === "break" ? "#F6F4EF" : "#FFFFFF") + "; border: " + (on ? "2px solid #215968" : conflict ? "2px solid #B42318" : "1px solid #D8CCB6") + "; border-left: 5px solid " + pl.color + ";" + (s.ghost && s.ghost.key === x.key ? " box-shadow: 0 8px 20px rgba(21,58,69,0.25);" : ""),
+        select: function () { if (self._justDragged) return; self.setState({ sel: on ? null : { type: "stop", key: x.key } }); },
+        down: function (e) { if (e && e.button && e.button !== 0) return; self.drag = { key: x.key, y: e.clientY, t0: x.t, moved: false }; }
       };
     });
-    var mapPins = (ready ? list : []).map(function (x, i) {
-      var pl = PLACES[x.ev.place];
-      return { label: String(i + 1), style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%) translate(" + ((i % 3) - 1) * 10 + "px, 0); z-index: 2; width: 26px; height: 26px; border-radius: 50%; background: " + pl.color + "; color: #FFFFFF; border: 2px solid #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font: 700 12px Lato, sans-serif;" };
+    var gaps = [];
+    plan.forEach(function (x, i) {
+      var n = plan[i + 1]; if (!n) return;
+      var end = x.t + durOf(x), free = n.t - end - walkMin(placeOf(x), placeOf(n));
+      if (free < 25) return;
+      var mid = end + (n.t - end) / 2, on = s.sel && s.sel.type === "gap" && s.sel.from === end;
+      gaps.push({ label: hm(n.t - end) + " free", aria: "Add something between " + fmt(end) + " and " + fmt(n.t),
+        style: "position: absolute; left: 64px; top: " + (y(mid) - 15) + "px; z-index: 1; min-height: 30px; padding: 0 12px; border-radius: 999px; border: 1px dashed " + (on ? "#215968" : "#A39A86") + "; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; color: #215968; font-size: 13px; font-weight: 700; cursor: pointer;",
+        pick: function () { self.setState({ sel: { type: "gap", from: end, fromPlace: placeOf(x), to: n.t, toPlace: placeOf(n) } }); } });
     });
-    if (!ready) mapPins = VILLAGES.map(function (v) { var pl = PLACES[v.id]; return { label: pl.code, style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%); z-index: 2; padding: 3px 7px; border-radius: 8px; background: " + pl.color + "; color: #FFFFFF; border: 2px solid #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.3); font: 700 12px Lato, sans-serif;" }; });
 
-    // Package: matched to the hours and the party.
-    var evening = list.some(function (x) { return x.ev.id === "ha"; });
-    var pkg = !evening ? PACKAGES.admission : (P && P.template === "family" ? PACKAGES.buffet : PACKAGES.luau);
-    var why = !evening ? "Your day ends before dinner, so village admission covers everything in it."
-      : (P && P.template === "family" ? "Best value for families: a relaxed buffet at 4:30 leaves time to rest before HĀ." : "Your day includes the royal lūʻau at 5:00 and reserved seats for HĀ.");
-    var dateObj = s.date !== null ? DATES[s.date] : null;
-    var dateLong = dateObj ? LONG_DOW[dateObj[0]] + ", " + dateObj[1] : "";
-    var leaveBy = s.aboard ? toMin(s.aboard) - PORT_TRAVEL - PORT_BUFFER : null;
-    var transportLine = !ST ? "" : (ST.id === "cruise" && leaveBy) ? "Leave the Center by " + fmt(leaveBy) + " to be aboard by " + fmt(toMin(s.aboard)) + ". [Port transfer to confirm with Sales]" : ST.id === "waikiki" ? "Coach from Waikīkī: pickup about 9:45 AM, back about 10:30 PM (add-on)" : ST.id === "cruise" ? "Cruise guests: [port transfer and times to confirm with Sales]" : "Driving: free parking at the Hukilau Marketplace";
-    var arrivalNote = !ST ? "" : ST.id === "waikiki" ? "From Waikīkī, the coach gets you here by noon, in time for Huki. Driving takes about an hour each way, and drivers can come early for lunch at the Marketplace." : ST.id === "northshore" ? "From the North Shore it's a short drive up Kamehameha Highway. Parking is free at the Hukilau Marketplace." : ST.id === "cruise" ? (leaveBy && leaveBy < 1245 ? "All aboard at " + fmt(toMin(s.aboard)) + ", so this day ends by " + fmt(leaveBy) + ", leaving about " + PORT_TRAVEL + " minutes to Honolulu Harbor plus a margin." + (leaveBy < 1245 ? " The evening show ends at 8:45 PM, so it isn't in this day." : "") : "All aboard late enough for the whole day, including HĀ. You'll be back at Honolulu Harbor around 10:30 PM.") : "Parking is free at the Hukilau Marketplace, right at the entrance.";
-    var first = list[0], last = list[list.length - 1];
-    var span = first && last ? fmt(first.t) + " to " + fmt(last.t + last.ev.dur) : "";
+    // ---- side panel
+    var selIt = s.sel && s.sel.type === "stop" ? plan.filter(function (x) { return x.key === s.sel.key; })[0] : null;
+    var sel = {}, alts = [], altTitle = "";
+    if (selIt) {
+      var i = plan.indexOf(selIt), ev = BYID[selIt.id], pl = PLACES[placeOf(selIt)] || { name: "", code: "··", color: "#857D69" };
+      var prev = plan[i - 1], next = plan[i + 1];
+      var ts = validTimes(ev), ti = ts.indexOf(selIt.t);
+      var earlierT = selIt.id === "break" ? selIt.t - 15 : (ti > 0 ? ts[ti - 1] : null), laterT = selIt.id === "break" ? selIt.t + 15 : (ti >= 0 && ti < ts.length - 1 ? ts[ti + 1] : null);
+      if (ev.win && ti >= 0) { earlierT = ti >= 3 ? ts[ti - 3] : (ti > 0 ? ts[0] : null); laterT = ti + 3 < ts.length ? ts[ti + 3] : (ti < ts.length - 1 ? ts[ts.length - 1] : null); }
+      var why = selIt.kind === "auto" ? (s.must[ev.p] ? "You asked not to miss " + pl.name + "." : ev.kids && s.party === "family" ? "A favorite with kids." : ev.couples && s.party === "couple" ? "A favorite with couples." : ev.sig ? "The village's main presentation." : (ev.cat || []).some(function (c) { return s.interests[c]; }) ? "Matches what you love." : "") : "";
+      sel = { title: ev.title, code: pl.code, badge: badge(pl.color, 40), meta: fmt(selIt.t) + "–" + fmt(selIt.t + ev.dur) + (pl.name ? " · " + pl.name : ""), what: ev.what, why: why, conflict: conflictOf(plan, i) || (next ? conflictOf(plan, i + 1) : ""),
+        fromTicket: selIt.kind === "ticket", noEarlier: earlierT == null, noLater: laterT == null,
+        earlierLabel: earlierT != null ? "Earlier · " + fmtS(earlierT) : "Earlier", laterLabel: laterT != null ? "Later · " + fmtS(laterT) : "Later",
+        earlier: function () { if (earlierT != null) self.retime(selIt.key, earlierT, true); }, later: function () { if (laterT != null) self.retime(selIt.key, laterT, true); },
+        remove: function () { var ex = Object.assign({}, s.excluded); ex[selIt.id] = true; self.setState({ excluded: ex, sel: null }); self.edit(plan.filter(function (x) { return x.key !== selIt.key; }), "Removed " + ev.title + "."); } };
+      var from = prev ? prev.t + durOf(prev) : (W ? W[0] : 660), to = next ? next.t : (W ? W[1] : 1245);
+      alts = fitsBetween(s, plan, from, prev ? placeOf(prev) : "market", to, next ? placeOf(next) : null, selIt.key);
+      altTitle = "Swap for something between " + fmtS(from) + " and " + fmtS(to);
+      alts = alts.map(function (a) { return { ev: a.ev, t: a.t, pick: function () {
+        var ex = Object.assign({}, s.excluded); ex[selIt.id] = true; self.setState({ excluded: ex });
+        var np = plan.filter(function (x) { return x.key !== selIt.key; }); var k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
+        self.edit(np, "Swapped " + ev.title + " for " + a.ev.title + " at " + fmt(a.t) + "."); self.setState({ sel: { type: "stop", key: k } }); } }; });
+    }
+    if (s.sel && s.sel.type === "gap") {
+      alts = fitsBetween(s, plan, s.sel.from, s.sel.fromPlace, s.sel.to, s.sel.toPlace, null).map(function (a) { return { ev: a.ev, t: a.t, pick: function () {
+        var np = plan.slice(), k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
+        self.edit(np, "Added " + a.ev.title + " at " + fmt(a.t) + "."); self.setState({ sel: { type: "stop", key: k } }); } }; });
+    }
+    var altRows = alts.map(function (a) { var pl = PLACES[a.ev.p]; return { title: a.ev.title, time: fmtS(a.t), code: pl.code, badge: badge(pl.color, 28), sub: pl.name + " · " + (a.ev.est ? "about " : "") + a.ev.dur + " min · " + a.ev.kind, pick: a.pick }; });
 
+    // ---- summary
+    var stops = plan.filter(function (x) { return x.id !== "break"; });
+    var villagesSeen = VILLAGE_IDS.filter(function (v) { return plan.some(function (x) { return placeOf(x) === v; }); });
+    var walkTotal = 0; plan.forEach(function (x, i) { if (i) walkTotal += walkMin(placeOf(plan[i - 1]), placeOf(x)); });
+    var conflicts = plan.filter(function (x, i) { return conflictOf(plan, i); }).length;
+    var lastIt = plan[plan.length - 1];
+    var missed = VILLAGE_IDS.filter(function (v) { return villagesSeen.indexOf(v) < 0; }).map(function (v) { return PLACES[v].name; });
+    var mustMissed = MUSTS.filter(function (m) { return s.must[m[0]] && !plan.some(function (x) { return placeOf(x) === m[0]; }); }).map(function (m) { return m[1]; });
+    var leftover = missed.concat(["canoe", "iosepa", "mission"].filter(function (p) { return !plan.some(function (x) { return placeOf(x) === p; }); }).map(function (p) { return MUSTS.filter(function (m) { return m[0] === p; })[0][1]; }).slice(0, 2));
+    var pins = plan.filter(function (x) { return PLACES[placeOf(x)] && x.id !== "break"; }).map(function (x, n) { var pl = PLACES[placeOf(x)], on = selIt && selIt.key === x.key;
+      return { label: String(n + 1), style: "position: absolute; left: " + pl.x + "%; top: " + pl.y + "%; transform: translate(-50%, -50%) translate(" + ((n % 3) - 1) * 9 + "px, " + (Math.floor(n / 3) % 2 ? 6 : 0) + "px); z-index: " + (on ? 4 : 2) + "; width: " + (on ? 30 : 22) + "px; height: " + (on ? 30 : 22) + "px; border-radius: 50%; background: " + pl.color + "; color: #FFFFFF; border: 2px solid " + (on ? "#F4EB96" : "#FFFFFF") + "; box-shadow: 0 2px 6px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font: 700 11px Lato, sans-serif;" }; });
+
+    var left = []; if (!s.party) left.push("who's coming"); if (s.date === null) left.push("the date"); if (!s.hours) left.push("how long you can stay"); if (!s.stay) left.push("where you're staying"); else if (s.stay === "cruise" && !s.aboard) left.push("your all-aboard time");
+    var note = "";
+    if (s.stay === "cruise" && s.aboard && W) note = "All aboard at " + fmt(s.aboard) + ": your day ends by " + fmt(W[1]) + ", leaving about 75 minutes to Honolulu Harbor plus a margin.";
+    else if (s.stay === "waikiki" || (tk && tk.coach)) note = "Coach guests arrive at noon, in time for Huki at 1:00. The coach leaves after HĀ.";
+    if (mustMissed.length) note = (note ? note + " " : "") + mustMissed.join(" and ") + " didn't fit; try a longer stay or remove something.";
+
+    var ev0 = eveningOf(s);
     return {
-      mapPins: mapPins,
-      mapCaption: ready ? "Your stops, numbered in order. Walking times are estimates at an easy pace." : "Every village sits on the lagoon. Walking the full loop takes about 25 minutes without stopping.",
       villages: VILLAGES.map(function (v) { var pl = PLACES[v.id]; return { name: pl.name, code: pl.code, badge: badge(pl.color, 28), greeting: v.greeting, promise: v.promise, img: v.img, alt: v.alt }; }),
-      parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setState({ party: p.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
-      hours: HOURS.map(function (h) { var on = s.hours === h.id; return { label: h.label, note: h.note, on: on, style: optStyle(on), pick: function () { self.setState({ hours: h.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
-      stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setState({ stay: x.id, booked: false }); } }; }),
-      isCruise: !!ST && ST.id === "cruise",
-      aboards: ABOARD.map(function (a) { var on = s.aboard === a[0]; return { label: a[1], on: on, pick: function () { self.setState({ aboard: a[0], swaps: {}, swapMsg: "", booked: false }); },
-        style: "min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; " + (on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;") }; }),
-      dates: DATES.map(function (d, i) {
-        var on = s.date === i;
-        return { dow: d[0], day: d[1].split(" ")[1], closed: d[2], on: on, aria: LONG_DOW[d[0]] + " " + d[1] + (d[2] ? ", closed" : ""),
-          style: "min-width: 52px; min-height: 56px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 16px; cursor: " + (d[2] ? "not-allowed" : "pointer") + "; " +
-            (d[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
-          pick: function () { if (!d[2]) self.setState({ date: i, booked: false }); } };
-      }),
-      step1Num: numStyle(!!P), step2Num: numStyle(!!H && s.date !== null), step3Num: numStyle(!!ST && cruiseOk),
-      ready: ready, notReady: !ready, waitingText: waitingText,
-      partyName: P ? P.name : "", dayTitle: dateLong ? dateLong + ", " + span : "", daySub: list.length + " stops, with the times on that date. Swap anything that doesn't appeal.",
-      arrivalNote: arrivalNote, stops: stops, emptyDay: ready && list.length === 0, swapMsg: s.swapMsg,
-      sourceNote: "Sample times for " + dateLong + ". On the live site, every time comes from PCC's scheduling app and updates if the program changes.",
-      pkg: { name: pkg.name, why: why, includes: pkg.includes },
-      partyLine: P ? P.adults + " adults" + (P.kids ? ", " + P.kids + " kids" : "") + " · " + dateLong : "",
-      transportLine: transportLine, dateLong: dateLong,
-      notBooked: !s.booked, booked: s.booked, bookedConf: pkg.conf,
-      keepDay: function () { self.save(list, P, H, ST, null); },
-      book: function () { self.save(list, P, H, ST, pkg); self.setState({ booked: true }); },
-      unbook: function () { self.setState({ booked: false, party: null, hours: null, stay: null, aboard: null, date: null, swaps: {}, swapMsg: "" }); }
+      noSubmit: function (e) { if (e && e.preventDefault) e.preventDefault(); },
+      // ticket
+      noTicket: !tk, hasTicket: !!tk, confInput: s.confInput, confErr: s.confErr,
+      setConf: function (e) { self.setState({ confInput: e && e.target ? e.target.value : "", confErr: "" }); },
+      findTicket: function () { self.loadTicket(String(s.confInput).trim().toUpperCase()); },
+      samples: Object.keys(TICKETS).map(function (c) { return { label: TICKETS[c].label, pick: function () { self.loadTicket(c); } }; }),
+      tk: tk ? { conf: s.ticket, name: tk.name, includes: tk.includes, when: dateLong + " · " + tk.adults + " adults" + (tk.kids ? ", " + tk.kids + (tk.kids > 1 ? " children" : " child") : "") } : {},
+      clearTicket: function () { self.setPrefs({ ticket: null, excluded: {} }, "Ticket removed. Your plan now uses your own choices.", true); },
+      // questions
+      num1: numStyle(!!s.party), num2: numStyle(s.date !== null), num3: numStyle(!!s.hours), num4: numStyle(!!s.stay && (s.stay !== "cruise" || !!s.aboard)),
+      parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ party: p.id }); } }; }),
+      dateLocked: !!tk, dateFree: !tk, dateLong: dateLong,
+      dates: DATES.map(function (dd, k) { var on = s.date === k; return { dow: dd[0], day: dd[1].split(" ")[1], closed: dd[2], on: on, aria: LONG_DOW[dd[0]] + " " + dd[1] + (dd[2] ? ", closed" : ""),
+        style: "min-width: 46px; min-height: 52px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 15px; cursor: " + (dd[2] ? "not-allowed" : "pointer") + "; " + (dd[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
+        pick: function () { if (!dd[2]) self.setPrefs({ date: k }); } }; }),
+      hours: HOURS.map(function (h) { var on = s.hours === h.id; return { label: h.label, note: h.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ hours: h.id }); } }; }),
+      stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ stay: x.id }); } }; }),
+      isCruise: s.stay === "cruise",
+      aboards: ABOARD.map(function (a) { var on = s.aboard === a[0]; return { label: a[1], on: on, style: chipStyle(on), pick: function () { self.setPrefs({ aboard: a[0] }); } }; }),
+      eveningLocked: !!tk, eveningFree: !tk,
+      eveningFromTicket: tk ? (tk.evening === "none" ? "Your ticket covers the villages only. We'll plan the afternoon." : "From your ticket: " + EVENINGS.filter(function (e) { return e.id === tk.evening; })[0].label + ".") : "",
+      evenings: EVENINGS.map(function (e) { var on = ev0 === e.id; return { label: e.label, on: on, style: chipStyle(on), pick: function () { var ex = Object.assign({}, s.excluded); ["luau", "buffet", "ha", "market-snack"].forEach(function (k) { delete ex[k]; }); self.setPrefs({ evening: e.id, excluded: ex }); } }; }),
+      paces: Object.keys(PACES).map(function (k) { var on = s.pace === k; return { label: PACES[k].label, on: on, style: chipStyle(on), pick: function () { self.setPrefs({ pace: k }); } }; }),
+      paceNote: (PACES[s.pace] || PACES.balanced).note,
+      musts: MUSTS.map(function (m) { var on = !!s.must[m[0]]; return { label: m[1], on: on, style: chipStyle(on), pick: function () { var mm = Object.assign({}, s.must); if (on) delete mm[m[0]]; else mm[m[0]] = true; self.setPrefs({ must: mm }); } }; }),
+      interests: INTERESTS.map(function (m) { var on = !!s.interests[m[0]]; return { label: m[1], on: on, style: chipStyle(on), pick: function () { var mm = Object.assign({}, s.interests); if (on) delete mm[m[0]]; else mm[m[0]] = true; self.setPrefs({ interests: mm }); } }; }),
+      hasEdits: plan.some(function (x) { return x.kind === "edited"; }) || Object.keys(s.excluded).length > 0,
+      resetEdits: function () { self.setPrefs({ excluded: {} }, "Started fresh from your choices.", true); },
+      // itinerary
+      ready: ready, notReady: !ready, waitingText: left.length ? "Tell us " + left.join(", ").replace(/, ([^,]*)$/, " and $1") + "." : "",
+      dayEyebrow: tk ? "Built around ticket " + s.ticket : "Suggested for you",
+      dayTitle: dateLong + (plan.length ? ", " + fmt(plan[0].t) + " to " + fmt(lastIt.t + durOf(lastIt)) : ""),
+      daySummary: stops.length + " stops · " + villagesSeen.length + " of 6 villages · " + walkTotal + " min walking" + (conflicts ? " · " + conflicts + " to fix" : ""),
+      note: note, msg: s.msg, hourLines: hourLines, blocks: blocks, gaps: gaps,
+      tlStyle: "position: relative; height: " + (y(T1) + 16) + "px; margin-top: 12px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 14px; padding: 0 12px 0 0;",
+      sendToApp: function () { self.setState({ sentMsg: "Sent. Open the PCC app" + (tk ? " and sign in with " + s.ticket : "") + ": your day, the map and reminders will be there on the day." }); },
+      shareDay: function () { self.setState({ sentMsg: "Link copied (prototype). Anyone you send it to can see this day and plan alongside you." }); },
+      sentMsg: s.sentMsg,
+      returnText: (tk ? "Your ticket includes" : "Islands of Polynesia tickets include") + " a free return visit to the villages within 3 days. Evening shows and dinner aren't included on the return day.",
+      hasLeftover: leftover.length > 0, leftover: leftover.join(", "),
+      // side
+      mapPins: pins, panelNone: !selIt && !(s.sel && s.sel.type === "gap"), panelStop: !!selIt, panelGap: !!(s.sel && s.sel.type === "gap"),
+      sumTitle: ready ? "Your day at a glance" : "How it works",
+      stats: ready ? [{ value: String(stops.length), label: "stops" }, { value: villagesSeen.length + "/6", label: "villages" }, { value: walkTotal + " min", label: "walking" }, { value: conflicts ? String(conflicts) : "None", label: "conflicts" }]
+        : [{ value: "4", label: "quick questions" }, { value: "Real", label: "times for your date" }, { value: "Walks", label: "between stops" }, { value: "Yours", label: "to change" }],
+      sumNote: ready ? "Numbers on the map follow your day. Select a stop to see it here." : "We suggest the main presentation in each village, Huki on the lagoon, and the moments that suit your group, then leave room to wander.",
+      sel: sel, alts: altRows, noAlts: (!!selIt || !!(s.sel && s.sel.type === "gap")) && altRows.length === 0, altTitle: altTitle,
+      gapTitle: s.sel && s.sel.type === "gap" ? "Add something, " + fmtS(s.sel.from) + " to " + fmtS(s.sel.to) : "",
+      closePanel: function () { self.setState({ sel: null }); }
     };
-  }
-  // Hand the day to the packages page and My Day through the shared record.
-  save(list, P, H, ST, pkg) {
-    var fixedIds = { luau: 1, buffet: 1, ha: 1 };
-    saveRec({ v: 1, source: "shape", party: P.id, stay: ST.id, date: this.state.date, adults: P.adults, kids: P.kids, avail: H.id,
-      transport: ST.hotel || null, ticket: pkg ? pkg.id : null, conf: pkg ? pkg.conf : null, ticketName: pkg ? pkg.name : null,
-      plan: list.map(function (x) { return { p: x.ev.place === "theater" ? "theater" : x.ev.place, e: x.ev.id, t: x.t, fixed: !!(pkg && fixedIds[x.ev.id]), title: x.ev.title, place: PLACES[x.ev.place].name }; }) });
   }
 }
 </script>

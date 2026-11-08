@@ -126,7 +126,7 @@ class Component extends DCLogic {
   componentDidMount() { var r = loadRec(); if (r && r.plan && r.plan.length) this.setState({ rec: r }); }
   renderVals() {
     var self = this, s = this.state, rec = s.rec || SAMPLE, now = s.now;
-    var stops = (rec.plan || []).filter(function (x) { return PLACES[x.p]; }).map(function (x) { return { p: x.p, e: x.e, t: x.t, title: x.title || x.e, dur: DUR[x.e] || 20 }; });
+    var stops = (rec.plan || []).filter(function (x) { return PLACES[x.p]; }).map(function (x) { return { p: x.p, e: x.e, t: x.t, title: x.title || x.e, dur: x.dur || DUR[x.e] || 20 }; });
     stops.sort(function (a, b) { return a.t - b.t; });
     var doneN = stops.filter(function (x) { return x.t + x.dur <= now; }).length;
     var curIdx = -1, nextIdx = -1;
