@@ -22,6 +22,13 @@ Decisions behind it (PRD, Nov 8):
 - Exact times for the chosen date. They will come from PCC's scheduling app; until it can be read,
   `SCHEDULE` in the Explore page holds sample times in the shape the app is expected to supply.
 - Waikīkī guests on the coach arrive at noon, so their suggested day starts with Huki.
+- Cruise guests give their all-aboard time; the day ends with about 75 minutes to Honolulu Harbor
+  plus a margin, and drops dinner and HĀ when the show won't fit.
+- My Day opens straight from the confirmation email link (`/myday?b=PCC-48213`). Unknown numbers
+  ask the guest to check the email; `&after=1` previews the thank-you page shown after the visit.
+- Booked guests see "Make more of your day" upgrades that fit their booking (HĀ, lūʻau, coach, guide).
+- The app's Today screen runs on the day saved on the website; a prototype time slider moves
+  through the day (up next, happening now, running behind, done).
 - "Book this day" saves the day to the shared record (`pcc-shared-day-v1` in the browser) and shows
   the confirmation email; its "Open my day" link opens My Day with the booking loaded.
 

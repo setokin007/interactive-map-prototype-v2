@@ -121,6 +121,17 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <sc-for list="{{stays}}" as="o" hint-placeholder-count="4">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 13px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
+<sc-if value="{{isCruise}}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-labelledby="aboard-l" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: #F6F4EF; border-radius: 12px;">
+<span id="aboard-l" style="font-size: 14px; font-weight: 700;">What time is all aboard?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{aboards}}" as="ab" hint-placeholder-count="4">
+<button type="button" aria-pressed="{{ab.on}}" onClick="{{ab.pick}}" style="{{ab.style}}">{{ab.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 12px; color: #5E5642;">It's in your cruise app or daily planner. We'll leave time to get back to Honolulu Harbor.</span>
+</div>
+</sc-if>
 </fieldset>
 </div>
 
@@ -167,6 +178,9 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 </li>
 </sc-for>
 </ol>
+<sc-if value="{{emptyDay}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 0; padding: 14px 16px; background: #FFFFFF; border: 1px dashed #C9C0AE; border-radius: 12px; font-size: 15px; line-height: 1.5;">Nothing fits between those hours and your all-aboard time. Try "All day" or "Afternoon": the villages open at 12:15 PM.</p>
+</sc-if>
 <sc-if value="{{swapMsg}}" hint-placeholder-val="{{ false }}">
 <p role="status" style="margin: 0; font-size: 14px; color: #153A45;">{{swapMsg}}</p>
 </sc-if>
@@ -203,7 +217,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <span>Aloha! {{pkg.name}}, {{dateLong}}. Confirmation {{bookedConf}}.</span>
 <span>We've saved the day you shaped. Open it to see every time, the walks between stops, and what to bring.</span>
 <a href="Main.dc.html" style="align-self: flex-start; min-height: 48px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; background: #215968; color: #FFFFFF; font-weight: 700; text-decoration: none;">Open my day</a>
-<span style="font-size: 13px; color: #5E5642;">This link works until your visit. Lost it? Find your day with confirmation {{bookedConf}} at polynesia.com/myday.</span>
+<span style="font-size: 13px; color: #5E5642;">The button links to polynesia.com/myday?b={{bookedConf}} and works until your visit; after it, it opens a thank-you page. Lost the email? Enter {{bookedConf}} at polynesia.com/myday.</span>
 </div>
 </div>
 <button type="button" onClick="{{unbook}}" style="align-self: flex-start; min-height: 44px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 14px; cursor: pointer;">Start over</button>
@@ -300,6 +314,9 @@ var STAYS = [
   { id: "cruise", label: "On a cruise ship", note: "We'll fit the day to your port times" },
   { id: "elsewhere", label: "Somewhere else on Oʻahu", note: "Driving. Free parking." }
 ];
+// Cruise guests: all-aboard times offered, and the time needed to get back to the ship.
+var ABOARD = [["16:30", "4:30 PM"], ["18:00", "6:00 PM"], ["20:00", "8:00 PM"], ["22:30", "10:30 PM or later"]];
+var PORT_TRAVEL = 75, PORT_BUFFER = 30; // minutes to Honolulu Harbor, plus a margin; to confirm with Transportation
 var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
 var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
 var PACKAGES = {
@@ -323,7 +340,7 @@ function badge(c, size) { return "display: inline-flex; align-items: center; jus
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { party: null, date: null, hours: null, stay: null, swaps: {}, swapMsg: "", booked: false };
+    this.state = { party: null, date: null, hours: null, stay: null, aboard: null, swaps: {}, swapMsg: "", booked: false };
   }
   // Build the day: template, trimmed to the hours, with any swaps applied.
   day() {
@@ -335,14 +352,18 @@ class Component extends DCLogic {
     // Afternoon-only days drop dinner and HĀ; evening-only days are dinner and HĀ.
     // The Waikīkī coach arrives at noon, so nothing is planned before then.
     var from = s.stay === "waikiki" ? Math.max(H.from, 720) : H.from;
+    var to = H.to;
+    if (s.stay === "cruise" && s.aboard) to = Math.min(to, toMin(s.aboard) - PORT_TRAVEL - PORT_BUFFER);
     var out = [];
     tpl.forEach(function (x, idx) {
       var ev = evById(x[0]), t = toMin(x[1]);
       if (!ev) return;
-      if (t < from || t + ev.dur > H.to) return;
+      if (t < from || t + ev.dur > to) return;
       out.push({ slot: P.template + ":" + idx, ev: ev, t: t });
     });
-    if (H.id === "evening" && P.template === "couple") out.splice(1, 0, { slot: "snack", ev: evById("market-snack"), t: toMin("18:45") });
+    // Dinner comes as part of a dinner-and-show package, so a day that can't fit HĀ drops it too.
+    if (!out.some(function (x) { return x.ev.id === "ha"; })) out = out.filter(function (x) { return x.ev.id !== "luau" && x.ev.id !== "buffet"; });
+    if (H.id === "evening" && P.template === "couple" && out.length && toMin("18:45") + 20 <= to) out.splice(1, 0, { slot: "snack", ev: evById("market-snack"), t: toMin("18:45") });
     out = out.map(function (x) { var sw = s.swaps[x.slot]; if (sw) { var e2 = evById(sw.id); if (e2) return { slot: x.slot, ev: e2, t: sw.t, swapped: true }; } return x; });
     out.sort(function (a, b) { return a.t - b.t; });
     return out;
@@ -370,9 +391,10 @@ class Component extends DCLogic {
     PARTIES.forEach(function (p) { if (p.id === s.party) P = p; });
     HOURS.forEach(function (h) { if (h.id === s.hours) H = h; });
     STAYS.forEach(function (x) { if (x.id === s.stay) ST = x; });
-    var ready = !!(P && H && ST && s.date !== null);
+    var cruiseOk = !ST || ST.id !== "cruise" || !!s.aboard;
+    var ready = !!(P && H && ST && s.date !== null && cruiseOk);
     var left = [];
-    if (!P) left.push("who's coming"); if (s.date === null || !H) left.push("when"); if (!ST) left.push("where you're staying");
+    if (!P) left.push("who's coming"); if (s.date === null || !H) left.push("when"); if (!ST) left.push("where you're staying"); else if (!cruiseOk) left.push("your all-aboard time");
     var waitingText = left.length === 3 ? "Answer three quick questions and your suggested day appears here." : "Almost there: tell us " + left.join(" and ") + ".";
 
     var list = ready ? this.day() : [];
@@ -408,8 +430,9 @@ class Component extends DCLogic {
       : (P && P.template === "family" ? "Best value for families: a relaxed buffet at 4:30 leaves time to rest before HĀ." : "Your day includes the royal lūʻau at 5:00 and reserved seats for HĀ.");
     var dateObj = s.date !== null ? DATES[s.date] : null;
     var dateLong = dateObj ? LONG_DOW[dateObj[0]] + ", " + dateObj[1] : "";
-    var transportLine = !ST ? "" : ST.id === "waikiki" ? "Coach from Waikīkī: pickup about 9:45 AM, back about 10:30 PM (add-on)" : ST.id === "cruise" ? "Cruise guests: [port transfer and times to confirm with Sales]" : "Driving: free parking at the Hukilau Marketplace";
-    var arrivalNote = !ST ? "" : ST.id === "waikiki" ? "From Waikīkī, the coach gets you here by noon, in time for Huki. Driving takes about an hour each way, and drivers can come early for lunch at the Marketplace." : ST.id === "northshore" ? "From the North Shore it's a short drive up Kamehameha Highway. Parking is free at the Hukilau Marketplace." : ST.id === "cruise" ? "Cruise day? Check your all-aboard time: the evening show ends around 8:45 PM. We'll confirm transfers when you book." : "Parking is free at the Hukilau Marketplace, right at the entrance.";
+    var leaveBy = s.aboard ? toMin(s.aboard) - PORT_TRAVEL - PORT_BUFFER : null;
+    var transportLine = !ST ? "" : (ST.id === "cruise" && leaveBy) ? "Leave the Center by " + fmt(leaveBy) + " to be aboard by " + fmt(toMin(s.aboard)) + ". [Port transfer to confirm with Sales]" : ST.id === "waikiki" ? "Coach from Waikīkī: pickup about 9:45 AM, back about 10:30 PM (add-on)" : ST.id === "cruise" ? "Cruise guests: [port transfer and times to confirm with Sales]" : "Driving: free parking at the Hukilau Marketplace";
+    var arrivalNote = !ST ? "" : ST.id === "waikiki" ? "From Waikīkī, the coach gets you here by noon, in time for Huki. Driving takes about an hour each way, and drivers can come early for lunch at the Marketplace." : ST.id === "northshore" ? "From the North Shore it's a short drive up Kamehameha Highway. Parking is free at the Hukilau Marketplace." : ST.id === "cruise" ? (leaveBy && leaveBy < 1245 ? "All aboard at " + fmt(toMin(s.aboard)) + ", so this day ends by " + fmt(leaveBy) + ", leaving about " + PORT_TRAVEL + " minutes to Honolulu Harbor plus a margin." + (leaveBy < 1245 ? " The evening show ends at 8:45 PM, so it isn't in this day." : "") : "All aboard late enough for the whole day, including HĀ. You'll be back at Honolulu Harbor around 10:30 PM.") : "Parking is free at the Hukilau Marketplace, right at the entrance.";
     var first = list[0], last = list[list.length - 1];
     var span = first && last ? fmt(first.t) + " to " + fmt(last.t + last.ev.dur) : "";
 
@@ -420,6 +443,9 @@ class Component extends DCLogic {
       parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setState({ party: p.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
       hours: HOURS.map(function (h) { var on = s.hours === h.id; return { label: h.label, note: h.note, on: on, style: optStyle(on), pick: function () { self.setState({ hours: h.id, swaps: {}, swapMsg: "", booked: false }); } }; }),
       stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setState({ stay: x.id, booked: false }); } }; }),
+      isCruise: !!ST && ST.id === "cruise",
+      aboards: ABOARD.map(function (a) { var on = s.aboard === a[0]; return { label: a[1], on: on, pick: function () { self.setState({ aboard: a[0], swaps: {}, swapMsg: "", booked: false }); },
+        style: "min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; " + (on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;") }; }),
       dates: DATES.map(function (d, i) {
         var on = s.date === i;
         return { dow: d[0], day: d[1].split(" ")[1], closed: d[2], on: on, aria: LONG_DOW[d[0]] + " " + d[1] + (d[2] ? ", closed" : ""),
@@ -427,10 +453,10 @@ class Component extends DCLogic {
             (d[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
           pick: function () { if (!d[2]) self.setState({ date: i, booked: false }); } };
       }),
-      step1Num: numStyle(!!P), step2Num: numStyle(!!H && s.date !== null), step3Num: numStyle(!!ST),
+      step1Num: numStyle(!!P), step2Num: numStyle(!!H && s.date !== null), step3Num: numStyle(!!ST && cruiseOk),
       ready: ready, notReady: !ready, waitingText: waitingText,
       partyName: P ? P.name : "", dayTitle: dateLong ? dateLong + ", " + span : "", daySub: list.length + " stops, with the times on that date. Swap anything that doesn't appeal.",
-      arrivalNote: arrivalNote, stops: stops, swapMsg: s.swapMsg,
+      arrivalNote: arrivalNote, stops: stops, emptyDay: ready && list.length === 0, swapMsg: s.swapMsg,
       sourceNote: "Sample times for " + dateLong + ". On the live site, every time comes from PCC's scheduling app and updates if the program changes.",
       pkg: { name: pkg.name, why: why, includes: pkg.includes },
       partyLine: P ? P.adults + " adults" + (P.kids ? ", " + P.kids + " kids" : "") + " · " + dateLong : "",
@@ -438,7 +464,7 @@ class Component extends DCLogic {
       notBooked: !s.booked, booked: s.booked, bookedConf: pkg.conf,
       keepDay: function () { self.save(list, P, H, ST, null); },
       book: function () { self.save(list, P, H, ST, pkg); self.setState({ booked: true }); },
-      unbook: function () { self.setState({ booked: false, party: null, hours: null, stay: null, date: null, swaps: {}, swapMsg: "" }); }
+      unbook: function () { self.setState({ booked: false, party: null, hours: null, stay: null, aboard: null, date: null, swaps: {}, swapMsg: "" }); }
     };
   }
   // Hand the day to the packages page and My Day through the shared record.

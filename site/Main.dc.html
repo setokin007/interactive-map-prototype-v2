@@ -54,8 +54,18 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <sc-if value="{{heroNotBooked}}" hint-placeholder-val="{{ false }}">
 <p style="margin: 8px 0 0; font-size: 15px;"><a href="Shape.dc.html#shape" style="font-weight: 700;">Not booked yet? Shape your day in three taps →</a></p>
 </sc-if>
+<sc-if value="{{visitOver}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;">
+<a href="#" style="min-height: 48px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; background: #215968; color: #FFFFFF; font-weight: 700; text-decoration: none;">Share your photos</a>
+<a href="#" style="min-height: 48px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 999px; border: 1px solid #215968; color: #215968; font-weight: 700; text-decoration: none;">Tell us how it went</a>
+<a href="Shape.dc.html" style="min-height: 48px; display: inline-flex; align-items: center; padding: 0 4px; font-weight: 700;">Plan another visit</a>
 </div>
+</sc-if>
 <sc-if value="{{heroBooked}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{toggleAfter}}" aria-pressed="{{visitOver}}" style="margin-top: 12px; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px dashed #A39A86; background: none; color: #5E5642; font-size: 13px; cursor: pointer;">{{afterLabel}}</button>
+</sc-if>
+</div>
+<sc-if value="{{showPrep}}" hint-placeholder-val="{{ false }}">
 <section aria-labelledby="prep-h" style="flex: 1 1 100%; order: 3; display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; background: #F6F4EF; border: 1px solid #E3DED4; border-radius: 16px;">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;">
 <h2 id="prep-h" style="margin: 0; font-size: 19px; font-weight: 700;">Before you come</h2>
@@ -69,9 +79,29 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 </li>
 </sc-for>
 </ul>
+<sc-if value="{{hasUpgrades}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 6px;">
+<h3 style="margin: 0; font-size: 17px; font-weight: 700;">Make more of your day</h3>
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+<sc-for list="{{upgrades}}" as="up" hint-placeholder-count="2">
+<li style="display: flex; flex-direction: column; gap: 6px; padding: 14px; background: #FFFFFF; border: 1px solid #E3DED4; border-radius: 12px;">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;"><span style="font-size: 16px; font-weight: 700;">{{up.title}}</span><span style="font-size: 14px; color: #5E5642; white-space: nowrap;">{{up.price}}</span></div>
+<span style="font-size: 14px; line-height: 1.45; color: #4A4336;">{{up.text}}</span>
+<sc-if value="{{up.notAdded}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{up.add}}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #215968; background: #FFFFFF; color: #215968; font-weight: 700; font-size: 14px; cursor: pointer;">{{up.cta}}</button>
+</sc-if>
+<sc-if value="{{up.added}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="font-size: 14px; font-weight: 700; color: #215968;">Added to your booking and your day</span>
+</sc-if>
+</li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
 </section>
 </sc-if>
 
+<sc-if value="{{showPlanner}}" hint-placeholder-val="{{ true }}">
 <div style="flex: 0 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
 <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center;">
 <div role="group" aria-label="Visit date" style="display: flex; align-items: center; gap: 6px;">
@@ -94,9 +124,11 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 </div>
 </div>
 </div>
+</sc-if>
 </div>
 </section>
 
+<sc-if value="{{showPlanner}}" hint-placeholder-val="{{ true }}">
 <main style="max-width: 1640px; margin: 0 auto; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
 <nav class="side-nav" aria-label="Sections of this page" style="{{navStyle}}">
 <button type="button" class="side-nav-toggle" onClick="{{toggleNav}}" aria-expanded="{{navOpen}}" aria-label="{{navToggleAria}}" style="{{navToggleStyle}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{navChevStyle}}"><path d="M15 6l-6 6 6 6"></path></svg><sc-if value="{{navOpen}}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Collapse</span></sc-if></button>
@@ -609,7 +641,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 <input id="conf-input" type="text" aria-label="Confirmation number" value="{{confInput}}" onChange="{{setConf}}" placeholder="Confirmation number" autocomplete="off" style="flex: 1 1 140px; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 12px; border: 1px solid #857D69; border-radius: 999px; font-size: 16px; font-family: inherit; color: #27201B; background: #FFFFFF;">
 <button type="button" onClick="{{findBooking}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: #215968; color: #FFFFFF; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap;">Load my day</button>
 </div>
-<sc-if value="{{confError}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; color: #8A1C12;">Enter the confirmation number from your ticket email.</p></sc-if>
+<sc-if value="{{confError}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 13px; color: #8A1C12;">{{confErrorText}}</p></sc-if>
 <div style="display: flex; flex-wrap: wrap; gap: 0 12px; align-items: center; font-size: 13px; color: #5E5642;">
 <span>Prototype samples:</span>
 <button type="button" onClick="{{loadLuau}}" style="min-height: 32px; padding: 0; border: none; background: none; color: #215968; text-decoration: underline; font-size: 13px; cursor: pointer;">Lūʻau package</button>
@@ -773,6 +805,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #215968;outline-offset:2p
 </div>
 </aside>
 </main>
+</sc-if>
 <a href="#your-day" class="day-bar" aria-label="Go to your day: {{planCountLabel}}" style="position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 20; min-height: 60px; box-sizing: border-box; padding: 8px 8px 8px 16px; border-radius: 18px; background: #153A45; color: #FFFFFF; text-decoration: none; align-items: center; justify-content: space-between; gap: 12px; box-shadow: 0 10px 30px rgba(21,58,69,0.35);">
 <span style="display: flex; flex-direction: column; min-width: 0;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #F4EB96;">Your itinerary</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Your day · {{planCountLabel}}</span></span>
 <span style="flex-shrink: 0; min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: #F4EB96; color: #27201B; font-weight: 700; font-size: 15px;">View</span>
@@ -834,6 +867,7 @@ var TICKETS = {
     includes: ["Guided tour of the villages with your own guide, 12:30–4:30 PM", "Aliʻi Lūʻau dinner and show, 5:00 PM", "HĀ: Breath of Life, reserved seating, 7:30 PM"],
     fixed: [["luau", 1020], ["ha", 1170]], transport: "hhv" }
 };
+function ticketByConf(c) { c = String(c || "").trim().toUpperCase(); for (var k in TICKETS) if (TICKETS[k].conf === c) return k; return null; }
 function ticketPlan(tk) { return tk.fixed.map(function (f) { return { p: findExp(f[0]).p.id, e: f[0], t: f[1], fixed: true }; }); }
 function removedMsg(plan, e) { var f = plan.some(function (x) { return x.e === e.id && x.fixed; }); return f ? "Removed " + e.title + " from this plan. It's still on your ticket." : "Removed " + e.title + "."; }
 var AVAIL = [
@@ -1145,7 +1179,7 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.drag = null;
-    this.state = { navOpen: true, closed: {}, walkFromId: null, bookOpen: true, marketMore: false, hotel: null, pickOpen: false, vw: 1440, appSent: false, flash: null, openG: {}, aboutOpen: {}, ticket: null, conf: "", confErr: false, allOpen: false, avail: "allday", availSet: false, arrive: 780, leave: 1080, showOutside: false, route: true, ghost: null, dragging: false, filter: "all", hour: null, sel: null, open: null, show360: false, plan: [], lastAdded: "", cart: false, zoom: 0, date: 0, adults: 2, kids: 0, shared: false };
+    this.state = { navOpen: true, closed: {}, walkFromId: null, bookOpen: true, marketMore: false, hotel: null, pickOpen: false, vw: 1440, appSent: false, flash: null, openG: {}, aboutOpen: {}, ticket: null, conf: "", confErr: false, allOpen: false, avail: "allday", availSet: false, arrive: 780, leave: 1080, showOutside: false, route: true, ghost: null, dragging: false, filter: "all", hour: null, sel: null, open: null, show360: false, plan: [], lastAdded: "", cart: false, zoom: 0, date: 0, adults: 2, kids: 0, shared: false, fromLink: null, visitOver: false, upgrades: {} };
   }
   componentDidMount() {
     var self = this;
@@ -1163,6 +1197,20 @@ class Component extends DCLogic {
         lastAdded: tk ? "Your booking " + TICKETS[tk].conf + " came with the day you shaped. Fine-tune it here, then send it to the app." : (plan.length ? "Picked up the day you started on the packages page." : self.state.lastAdded) });
     };
     this.pull(true);
+    try {
+      var q = (window.location.search || "") + "&" + (window.location.hash || "").replace(/^#/, "");
+      var m = q.match(/[?&]b=([A-Za-z0-9-]+)/), after = /[?&]after=1/.test(q);
+      if (m) {
+        var conf = m[1].toUpperCase(), id = ticketByConf(conf);
+        var r0 = loadRec();
+        if (id && !(r0 && r0.conf === conf && r0.plan && r0.plan.length)) {
+          var tk0 = TICKETS[id];
+          this.setState({ hotel: tk0.transport || null, ticket: id, date: tk0.date, adults: tk0.adults, kids: tk0.kids, avail: "allday", availSet: true, plan: ticketPlan(tk0) });
+        }
+        this.setState({ fromLink: id ? conf : null, visitOver: after, confErr: !id, conf: id ? "" : conf,
+          lastAdded: id ? "Opened from your confirmation email. Your day is ready to fine-tune." : this.state.lastAdded });
+      }
+    } catch (err) {}
     this.onStorage = function (ev) { if (!ev || !ev.key || ev.key === REC_KEY) self.pull(false); };
     try { window.addEventListener("storage", this.onStorage); } catch (err) {}
   }
@@ -1290,11 +1338,35 @@ class Component extends DCLogic {
     var bookedTk = s.ticket ? TICKETS[s.ticket] : null;
     var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
     var longDate = LONG_DOW[DATES[s.date][0]] + ", " + DATES[s.date][1];
-    var heroEyebrow = bookedTk ? "My Day · booking " + bookedTk.conf : "My Day";
+    var over = !!(bookedTk && s.visitOver);
+    var heroEyebrow = bookedTk ? "My Day · booking " + bookedTk.conf + (s.fromLink ? " · from your email" : "") : "My Day";
     var heroTitle = bookedTk ? "Your day at the Center, " + longDate : "Find your day";
     var heroLead = bookedTk ? bookedTk.name + " for " + partyLabel + ". Fine-tune your times below, then send the day to the PCC app for reminders and the map on the day."
       : "Open the link in your confirmation email, or enter your confirmation number below. You can also plan freely here.";
+    if (over) {
+      heroEyebrow = "Booking " + bookedTk.conf + " · visited " + longDate;
+      heroTitle = "Mahalo for spending the day with us";
+      heroLead = "Your link from the confirmation email now brings you here. Share your favorite moments, tell us how the day went, or start planning your next visit.";
+    }
     var prepHotel = s.hotel ? hotelById(s.hotel) : null;
+    // Upgrades worth offering for this booking. Prices are placeholders for Sales.
+    var inPlan = function (e) { return s.plan.some(function (x) { return x.e === e; }); };
+    var addUp = function (id, change) { return function () { var u = Object.assign({}, s.upgrades); u[id] = true; var st = change(); st.upgrades = u; st.appSent = false; self.setState(st); }; };
+    var withFixed = function (e, t, drop) { var plan = s.plan.filter(function (x) { return x.e !== e && x.e !== drop; }); plan.push({ p: findExp(e).p.id, e: e, t: t, fixed: true }); return plan; };
+    var UPS = [];
+    if (bookedTk) {
+      if (!inPlan("ha") || s.upgrades.ha) UPS.push({ id: "ha", title: "Stay for HĀ: Breath of Life", price: "[PRICE] per person", cta: "Add HĀ at 7:30 PM",
+        text: "The evening show: more than 100 performers and a fire knife finale. Your coach and day are adjusted to fit.", add: addUp("ha", function () { return { plan: withFixed("ha", 1170) }; }) });
+      if (s.ticket === "buffet" || s.upgrades.luauUp) UPS.push({ id: "luauUp", title: "Upgrade to the Aliʻi Lūʻau", price: "+[PRICE] per person", cta: "Upgrade dinner",
+        text: "Swap the buffet for the royal lūʻau at 5:00: the imu ceremony, the royal court and a feast served at your table.", add: addUp("luauUp", function () { return { plan: withFixed("luau", 1020, "buffet") }; }) });
+      if (s.ticket === "admission" && !s.upgrades.ha) UPS.push({ id: "luauAdd", title: "Add the Aliʻi Lūʻau and HĀ", price: "[PRICE] per person", cta: "Add dinner and the show",
+        text: "Stay into the evening: the royal lūʻau at 5:00, then HĀ at 7:30.", add: addUp("luauAdd", function () { var plan = withFixed("luau", 1020); plan.push({ p: findExp("ha").p.id, e: "ha", t: 1170, fixed: true }); return { plan: plan }; }) });
+      if (!s.hotel || s.upgrades.coach) UPS.push({ id: "coach", title: "Ride our coach from Waikīkī", price: "[PRICE] round trip", cta: "Add the coach",
+        text: "Pickup about 9:45 AM at your hotel and back about 10:30 PM. No driving or parking after the show.", add: addUp("coach", function () { return { hotel: "hhv", pickOpen: true }; }) });
+      if (!bookedTk.guided) UPS.push({ id: "guided", title: "A guide of your own", price: "+[PRICE] per person", cta: "Add a guided tour",
+        text: "12:30 to 4:30 PM: a guide walks you through the villages and saves you seats at Huki.", add: addUp("guided", function () { return {}; }) });
+    }
+    var upgrades = UPS.slice(0, 3).map(function (u) { var done = !!s.upgrades[u.id]; return { title: u.title, price: u.price, text: u.text, cta: u.cta, add: u.add, added: done, notAdded: !done }; });
     var prep = !bookedTk ? [] : [
       { label: "Getting here", text: prepHotel ? "Coach pickup about 9:45 AM at " + prepHotel.name + ". " + prepHotel.pickup : "Arrive by 12:00 PM to find seats for Huki at 1:00. Parking is free at the Hukilau Marketplace." },
       { label: "Check in", text: "Show booking " + bookedTk.conf + " at the Welcome Center, or the QR code in the PCC app. No printing needed." },
@@ -1671,7 +1743,7 @@ class Component extends DCLogic {
 
     var zoomPct = ZOOMS[s.zoom];
     return {
-      heroEyebrow: heroEyebrow, heroTitle: heroTitle, heroLead: heroLead, heroBooked: !!bookedTk, heroNotBooked: !bookedTk, prep: prep, prepCountdown: bookedTk ? "Your visit: " + longDate : "",
+      heroEyebrow: heroEyebrow, heroTitle: heroTitle, heroLead: heroLead, heroBooked: !!bookedTk, heroNotBooked: !bookedTk, prep: prep, visitOver: over, showPrep: !!bookedTk && !over, showPlanner: !over, upgrades: upgrades, hasUpgrades: upgrades.length > 0, afterLabel: over ? "Prototype: back to before the visit" : "Prototype: preview the day after the visit", toggleAfter: function () { self.setState({ visitOver: !s.visitOver }); }, prepCountdown: bookedTk ? "Your visit: " + longDate : "",
       things: things, steps: steps, dates: dates, adults: s.adults, kids: s.kids, dateLabel: dateLabel, partyLabel: partyLabel,
       datePrev: function () { for (var i = s.date - 1; i >= 0; i--) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },
       dateNext: function () { for (var i = s.date + 1; i < DATES.length; i++) { if (!DATES[i][2]) { self.setState({ date: i }); return; } } },
@@ -1781,10 +1853,10 @@ class Component extends DCLogic {
       toggleBook: function () { self.setState({ bookOpen: !s.bookOpen }); },
       bookChevStyle: "flex-shrink: 0; margin-left: auto; transition: transform 0.2s;" + (s.bookOpen ? " transform: rotate(180deg);" : ""),
       bookBoxStyle: "display: flex; flex-direction: column; gap: 2px; background: #FFFFFF; border: 1px solid #C9DAE0; border-radius: 14px; flex-shrink: 0;",
-      hasTicket: !!TK, noTicket: !TK, ticket: TK || {}, showSales: s.plan.length > 0 && !TK, confInput: s.conf, confError: s.confErr,
+      hasTicket: !!TK, noTicket: !TK, ticket: TK || {}, showSales: s.plan.length > 0 && !TK, confInput: s.conf, confError: s.confErr, confErrorText: String(s.conf).trim() ? "We couldn't find booking " + String(s.conf).trim().toUpperCase() + ". It's in your confirmation email, starting PCC-." : "Enter the confirmation number from your confirmation email.",
       tourOn: tourOn, tourStyle: tourStyle, tourLabel: tourLabel, tourSub: tourSub, tourAria: tourAria,
       setConf: function (ev) { self.setState({ conf: ev && ev.target ? ev.target.value : "", confErr: false }); },
-      findBooking: function () { if (!String(s.conf).trim()) { self.setState({ confErr: true }); return; } loadTicket("luau"); },
+      findBooking: function () { var id = ticketByConf(s.conf); if (!id) { self.setState({ confErr: true }); return; } loadTicket(id); },
       loadLuau: function () { loadTicket("luau"); }, loadGuided: function () { loadTicket("guided"); },
       unloadTicket: function () { self.setState({ hotel: null, ticket: null, plan: [], conf: "", appSent: false, lastAdded: "Booking removed. Plan your day from scratch, or find another booking." }); }, planCountLabel: s.plan.length + (s.plan.length === 1 ? " stop" : " stops") + (s.plan.length ? " · " + hm(totalMin) : ""),
       dragEnd: function () { self.drag = null; if (s.dragging || s.ghost) self.setState({ dragging: false, ghost: null }); },
