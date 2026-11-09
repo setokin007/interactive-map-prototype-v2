@@ -15,8 +15,9 @@ live at https://interactive-map-prototype-blush.vercel.app) is kept for referenc
 
 ## How the itinerary is built
 
-1. **Four questions** produce a day: who's coming (couple, family with young kids, group),
-   the date, how long they can stay, and where they're staying (cruise guests add their
+1. **Four numbered steps** produce a day: who's coming (couple, family with young kids, group),
+   the date (the next 10 days, or any date up to a year out from a date picker; closed Sundays
+   and Wednesdays are refused with the next open day suggested), how long they can stay, and where they're staying (cruise guests add their
    all-aboard time).
 2. **Optional choices** sharpen it: the evening (lūʻau and HĀ, buffet and HĀ, just HĀ, or none),
    pace (Relaxed adds breaks and fewer stops, See it all packs the day), must-sees (any village,

@@ -145,7 +145,7 @@ class Component extends DCLogic {
       : !prev ? "Arrive by " + fmt(F.t - 15) + " to find a good seat."
       : walk === 0 ? "It's right here. Stay put." : leaveIn > 0 ? walk + " min walk from " + PLACES[prev.pEnd || prev.p].name + ". Leave in " + leaveIn + " min for a good seat." : walk + " min walk from " + PLACES[prev.pEnd || prev.p].name + ". Leave now.";
     var pl = F ? PLACES[F.p] : null;
-    var d = DATES[rec.date != null ? rec.date : 0];
+    var d = typeof rec.date === "string" ? (function (iso) { var q = iso.split("-"), dt = new Date(+q[0], +q[1] - 1, +q[2]); var dw = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dt.getDay()]; return [dw, ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][dt.getMonth()] + " " + dt.getDate()]; })(rec.date) : DATES[rec.date != null ? rec.date : 0];
     var rows = stops.map(function (x, i) {
       var done = x.t + x.dur <= now, P = PLACES[x.p];
       return { time: fmt(x.t), title: x.title, code: P.code, badge: badge(P.color, 32), done: done,

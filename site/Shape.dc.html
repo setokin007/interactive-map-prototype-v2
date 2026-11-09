@@ -111,34 +111,41 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2159
 </section>
 
 <fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
-<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num1}}">1</span> Who's coming?</legend>
+<legend style="padding: 0 0 10px; display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="{{num1}}">{{step1}}</span><span style="display: flex; flex-direction: column; line-height: 1.15;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5E5642;">Step 1 of 4</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-size: 21px; font-weight: 700; color: #27201B;">Who's coming?</span></span></legend>
 <sc-for list="{{parties}}" as="o" hint-placeholder-count="3">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 </fieldset>
 
 <fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
-<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num2}}">2</span> When?</legend>
+<legend style="padding: 0 0 10px; display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="{{num2}}">{{step2}}</span><span style="display: flex; flex-direction: column; line-height: 1.15;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5E5642;">Step 2 of 4</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-size: 21px; font-weight: 700; color: #27201B;">When?</span></span></legend>
 <sc-if value="{{dateLocked}}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px;"><strong>{{dateLong}}</strong><br><span style="font-size: 13px; color: #5E5642;">From your ticket</span></span></sc-if>
 <sc-if value="{{dateFree}}" hint-placeholder-val="{{ true }}">
-<div role="group" aria-label="Date" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;">
+<span style="font-size: 12px; color: #5E5642;">The next 10 days</span>
+<div role="group" aria-label="Date, next 10 days" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;">
 <sc-for list="{{dates}}" as="d" hint-placeholder-count="10">
 <button type="button" aria-pressed="{{d.on}}" disabled="{{d.closed}}" aria-label="{{d.aria}}" onClick="{{d.pick}}" style="{{d.style}}"><span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;">{{d.dow}}</span><span style="font-weight: 700;">{{d.day}}</span></button>
 </sc-for>
 </div>
-<span style="font-size: 11px; color: #5E5642;">Closed Sundays and Wednesdays in this sample.</span>
+<span style="font-size: 11px; color: #5E5642;">Closed Sundays and Wednesdays.</span>
+<div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px; padding: 8px 10px; border-radius: 10px; background: {{laterBg}}; border: {{laterBorder}};">
+<label for="later-date" style="font-size: 13px; font-weight: 700;">Coming later? Pick a date</label>
+<input id="later-date" type="date" min="{{dateMin}}" max="{{dateMax}}" value="{{dateValue}}" onChange="{{pickDate}}" style="min-height: 44px; box-sizing: border-box; width: 100%; padding: 0 10px; border: 1px solid #857D69; border-radius: 10px; font-size: 15px; background: #FFFFFF; color: #27201B;">
+<sc-if value="{{laterDate}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; font-weight: 700; color: #215968;">✓ {{laterLabel}}</span></sc-if>
+<sc-if value="{{dateErr}}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size: 13px; color: #8A1C12;">{{dateErr}}</span></sc-if>
+</div>
 </sc-if>
 </fieldset>
 
 <fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
-<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num3}}">3</span> How long can you stay?</legend>
+<legend style="padding: 0 0 10px; display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="{{num3}}">{{step3}}</span><span style="display: flex; flex-direction: column; line-height: 1.15;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5E5642;">Step 3 of 4</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-size: 21px; font-weight: 700; color: #27201B;">How long can you stay?</span></span></legend>
 <sc-for list="{{hours}}" as="o" hint-placeholder-count="4">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
 </fieldset>
 
 <fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 6px; min-width: 0;">
-<legend style="padding: 0 0 6px; font-size: 15px; font-weight: 700;"><span style="{{num4}}">4</span> Where are you staying?</legend>
+<legend style="padding: 0 0 10px; display: flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="{{num4}}">{{step4}}</span><span style="display: flex; flex-direction: column; line-height: 1.15;"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5E5642;">Step 4 of 4</span><span style="font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-size: 21px; font-weight: 700; color: #27201B;">Where are you staying?</span></span></legend>
 <sc-for list="{{stays}}" as="o" hint-placeholder-count="4">
 <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.style}}"><span style="font-weight: 700;">{{o.label}}</span><span style="font-size: 12px; color: #5E5642;">{{o.note}}</span></button>
 </sc-for>
@@ -513,15 +520,24 @@ var PACES = {
 };
 var MUSTS = [["samoa", "Samoa"], ["aotearoa", "Aotearoa"], ["tonga", "Tonga"], ["fiji", "Fiji"], ["tahiti", "Tahiti"], ["hawaii", "Hawaiʻi"], ["huki", "Huki canoe show"], ["canoe", "Canoe ride"], ["iosepa", "Iosepa canoe"], ["mission", "Mission Settlement"]];
 var INTERESTS = [["show", "Shows and dance"], ["hands", "Trying things"], ["food", "Food"], ["history", "History and exhibits"], ["kids", "Kid favorites"]];
-var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
+// Dates are ISO strings (2026-11-12). The Center is closed Sundays and Wednesdays (confirm the calendar with Operations).
+var DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function isoOf(dt) { return dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2); }
+function dateOf(iso) { var a = String(iso).split("-"); return new Date(+a[0], +a[1] - 1, +a[2]); }
+function todayIso() { return isoOf(new Date()); }
+function addDays(iso, n) { var dt = dateOf(iso); dt.setDate(dt.getDate() + n); return isoOf(dt); }
+function isClosed(iso) { var w = dateOf(iso).getDay(); return w === 0 || w === 3; }
+function nextOpen(iso) { var d = iso; for (var i = 0; i < 7 && isClosed(d); i++) d = addDays(d, 1); return d; }
+function partsOf(iso) { var dt = dateOf(iso), dow = DOW[dt.getDay()], md = MON[dt.getMonth()] + " " + dt.getDate(); return { dow: dow, day: String(dt.getDate()), mon: MON[dt.getMonth()], short: dow + ", " + md, long: LONG_DOW[dow] + ", " + md + (dt.getFullYear() !== new Date().getFullYear() ? ", " + dt.getFullYear() : "") }; }
+var QUICK_DAYS = 10;
 var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
 
 // Sample bookings for the prototype. A ticket fixes the date, party and anything with a set time.
 var TICKETS = {
-  "PCC-48213": { label: "Lūʻau package", name: "Aliʻi Lūʻau package", date: 2, adults: 2, kids: 1, coach: true, evening: "luau", fixed: [["luau", 1020], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Ala Moana Hotel"] },
-  "PCC-52640": { label: "Buffet + HĀ", name: "Gateway Buffet + HĀ", date: 2, adults: 2, kids: 0, evening: "buffet", fixed: [["buffet", 990], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Gateway Buffet, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"] },
-  "PCC-31907": { label: "Villages only", name: "Islands of Polynesia", date: 2, adults: 2, kids: 0, evening: "none", fixed: [], includes: ["All six island villages and Huki", "Canoe rides and exhibits", "Free return within 3 days"] },
-  "PCC-77051": { label: "Guided tour", name: "Lūʻau package with guided tour", date: 2, adults: 2, kids: 0, coach: true, evening: "luau", fixed: [["guided", 750], ["luau", 1020], ["ha", 1170]], includes: ["Your own guide through the villages, 12:30–4:30 PM", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Hilton Hawaiian Village"] }
+  "PCC-48213": { label: "Lūʻau package", name: "Aliʻi Lūʻau package", date: nextOpen(addDays(todayIso(), 3)), adults: 2, kids: 1, coach: true, evening: "luau", fixed: [["luau", 1020], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Ala Moana Hotel"] },
+  "PCC-52640": { label: "Buffet + HĀ", name: "Gateway Buffet + HĀ", date: nextOpen(addDays(todayIso(), 3)), adults: 2, kids: 0, evening: "buffet", fixed: [["buffet", 990], ["ha", 1170]], includes: ["Islands of Polynesia: all six villages and Huki", "Gateway Buffet, 4:30 PM", "HĀ: Breath of Life, 7:30 PM"] },
+  "PCC-31907": { label: "Villages only", name: "Islands of Polynesia", date: nextOpen(addDays(todayIso(), 3)), adults: 2, kids: 0, evening: "none", fixed: [], includes: ["All six island villages and Huki", "Canoe rides and exhibits", "Free return within 3 days"] },
+  "PCC-77051": { label: "Guided tour", name: "Lūʻau package with guided tour", date: nextOpen(addDays(todayIso(), 3)), adults: 2, kids: 0, coach: true, evening: "luau", fixed: [["guided", 750], ["luau", 1020], ["ha", 1170]], includes: ["Your own guide through the villages, 12:30–4:30 PM", "Aliʻi Lūʻau, 5:00 PM", "HĀ: Breath of Life, 7:30 PM", "Coach from Hilton Hawaiian Village"] }
 };
 
 var REC_KEY = "pcc-shared-day-v1";
@@ -532,7 +548,7 @@ function optStyle(on) {
     (on ? "background: #E6EFF1; border: 2px solid #215968;" : "background: #FFFFFF; border: 1px solid #D8CCB6;");
 }
 function chipStyle(on) { return "min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 14px; cursor: pointer; " + (on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF; font-weight: 700;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"); }
-function numStyle(done) { return "display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; font-size: 12px; " + (done ? "background: #215968; color: #FFFFFF;" : "background: #EFEBE2; color: #4A4336;"); }
+function numStyle(done) { return "display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; font-family: 'True North', Oswald, 'Arial Narrow', sans-serif; font-size: 20px; font-weight: 700; " + (done ? "background: #215968; color: #FFFFFF; box-shadow: 0 0 0 3px #E6EFF1;" : "background: #FFFFFF; color: #215968; border: 2px solid #215968; box-sizing: border-box;"); }
 function badge(c, size) { return "display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: " + size + "px; height: " + size + "px; border-radius: 7px; background: " + c + "; color: #FFFFFF; font-size: " + Math.round(size * 0.4) + "px; font-weight: 700;"; }
 
 // ---- The itinerary engine -------------------------------------------------
@@ -659,7 +675,7 @@ var PXH = 2.6; // day strip pixels per minute
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ticket: null, confInput: "", confErr: "", party: null, date: null, hours: null, stay: null, aboard: null, evening: null, pace: "balanced", must: {}, interests: {},
+    this.state = { ticket: null, confInput: "", confErr: "", party: null, date: null, dateErr: "", hours: null, stay: null, aboard: null, evening: null, pace: "balanced", must: {}, interests: {},
       plan: null, excluded: {}, sel: null, ghost: null, msg: "", sentMsg: "", prefsOpen: true,
       vw: 1440, vh: 900, big: false, z: null, cx: 58, cy: 50, labels: true, route: true };
   }
@@ -736,7 +752,7 @@ class Component extends DCLogic {
     saveRec({ v: 2, source: "itinerary", party: s.party, date: s.date, ticket: s.ticket, conf: s.ticket, ticketName: tk ? tk.name : null, stay: s.stay,
       days: [{ date: s.date, plan: plan }], plan: plan });
   }
-  ready(st) { return !!(st.party && st.date !== null && st.hours && st.stay && (st.stay !== "cruise" || st.aboard)); }
+  ready(st) { return !!(st.party && st.date && st.hours && st.stay && (st.stay !== "cruise" || st.aboard)); }
   setPrefs(patch, msg, fresh) {
     var st = Object.assign({}, this.state, patch), wasReady = this.ready(this.state);
     var keep = fresh ? [] : (this.state.plan || []).filter(function (x) { return x.kind === "edited"; });
@@ -776,7 +792,8 @@ class Component extends DCLogic {
   renderVals() {
     var s = this.state, self = this, ready = this.ready(s), plan = s.plan || [];
     var tk = s.ticket ? TICKETS[s.ticket] : null, W = windowOf(s);
-    var d = s.date !== null ? DATES[s.date] : null, dateLong = d ? LONG_DOW[d[0]] + ", " + d[1] : "";
+    var quick = []; for (var qd = 0; qd < QUICK_DAYS; qd++) quick.push(addDays(todayIso(), qd));
+    var d = s.date ? partsOf(s.date) : null, dateLong = d ? d.long : "";
     var stopsOnly = plan.filter(function (x) { return x.id !== "break"; });
     var numOf = {}; stopsOnly.forEach(function (x, n) { numOf[x.key] = n + 1; });
 
@@ -883,7 +900,7 @@ class Component extends DCLogic {
         canMust: !!mustKey, must: !!(mustKey && s.must[mustId]), mustLabel: mustKey && s.must[mustId] ? "✓ Won't miss it" : "Don't let me miss it",
         mustBg: mustKey && s.must[mustId] ? "#215968" : "#FFFFFF", mustFg: mustKey && s.must[mustId] ? "#FFFFFF" : "#215968",
         toggleMust: function () { var mm = Object.assign({}, s.must); if (mm[mustId]) delete mm[mustId]; else mm[mustId] = true; self.setPrefs({ must: mm }, mm[mustId] ? "We've built " + (mustId === "canoe" ? "a canoe ride" : P.name) + " into your day." : ""); self.setState({ sel: { type: "place", p: pid } }); },
-        listTitle: ready ? "What's on here " + (d ? d[0] + ", " + d[1] : "") : "What's on here",
+        listTitle: ready ? "What's on here " + (d ? d.short : "") : "What's on here",
         landsNote: lands.length ? "Canoes from the other end land here, so a ride can bring you straight to this end of the Center." : "",
         events: evs.map(function (e) {
           var inPlan = plan.filter(function (x) { return x.id === e.id; })[0];
@@ -906,7 +923,7 @@ class Component extends DCLogic {
     var missed = VILLAGE_IDS.filter(function (vv) { return villagesSeen.indexOf(vv) < 0; }).map(function (vv) { return PLACES[vv].name; });
     var mustMissed = MUSTS.filter(function (m) { return s.must[m[0]] && !plan.some(function (x) { return placeOf(x) === m[0] || mustOf(BYID[x.id]) === m[0]; }); }).map(function (m) { return m[1]; });
     var leftover = missed.concat(["canoe", "iosepa", "mission"].filter(function (p) { return !plan.some(function (x) { return placeOf(x) === p || mustOf(BYID[x.id]) === p; }); }).map(function (p) { return MUSTS.filter(function (m) { return m[0] === p; })[0][1]; }).slice(0, 2));
-    var left = []; if (!s.party) left.push("who's coming"); if (s.date === null) left.push("the date"); if (!s.hours) left.push("how long you can stay"); if (!s.stay) left.push("where you're staying"); else if (s.stay === "cruise" && !s.aboard) left.push("your all-aboard time");
+    var left = []; if (!s.party) left.push("who's coming"); if (!s.date) left.push("the date"); if (!s.hours) left.push("how long you can stay"); if (!s.stay) left.push("where you're staying"); else if (s.stay === "cruise" && !s.aboard) left.push("your all-aboard time");
     var note = "";
     if (s.stay === "cruise" && s.aboard && W) note = "All aboard at " + fmt(s.aboard) + ": your day ends by " + fmt(W[1]) + ", leaving about 75 minutes to Honolulu Harbor plus a margin.";
     else if (s.stay === "waikiki" || (tk && tk.coach)) note = "Coach guests arrive at noon, in time for Huki at 1:00. The coach leaves after HĀ.";
@@ -928,12 +945,21 @@ class Component extends DCLogic {
       tk: tk ? { conf: s.ticket, name: tk.name, includes: tk.includes, when: dateLong + " · " + tk.adults + " adults" + (tk.kids ? ", " + tk.kids + (tk.kids > 1 ? " children" : " child") : "") } : {},
       clearTicket: function () { self.setPrefs({ ticket: null, excluded: {} }, "Ticket removed. Your plan now uses your own choices.", true); },
       // questions
-      num1: numStyle(!!s.party), num2: numStyle(s.date !== null), num3: numStyle(!!s.hours), num4: numStyle(!!s.stay && (s.stay !== "cruise" || !!s.aboard)),
+      num1: numStyle(!!s.party), num2: numStyle(!!s.date), num3: numStyle(!!s.hours), num4: numStyle(!!s.stay && (s.stay !== "cruise" || !!s.aboard)),
+      step1: s.party ? "✓" : "1", step2: s.date ? "✓" : "2", step3: s.hours ? "✓" : "3", step4: s.stay && (s.stay !== "cruise" || s.aboard) ? "✓" : "4",
       parties: PARTIES.map(function (p) { var on = s.party === p.id; return { label: p.label, note: p.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ party: p.id }); } }; }),
       dateLocked: !!tk, dateFree: !tk, dateLong: dateLong,
-      dates: DATES.map(function (dd, k) { var on = s.date === k; return { dow: dd[0], day: dd[1].split(" ")[1], closed: dd[2], on: on, aria: LONG_DOW[dd[0]] + " " + dd[1] + (dd[2] ? ", closed" : ""),
-        style: "min-height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 14px; cursor: " + (dd[2] ? "not-allowed" : "pointer") + "; " + (dd[2] ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
-        pick: function () { if (!dd[2]) self.setPrefs({ date: k }); } }; }),
+      dates: quick.map(function (iso) { var pp = partsOf(iso), closed = isClosed(iso), on = s.date === iso; return { dow: pp.dow, day: pp.day, closed: closed, on: on, aria: pp.long + (closed ? ", closed" : ""),
+        style: "min-height: 48px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; font-size: 14px; cursor: " + (closed ? "not-allowed" : "pointer") + "; " + (closed ? "background: #F6F4EF; border: 1px solid #E3DED4; color: #A39A86; text-decoration: line-through;" : on ? "background: #215968; border: 1px solid #215968; color: #FFFFFF;" : "background: #FFFFFF; border: 1px solid #D8CCB6; color: #27201B;"),
+        pick: function () { if (!closed) self.setPrefs({ date: iso, dateErr: "" }); } }; }),
+      quickRange: partsOf(quick[0]).short + " – " + partsOf(quick[quick.length - 1]).short,
+      laterDate: !!s.date && quick.indexOf(s.date) < 0, laterLabel: s.date ? partsOf(s.date).long : "",
+      dateMin: todayIso(), dateMax: addDays(todayIso(), 365), dateValue: s.date && quick.indexOf(s.date) < 0 ? s.date : "",
+      dateErr: s.dateErr, laterBg: s.date && quick.indexOf(s.date) < 0 ? "#E6EFF1" : "#F6F4EF", laterBorder: s.date && quick.indexOf(s.date) < 0 ? "2px solid #215968" : "1px solid #E3DED4",
+      pickDate: function (e) { var v = e && e.target ? e.target.value : ""; if (!v) return;
+        if (v < todayIso()) { self.setState({ dateErr: "Pick today or a later date." }); return; }
+        if (isClosed(v)) { var alt = nextOpen(v); self.setState({ dateErr: "The Center is closed on " + LONG_DOW[partsOf(v).dow] + "s. The next open day is " + partsOf(alt).long + "." }); return; }
+        self.setPrefs({ date: v, dateErr: "" }); },
       hours: HOURS.map(function (hh) { var on = s.hours === hh.id; return { label: hh.label, note: hh.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ hours: hh.id }); } }; }),
       stays: STAYS.map(function (x) { var on = s.stay === x.id; return { label: x.label, note: x.note, on: on, style: optStyle(on), pick: function () { self.setPrefs({ stay: x.id }); } }; }),
       isCruise: s.stay === "cruise",
