@@ -100,7 +100,8 @@ var PLACES = {
   tahiti: { name: "Tahiti village", x: 81.7, y: 11.6, code: "TA", color: "#9A2F7C" },
   hawaii: { name: "Hawaiʻi village", x: 87.7, y: 42.4, code: "HI", color: "#71349E" },
   huki: { name: "Lagoon seating", x: 48.8, y: 44.3, code: "HU", color: "#4A4336" },
-  canoe: { name: "Canoe landing", x: 39.6, y: 35.6, code: "CT", color: "#4A4336" },
+  canoeS: { name: "South Canoe Landing", x: 39.6, y: 35.6, code: "CS", color: "#1F6FA8" },
+  canoeN: { name: "North Canoe Landing", x: 92.0, y: 52.0, code: "CN", color: "#1F6FA8" },
   mission: { name: "Mission Settlement", x: 58.1, y: 26.1, code: "MS", color: "#4A4336" },
   iosepa: { name: "Iosepa", x: 96.3, y: 44.3, code: "IO", color: "#4A4336" },
   journey: { name: "Hawaiian Journey", x: 44.1, y: 33.5, code: "HJ", color: "#4A4336" },
@@ -109,7 +110,7 @@ var PLACES = {
   luau: { name: "Hale Aloha", x: 41.8, y: 72.5, code: "LU", color: "#6B4A33" },
   theater: { name: "Pacific Theater", x: 13.0, y: 44.3, code: "HĀ", color: "#2B2540" }
 };
-var DUR = { "market-lunch": 45, "huki-pre": 10, "huki-show": 20, "luau": 90, "buffet": 75, "ha": 75, "market-snack": 20, "canoe-tour": 30, "market-shop": 30 };
+var DUR = { "market-lunch": 45, "huki-pre": 10, "huki-show": 20, "luau": 90, "buffet": 75, "ha": 75, "market-snack": 20, "canoe-north": 20, "canoe-south": 20, "market-shop": 30 };
 var DATES = [["Sat", "Oct 10"], ["Sun", "Oct 11"], ["Mon", "Oct 12"], ["Tue", "Oct 13"], ["Wed", "Oct 14"], ["Thu", "Oct 15"], ["Fri", "Oct 16"], ["Sat", "Oct 17"], ["Sun", "Oct 18"], ["Mon", "Oct 19"]];
 var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
 // Used when no day has been saved on this device yet.
@@ -128,21 +129,21 @@ class Component extends DCLogic {
   componentDidMount() { var r = loadRec(); if (r && r.plan && r.plan.length) this.setState({ rec: r }); }
   renderVals() {
     var self = this, s = this.state, rec = s.rec || SAMPLE, now = s.now;
-    var stops = (rec.plan || []).filter(function (x) { return PLACES[x.p]; }).map(function (x) { return { p: x.p, e: x.e, t: x.t, title: x.title || x.e, dur: x.dur || DUR[x.e] || 20 }; });
+    var stops = (rec.plan || []).filter(function (x) { return PLACES[x.p]; }).map(function (x) { return { p: x.p, pEnd: x.pEnd || x.p, e: x.e, t: x.t, title: x.title || x.e, dur: x.dur || DUR[x.e] || 20 }; });
     stops.sort(function (a, b) { return a.t - b.t; });
     var doneN = stops.filter(function (x) { return x.t + x.dur <= now; }).length;
     var curIdx = -1, nextIdx = -1;
     stops.forEach(function (x, i) { if (curIdx < 0 && x.t <= now && now < x.t + x.dur) curIdx = i; if (nextIdx < 0 && x.t > now) nextIdx = i; });
     var focusIdx = curIdx >= 0 ? curIdx : nextIdx;
     var F = focusIdx >= 0 ? stops[focusIdx] : null, prev = focusIdx > 0 ? stops[focusIdx - 1] : null;
-    var walk = F && prev ? walkMin(prev.p, F.p) : 0;
+    var walk = F && prev ? walkMin(prev.pEnd || prev.p, F.p) : 0;
     var startsIn = F ? F.t - now : 0;
     var leaveIn = F ? startsIn - walk - 5 : 0; // five minutes to find a seat
     var behind = curIdx < 0 && F && prev && now >= prev.t + prev.dur && leaveIn < -5;
     var eyebrow = !F ? "" : curIdx >= 0 ? "Happening now · until " + fmt(F.t + F.dur) : startsIn <= 60 ? "Up next · starts in " + startsIn + " min" : "Up next · " + fmt(F.t);
     var walkText = !F ? "" : curIdx >= 0 ? "Enjoy it. Next: " + (stops[focusIdx + 1] ? stops[focusIdx + 1].title + " at " + fmt(stops[focusIdx + 1].t) : "you're done for the day") + "."
       : !prev ? "Arrive by " + fmt(F.t - 15) + " to find a good seat."
-      : walk === 0 ? "It's right here. Stay put." : leaveIn > 0 ? walk + " min walk from " + PLACES[prev.p].name + ". Leave in " + leaveIn + " min for a good seat." : walk + " min walk from " + PLACES[prev.p].name + ". Leave now.";
+      : walk === 0 ? "It's right here. Stay put." : leaveIn > 0 ? walk + " min walk from " + PLACES[prev.pEnd || prev.p].name + ". Leave in " + leaveIn + " min for a good seat." : walk + " min walk from " + PLACES[prev.pEnd || prev.p].name + ". Leave now.";
     var pl = F ? PLACES[F.p] : null;
     var d = DATES[rec.date != null ? rec.date : 0];
     var rows = stops.map(function (x, i) {

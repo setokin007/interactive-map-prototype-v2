@@ -196,6 +196,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2159
 <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none;">
 <path d="{{routeD}}" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" opacity="0.85"></path>
 <path d="{{routeD}}" fill="none" stroke="#153A45" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+<path d="{{canoeD}}" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity="0.9"></path>
+<path d="{{canoeD}}" fill="none" stroke="#1F6FA8" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
 </svg>
 <sc-for list="{{pins}}" as="pin" hint-placeholder-count="15">
 <button type="button" class="pin" onClick="{{pin.pick}}" aria-label="{{pin.aria}}" aria-pressed="{{pin.on}}" style="{{pin.style}}"><span style="{{pin.dotStyle}}">{{pin.text}}</span><sc-if value="{{pin.showLabel}}" hint-placeholder-val="{{ false }}"><span class="pin-label">{{pin.label}}</span></sc-if></button>
@@ -212,7 +214,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2159
 <div style="position: absolute; left: 14px; bottom: 14px; z-index: 15; display: flex; flex-wrap: wrap; gap: 6px; " class="map-legend">
 <button type="button" onClick="{{toggleLabels}}" aria-pressed="{{labels}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">{{labelsText}}</button>
 <sc-if value="{{ready}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{toggleRoute}}" aria-pressed="{{route}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #D8CCB6; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #27201B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.12);">{{routeText}}</button></sc-if>
-<span style="min-height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,0.94); font-size: 12px; color: #4A4336; box-shadow: 0 2px 6px rgba(0,0,0,0.12);"><span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #215968; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;">1</span>In your day <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #857D69; opacity: 0.8;"></span>Not in your day</span>
+<span style="min-height: 36px; display: inline-flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,0.94); font-size: 12px; color: #4A4336; box-shadow: 0 2px 6px rgba(0,0,0,0.12);"><span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; background: #215968; color: #FFFFFF; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;">1</span>In your day <span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 4px; background: #857D69; opacity: 0.8;"></span>Not in your day <span aria-hidden="true" style="width: 22px; height: 0; border-top: 2px dotted #153A45;"></span>Walk <span aria-hidden="true" style="width: 22px; height: 4px; border-radius: 2px; background: #1F6FA8;"></span>Canoe ride</span>
 </div>
 
 </div>
@@ -233,6 +235,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #2159
 <sc-if value="{{plc.img}}" hint-placeholder-val="{{ false }}"><img src="{{plc.img}}" alt="{{plc.alt}}" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: #E3DED4;"></sc-if>
 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4336;">{{plc.promise}}</p>
 <sc-if value="{{plc.canMust}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{plc.toggleMust}}" aria-pressed="{{plc.must}}" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #215968; background: {{plc.mustBg}}; color: {{plc.mustFg}}; font-weight: 700; font-size: 13px; cursor: pointer;">{{plc.mustLabel}}</button></sc-if>
+<sc-if value="{{plc.landsNote}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; font-size: 13px; color: #153A45;">{{plc.landsNote}}</p></sc-if>
 <h4 style="margin: 4px 0 0; font-size: 14px; font-weight: 700;">{{plc.listTitle}}</h4>
 <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
 <sc-for list="{{plc.events}}" as="pe" hint-placeholder-count="4">
@@ -423,7 +426,9 @@ var EVENTS = [
   { id: "hawaii-games", title: "Traditional Hawaiian games", p: "hawaii", kind: "Hands-on", dur: 15, times: [810, 870, 930, 990], cat: ["hands"], kids: true, what: "Games Hawaiian children have played for generations." },
   { id: "hawaii-hula", title: "Hula lesson", p: "hawaii", kind: "Hands-on", dur: 15, win: [765, 1050], cat: ["hands"], couples: true, est: true, what: "Learn a few basic hula movements." },
   { id: "hawaii-poi", title: "Poi tasting", p: "hawaii", kind: "Tasting", dur: 10, win: [765, 1050], cat: ["food"], est: true, what: "Try freshly made poi." },
-  { id: "canoe-tour", title: "Lagoon canoe tour", p: "canoe", kind: "Tour", dur: 30, win: [765, 1050], cat: ["history"], kids: true, est: true, what: "A guided ride across the lagoon past the villages." },
+  // The canoe ride carries guests from one landing to the other, so the day continues from where they land.
+  { id: "canoe-north", title: "Canoe ride to the north end", p: "canoeS", pEnd: "canoeN", grp: "canoe", mustKey: "canoe", kind: "Canoe ride", dur: 20, win: [765, 1050], cat: ["history"], kids: true, est: true, what: "Glide the lagoon past the villages from the South Canoe Landing to the North Canoe Landing, near Hawaiʻi, Iosepa and Tahiti. Your day picks up from where you land." },
+  { id: "canoe-south", title: "Canoe ride to the south end", p: "canoeN", pEnd: "canoeS", grp: "canoe", mustKey: "canoe", kind: "Canoe ride", dur: 20, win: [765, 1050], cat: ["history"], kids: true, est: true, what: "Glide the lagoon past the villages from the North Canoe Landing to the South Canoe Landing, near Huki, the Hawaiian Journey and the way back to the entrance. Your day picks up from where you land." },
   { id: "iosepa-visit", title: "Iosepa voyaging canoe", p: "iosepa", kind: "Exhibit", dur: 20, win: [765, 1050], cat: ["history"], est: true, what: "A 60-foot double-hulled canoe and the art of Polynesian wayfinding." },
   { id: "mission-visit", title: "Hawaiian Mission Settlement", p: "mission", kind: "Exhibit", dur: 20, win: [765, 1050], cat: ["history"], est: true, what: "A mission home, school house and chapel from Lāʻie's past." },
   { id: "journey-film", title: "Hawaiian Journey film", p: "journey", kind: "Show", dur: 15, win: [765, 1050], cat: ["show", "history"], kids: true, est: true, what: "An immersive film about Hawaiʻi. Showtimes to confirm." },
@@ -446,7 +451,9 @@ var PLACES = {
   tahiti: { name: "Tahiti", x: 81.7, y: 11.6, code: "TA", color: "#9A2F7C", village: true },
   hawaii: { name: "Hawaiʻi", x: 87.7, y: 42.4, code: "HI", color: "#71349E", village: true },
   huki: { name: "Lagoon", x: 48.8, y: 44.3, code: "HU", color: "#4A4336" },
-  canoe: { name: "Canoe landing", x: 39.6, y: 35.6, code: "CT", color: "#4A4336" },
+  // Landing positions are estimates from the gate handout; confirm with Operations.
+  canoeS: { name: "South Canoe Landing", x: 39.6, y: 35.6, code: "CS", color: "#1F6FA8" },
+  canoeN: { name: "North Canoe Landing", x: 92.0, y: 52.0, code: "CN", color: "#1F6FA8" },
   mission: { name: "Mission Settlement", x: 58.1, y: 26.1, code: "MS", color: "#4A4336" },
   iosepa: { name: "Iosepa", x: 96.3, y: 44.3, code: "IO", color: "#4A4336" },
   journey: { name: "Hawaiian Journey", x: 44.1, y: 33.5, code: "HJ", color: "#4A4336" },
@@ -502,7 +509,7 @@ var PACES = {
   balanced: { label: "Balanced", gap: 5, max: 9, note: "A full afternoon with a little breathing room." },
   full: { label: "See it all", gap: 0, max: 14, note: "Back-to-back, as much as the day can hold." }
 };
-var MUSTS = [["samoa", "Samoa"], ["aotearoa", "Aotearoa"], ["tonga", "Tonga"], ["fiji", "Fiji"], ["tahiti", "Tahiti"], ["hawaii", "Hawaiʻi"], ["huki", "Huki canoe show"], ["canoe", "Canoe tour"], ["iosepa", "Iosepa canoe"], ["mission", "Mission Settlement"]];
+var MUSTS = [["samoa", "Samoa"], ["aotearoa", "Aotearoa"], ["tonga", "Tonga"], ["fiji", "Fiji"], ["tahiti", "Tahiti"], ["hawaii", "Hawaiʻi"], ["huki", "Huki canoe show"], ["canoe", "Canoe ride"], ["iosepa", "Iosepa canoe"], ["mission", "Mission Settlement"]];
 var INTERESTS = [["show", "Shows and dance"], ["hands", "Trying things"], ["food", "Food"], ["history", "History and exhibits"], ["kids", "Kid favorites"]];
 var DATES = [["Sat", "Oct 10", false], ["Sun", "Oct 11", true], ["Mon", "Oct 12", false], ["Tue", "Oct 13", false], ["Wed", "Oct 14", true], ["Thu", "Oct 15", false], ["Fri", "Oct 16", false], ["Sat", "Oct 17", false], ["Sun", "Oct 18", true], ["Mon", "Oct 19", false]];
 var LONG_DOW = { Sat: "Saturday", Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday" };
@@ -528,6 +535,12 @@ function badge(c, size) { return "display: inline-flex; align-items: center; jus
 
 // ---- The itinerary engine -------------------------------------------------
 function placeOf(it) { return it.p || BYID[it.id].p; }
+// Where the guest is when a stop ends: the far landing after a canoe ride, otherwise the same place.
+function endOf(it) { var e = BYID[it.id]; return (e && e.pEnd) || placeOf(it); }
+function endP(ev) { return ev.pEnd || ev.p; }
+function mustOf(ev) { return ev.mustKey || ev.p; }
+function sameGroup(plan, ev, skipKey) { return plan.some(function (x) { var e = BYID[x.id]; return x.key !== skipKey && (x.id === ev.id || (ev.grp && e.grp === ev.grp)); }); }
+function nearestUnseen(from, seen) { var best = 99; VILLAGE_IDS.forEach(function (v) { if (!seen[v]) best = Math.min(best, walkMin(from, v) || 1); }); return best; }
 function durOf(it) { return BYID[it.id].dur; }
 function validTimes(ev) { if (ev.times) return ev.times.slice(); var out = []; if (ev.win) for (var t = ev.win[0]; t + ev.dur <= ev.win[1]; t += 5) out.push(t); return out; }
 function earliestAt(ev, ready) { var ts = validTimes(ev); for (var i = 0; i < ts.length; i++) if (ts[i] >= ready) return ts[i]; return null; }
@@ -546,7 +559,8 @@ function eveningOf(st) {
 function scoreOf(st, ev, t, ready, w, seen) {
   var s = 10;
   if (ev.sig) s += 25;
-  if (st.must[ev.p] && !seen[ev.p]) s += 140;
+  if (st.must[mustOf(ev)] && !seen[mustOf(ev)]) s += 140;
+  if (ev.pEnd) { var gain = nearestUnseen(ev.p, seen) - nearestUnseen(ev.pEnd, seen); s += Math.max(-10, gain * 4); }
   (ev.cat || []).forEach(function (c) { if (st.interests[c]) s += 18; });
   if (ev.kids && (st.interests.kids || st.party === "family")) s += 22;
   if (ev.couples && st.party === "couple") s += 18;
@@ -577,7 +591,7 @@ function generate(st, keep) {
   var cursor = A, place = "market", lastBreak = Math.max(A, 800), autoN = 0, guard = 0; // breaks count from after Huki
   while (cursor < B && guard++ < 300) {
     var cover = items.filter(function (x) { return x.t <= cursor && cursor < x.t + durOf(x); })[0];
-    if (cover) { cursor = cover.t + durOf(cover); place = placeOf(cover) || place; continue; }
+    if (cover) { cursor = cover.t + durOf(cover); place = endOf(cover) || place; continue; }
     var nb = items.filter(function (x) { return x.t >= cursor; })[0];
     var limit = nb ? nb.t : B, nbPlace = nb ? placeOf(nb) : null;
     if (pace.breakEvery && autoN > 0 && cursor - lastBreak >= pace.breakEvery && limit - cursor >= 20 + (nbPlace ? walkMin(place, nbPlace) : 0) && cursor >= 735 && cursor < 1050) {
@@ -585,17 +599,17 @@ function generate(st, keep) {
     }
     var best = null;
     if (autoN < pace.max) EVENTS.forEach(function (ev) {
-      if (ev.evening || ev.ticketOnly || has(ev.id) || st.excluded[ev.id]) return;
+      if (ev.evening || ev.ticketOnly || sameGroup(items, ev) || st.excluded[ev.id]) return;
       var w = walkMin(place, ev.p), ready = cursor + w + (autoN || items.length ? pace.gap : 0);
       var t = earliestAt(ev, ready); if (t == null || t > ready + 45) return;
-      var end = t + ev.dur; if (end > B || end + (nbPlace ? walkMin(ev.p, nbPlace) : 0) > limit) return;
+      var end = t + ev.dur; if (end > B || end + (nbPlace ? walkMin(endP(ev), nbPlace) : 0) > limit) return;
       var sc = scoreOf(st, ev, t, ready, w, seen);
       if (!best || sc > best.sc) best = { ev: ev, t: t, sc: sc };
     });
     if (best) {
       items.push({ key: "k" + best.ev.id, id: best.ev.id, t: best.t, kind: "auto" }); sortI();
-      seen[best.ev.p] = (seen[best.ev.p] || 0) + 1; autoN++; cursor = best.t + best.ev.dur; place = best.ev.p;
-    } else if (nb) { cursor = nb.t + durOf(nb); place = nbPlace || place; }
+      seen[mustOf(best.ev)] = (seen[mustOf(best.ev)] || 0) + 1; seen[best.ev.p] = (seen[best.ev.p] || 0) + 1; autoN++; cursor = best.t + best.ev.dur; place = endP(best.ev);
+    } else if (nb) { cursor = nb.t + durOf(nb); place = endOf(nb) || place; }
     else cursor += 15;
   }
   sortI();
@@ -607,10 +621,10 @@ function fitsBetween(st, plan, from, fromPlace, to, toPlace, skipKey) {
   var seen = {}; plan.forEach(function (x) { if (x.key !== skipKey) { var p = placeOf(x); seen[p] = (seen[p] || 0) + 1; } });
   var out = [];
   EVENTS.forEach(function (ev) {
-    if (ev.evening || ev.ticketOnly || plan.some(function (x) { return x.id === ev.id; })) return;
+    if (ev.evening || ev.ticketOnly || sameGroup(plan, ev, skipKey) || plan.some(function (x) { return x.key === skipKey && x.id === ev.id; })) return;
     var w = walkMin(fromPlace, ev.p), ready = from + w;
     var t = earliestAt(ev, ready); if (t == null) return;
-    if (t + ev.dur + (toPlace ? walkMin(ev.p, toPlace) : 0) > to) return;
+    if (t + ev.dur + (toPlace ? walkMin(endP(ev), toPlace) : 0) > to) return;
     out.push({ ev: ev, t: t, sc: scoreOf(st, ev, t, ready, w, seen) });
   });
   out.sort(function (a, b) { return b.sc - a.sc; });
@@ -618,7 +632,7 @@ function fitsBetween(st, plan, from, fromPlace, to, toPlace, skipKey) {
 }
 function conflictOf(plan, i) {
   if (i === 0) return "";
-  var a = plan[i - 1], b = plan[i], aEnd = a.t + durOf(a), w = walkMin(placeOf(a), placeOf(b));
+  var a = plan[i - 1], b = plan[i], aEnd = a.t + durOf(a), w = walkMin(endOf(a), placeOf(b));
   if (b.t < aEnd) return "Overlaps " + BYID[a.id].title;
   if (b.t < aEnd + w) return "Needs a " + w + " min walk, you have " + (b.t - aEnd);
   return "";
@@ -627,7 +641,8 @@ function conflictOf(plan, i) {
 // What each non-village place is, for the map card.
 var PLACE_INFO = {
   huki: { zone: "Lagoon show · daily at 1:00 PM", promise: "Performers from every island arrive by canoe and dance across the lagoon. The day's highlight; lagoon-side seats fill early.", img: "../assets/huki.webp", alt: "Performers dance on double-hulled canoes across the lagoon" },
-  canoe: { zone: "Lagoon · South and North Canoe Landings", promise: "Glide through the Center's lagoon with a guide, past the villages and gardens.", img: "../assets/canoe-tours.webp", alt: "Guests ride a canoe on the lagoon" },
+  canoeS: { zone: "Canoe rides · south end, near Huki and the Hawaiian Journey", promise: "Board here for a ride of about 20 minutes up the lagoon to the North Canoe Landing, near Hawaiʻi, Iosepa and Tahiti. It's the easy way across the Center, and your day continues from the north end.", img: "../assets/canoe-tours.webp", alt: "Guests ride a canoe on the lagoon" },
+  canoeN: { zone: "Canoe rides · north end, near Hawaiʻi and Iosepa", promise: "Board here for a ride of about 20 minutes down the lagoon to the South Canoe Landing, near Huki and the way back to the entrance. Your day continues from the south end.", img: "../assets/canoe-tours.webp", alt: "Guests ride a canoe on the lagoon" },
   mission: { zone: "Exhibit", promise: "A mission home, school house and chapel that tell the story of the community the Center grew from." },
   iosepa: { zone: "Exhibit · near the North Canoe Landing", promise: "Iosepa, a 60-foot double-hulled voyaging canoe, and the carvers who keep the craft alive." },
   journey: { zone: "Show and exhibit", promise: "An immersive film about Hawaiʻi, and a museum and gallery of the ʻukulele." },
@@ -714,7 +729,7 @@ class Component extends DCLogic {
     var s = this.state, ps = psIn || this._ps || {}; this._ps = s;
     if (ps.plan === s.plan || !s.plan) return;
     var tk = s.ticket ? TICKETS[s.ticket] : null;
-    var plan = s.plan.map(function (x) { var ev = BYID[x.id]; return { p: placeOf(x), e: x.id, t: x.t, dur: ev.dur, fixed: x.kind === "ticket", title: ev.title, place: PLACES[placeOf(x)] ? PLACES[placeOf(x)].name : "" }; });
+    var plan = s.plan.map(function (x) { var ev = BYID[x.id]; return { p: placeOf(x), pEnd: endOf(x), e: x.id, t: x.t, dur: ev.dur, fixed: x.kind === "ticket", title: ev.title, place: PLACES[placeOf(x)] ? PLACES[placeOf(x)].name : "" }; });
     // Stored as a list of days: the 3-day villages pass allows a return visit.
     saveRec({ v: 2, source: "itinerary", party: s.party, date: s.date, ticket: s.ticket, conf: s.ticket, ticketName: tk ? tk.name : null, stay: s.stay,
       days: [{ date: s.date, plan: plan }], plan: plan });
@@ -750,8 +765,8 @@ class Component extends DCLogic {
       var t = ts[i]; if (W && (t < W[0] || t + ev.dur > W[1])) continue;
       var prev = null, next = null;
       plan.forEach(function (x) { if (x.t <= t) prev = x; else if (!next) next = x; });
-      if (prev && prev.t + durOf(prev) + walkMin(placeOf(prev), ev.p) > t) continue;
-      if (next && t + ev.dur + walkMin(ev.p, placeOf(next)) > next.t) continue;
+      if (prev && prev.t + durOf(prev) + walkMin(endOf(prev), ev.p) > t) continue;
+      if (next && t + ev.dur + walkMin(endP(ev), placeOf(next)) > next.t) continue;
       return t;
     }
     return null;
@@ -767,7 +782,7 @@ class Component extends DCLogic {
     var b = this.band(), v = this.view(), lw = b.w * v.z / 100;
     var selIt = s.sel && s.sel.type === "stop" ? plan.filter(function (x) { return x.key === s.sel.key; })[0] : null;
     var selPlace = s.sel && s.sel.type === "place" ? s.sel.p : selIt ? placeOf(selIt) : null;
-    var byPlace = {}; stopsOnly.forEach(function (x) { var p = placeOf(x); (byPlace[p] = byPlace[p] || []).push(numOf[x.key]); });
+    var byPlace = {}; stopsOnly.forEach(function (x) { var p = placeOf(x), q = endOf(x); (byPlace[p] = byPlace[p] || []).push(numOf[x.key]); if (q !== p) (byPlace[q] = byPlace[q] || []).push(numOf[x.key]); });
     var pins = Object.keys(PLACES).map(function (pid) {
       var pl = PLACES[pid], nums = byPlace[pid], inDay = !!nums, on = selPlace === pid;
       var big = pl.village || inDay, size = inDay ? (on ? 40 : 34) : (pl.village ? 34 : 26);
@@ -781,8 +796,14 @@ class Component extends DCLogic {
           "border: " + (on ? "3px solid #F4EB96" : "2px solid #FFFFFF") + "; box-shadow: 0 2px 8px rgba(0,0,0," + (on ? 0.5 : 0.35) + ");" + (!big ? " opacity: 0.95;" : ""),
         pick: function () { if (self._justDragged) return; self.flyTo(pid, { sel: { type: "place", p: pid } }); } };
     });
-    var routePts = []; stopsOnly.forEach(function (x) { var p = PLACES[placeOf(x)]; if (!p) return; var last = routePts[routePts.length - 1]; if (!last || last.x !== p.x || last.y !== p.y) routePts.push(p); });
-    var routeD = ready && s.route && routePts.length > 1 ? routePts.map(function (p, i) { return (i ? "L" : "M") + p.x + " " + p.y; }).join(" ") : "";
+    var walkSegs = [], canoeSegs = [], at = null;
+    stopsOnly.forEach(function (x) {
+      var a = PLACES[placeOf(x)], z2 = PLACES[endOf(x)]; if (!a) return;
+      if (at && (at.x !== a.x || at.y !== a.y)) walkSegs.push("M" + at.x + " " + at.y + " L" + a.x + " " + a.y);
+      if (z2 && z2 !== a) canoeSegs.push("M" + a.x + " " + a.y + " Q " + ((a.x + z2.x) / 2) + " " + (Math.min(a.y, z2.y) + 4) + " " + z2.x + " " + z2.y);
+      at = z2 || a;
+    });
+    var routeD = ready && s.route ? walkSegs.join(" ") : "", canoeD = ready && s.route ? canoeSegs.join(" ") : "";
 
     // ---- day strip
     var ghostT = function (x) { return s.ghost && s.ghost.key === x.key ? s.ghost.t : x.t; };
@@ -796,7 +817,7 @@ class Component extends DCLogic {
       var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", code: "··", color: "#857D69" }, t = ghostT(x), on = selIt && selIt.key === x.key;
       var wpx = Math.max(Math.round(ev.dur * PXH), 30), conflict = conflictOf(plan, i), dragging = s.ghost && s.ghost.key === x.key;
       return { n: x.id === "break" ? "☕" : String(numOf[x.key]), title: ev.title, time: fmtS(t) + "–" + fmtS(t + ev.dur), on: on, wide: wpx >= 96,
-        aria: fmt(t) + ", " + ev.title + (pl.name ? ", " + pl.name : "") + (conflict ? ". " + conflict : "") + ". Select to change it, or drag to another time.",
+        aria: fmt(t) + ", " + ev.title + (pl.name ? ", " + pl.name + (ev.pEnd ? " to " + PLACES[ev.pEnd].name : "") : "") + (conflict ? ". " + conflict : "") + ". Select to change it, or drag to another time.",
         badge: "flex-shrink: 0; min-width: 22px; height: 22px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: " + (x.id === "break" ? "#E3DED4" : pl.color) + "; color: #FFFFFF; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;",
         wrap: "position: absolute; left: " + X(t) + "px; top: " + (26 + lane[x.key] * 50) + "px; width: " + wpx + "px; height: 44px; z-index: " + (on || dragging ? 5 : 2) + ";",
         style: "width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 6px; padding: 0 6px; border-radius: 9px; cursor: grab; color: #27201B; overflow: hidden; background: " + (x.id === "break" ? "#F6F4EF" : "#FFFFFF") + "; " +
@@ -807,11 +828,11 @@ class Component extends DCLogic {
     var gaps = [];
     plan.forEach(function (x, i) {
       var n = plan[i + 1]; if (!n) return;
-      var end = x.t + durOf(x), free = n.t - end - walkMin(placeOf(x), placeOf(n)); if (free < 20) return;
+      var end = x.t + durOf(x), free = n.t - end - walkMin(endOf(x), placeOf(n)); if (free < 20) return;
       var on = s.sel && s.sel.type === "gap" && s.sel.from === end;
       gaps.push({ aria: "Add something between " + fmt(end) + " and " + fmt(n.t) + " (" + hm(n.t - end) + " free)",
         style: "position: absolute; left: " + (X(end + (n.t - end) / 2) - 16) + "px; top: 32px; width: 32px; height: 32px; border-radius: 50%; border: 1px dashed " + (on ? "#215968" : "#857D69") + "; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; color: #215968; font-size: 18px; font-weight: 700; cursor: pointer; z-index: 3;",
-        pick: function () { self.flyTo(placeOf(x), { sel: { type: "gap", from: end, fromPlace: placeOf(x), to: n.t, toPlace: placeOf(n) } }); } });
+        pick: function () { self.flyTo(endOf(x), { sel: { type: "gap", from: end, fromPlace: endOf(x), to: n.t, toPlace: placeOf(n) } }); } });
     });
 
     // ---- card: stop
@@ -822,10 +843,10 @@ class Component extends DCLogic {
       var ts = validTimes(ev), ti = ts.indexOf(selIt.t);
       var earlierT = selIt.id === "break" ? selIt.t - 15 : (ti > 0 ? ts[ti - 1] : null), laterT = selIt.id === "break" ? selIt.t + 15 : (ti >= 0 && ti < ts.length - 1 ? ts[ti + 1] : null);
       if (ev.win && ti >= 0) { earlierT = ti >= 3 ? ts[ti - 3] : (ti > 0 ? ts[0] : null); laterT = ti + 3 < ts.length ? ts[ti + 3] : (ti < ts.length - 1 ? ts[ts.length - 1] : null); }
-      var why = selIt.kind === "auto" ? (s.must[ev.p] ? "You asked not to miss " + pl.name + "." : ev.kids && s.party === "family" ? "A favorite with kids." : ev.couples && s.party === "couple" ? "A favorite with couples." : ev.sig ? "The main presentation here." : (ev.cat || []).some(function (c) { return s.interests[c]; }) ? "Matches what you love." : "") : selIt.kind === "edited" ? "You added this." : "";
-      var wk = prev ? walkMin(placeOf(prev), placeOf(selIt)) : 0;
-      sel = { step: selIt.id === "break" ? "Break" : "Stop " + numOf[selIt.key] + " of " + stopsOnly.length, title: ev.title, code: pl.code, badge: badge(pl.color, 42), meta: fmt(selIt.t) + "–" + fmt(selIt.t + ev.dur) + (pl.name ? " · " + pl.name : ""),
-        what: ev.what, why: why, walk: wk ? wk + " min walk from " + (PLACES[placeOf(prev)] ? PLACES[placeOf(prev)].name : "your last stop") + ", shown as the dotted line." : "",
+      var why = selIt.kind === "auto" ? (ev.pEnd ? "Saves the walk across the Center: you land near the villages still ahead of you." : s.must[ev.p] ? "You asked not to miss " + pl.name + "." : ev.kids && s.party === "family" ? "A favorite with kids." : ev.couples && s.party === "couple" ? "A favorite with couples." : ev.sig ? "The main presentation here." : (ev.cat || []).some(function (c) { return s.interests[c]; }) ? "Matches what you love." : "") : selIt.kind === "edited" ? "You added this." : "";
+      var wk = prev ? walkMin(endOf(prev), placeOf(selIt)) : 0, landed = ev.pEnd ? PLACES[ev.pEnd] : null, nextWalk = landed && next ? walkMin(ev.pEnd, placeOf(next)) : 0;
+      sel = { step: selIt.id === "break" ? "Break" : "Stop " + numOf[selIt.key] + " of " + stopsOnly.length, title: ev.title, code: pl.code, badge: badge(pl.color, 42), meta: fmt(selIt.t) + "–" + fmt(selIt.t + ev.dur) + (pl.name ? " · " + pl.name + (landed ? " → " + landed.name : "") : ""),
+        what: ev.what, why: why, walk: (wk ? wk + " min walk from " + (PLACES[endOf(prev)] ? PLACES[endOf(prev)].name : "your last stop") + ", shown as the dotted line." : "") + (landed ? (wk ? " " : "") + "You land at the " + landed.name + (next ? "; " + BYID[next.id].title + " is " + (nextWalk ? nextWalk + " min on foot from there." : "right there.") : ".") : ""),
         conflict: conflictOf(plan, i) || (next ? conflictOf(plan, i + 1) : ""), fromTicket: selIt.kind === "ticket",
         noEarlier: earlierT == null, noLater: laterT == null,
         earlierLabel: earlierT != null ? "Earlier · " + fmtS(earlierT) : "Earlier", laterLabel: laterT != null ? "Later · " + fmtS(laterT) : "Later",
@@ -834,7 +855,7 @@ class Component extends DCLogic {
         isFirst: i === 0, isLast: i === plan.length - 1,
         prev: function () { if (prev) self.selectStop(prev); }, next: function () { if (next) self.selectStop(next); } };
       var from = prev ? prev.t + durOf(prev) : (W ? W[0] : 660), to = next ? next.t : (W ? W[1] : 1245);
-      alts = fitsBetween(s, plan, from, prev ? placeOf(prev) : "market", to, next ? placeOf(next) : null, selIt.key);
+      alts = fitsBetween(s, plan, from, prev ? endOf(prev) : "market", to, next ? placeOf(next) : null, selIt.key);
       altTitle = "Or swap for something between " + fmtS(from) + " and " + fmtS(to);
       alts = alts.map(function (a) { return { ev: a.ev, t: a.t, pick: function () {
         var ex = Object.assign({}, s.excluded); ex[selIt.id] = true;
@@ -846,24 +867,26 @@ class Component extends DCLogic {
         var np = plan.slice(), k = "e" + a.ev.id + Date.now(); np.push({ key: k, id: a.ev.id, t: a.t, kind: "edited" });
         self.edit(np, "Added " + a.ev.title + " at " + fmt(a.t) + "."); self.flyTo(a.ev.p, { sel: { type: "stop", key: k } }); } }; });
     }
-    var altRows = alts.map(function (a) { var pp = PLACES[a.ev.p]; return { title: a.ev.title, time: fmtS(a.t), code: pp.code, badge: badge(pp.color, 28), sub: pp.name + " · " + (a.ev.est ? "about " : "") + a.ev.dur + " min · " + a.ev.kind, pick: a.pick }; });
+    var altRows = alts.map(function (a) { var pp = PLACES[a.ev.p]; return { title: a.ev.title, time: fmtS(a.t), code: pp.code, badge: badge(pp.color, 28), sub: pp.name + (a.ev.pEnd ? " → " + PLACES[a.ev.pEnd].name : "") + " · " + (a.ev.est ? "about " : "") + a.ev.dur + " min · " + a.ev.kind, pick: a.pick }; });
 
     // ---- card: place
     var plc = {};
     if (s.sel && s.sel.type === "place") {
       var pid = s.sel.p, P = PLACES[pid], vil = VILLAGES.filter(function (vv) { return vv.id === pid; })[0], info = PLACE_INFO[pid] || {};
       var evs = EVENTS.filter(function (e) { return e.p === pid && !e.ticketOnly && (!e.evening || !tk); });
-      var mustKey = MUSTS.filter(function (m) { return m[0] === pid; })[0];
+      var lands = EVENTS.filter(function (e) { return e.pEnd === pid; });
+      var mustId = pid === "canoeS" || pid === "canoeN" ? "canoe" : pid, mustKey = MUSTS.filter(function (m) { return m[0] === mustId; })[0];
       plc = { name: P.name + (vil ? " village" : ""), code: P.code, badge: badge(P.color, 42), zone: vil ? vil.greeting + " · Island village" : info.zone || "",
         promise: vil ? vil.promise : info.promise || "", img: vil ? vil.img : info.img || "", alt: vil ? vil.alt : info.alt || "",
-        canMust: !!mustKey, must: !!(mustKey && s.must[pid]), mustLabel: mustKey && s.must[pid] ? "✓ Won't miss it" : "Don't let me miss it",
-        mustBg: mustKey && s.must[pid] ? "#215968" : "#FFFFFF", mustFg: mustKey && s.must[pid] ? "#FFFFFF" : "#215968",
-        toggleMust: function () { var mm = Object.assign({}, s.must); if (mm[pid]) delete mm[pid]; else mm[pid] = true; self.setPrefs({ must: mm }, mm[pid] ? "We've built " + P.name + " into your day." : ""); self.setState({ sel: { type: "place", p: pid } }); },
+        canMust: !!mustKey, must: !!(mustKey && s.must[mustId]), mustLabel: mustKey && s.must[mustId] ? "✓ Won't miss it" : "Don't let me miss it",
+        mustBg: mustKey && s.must[mustId] ? "#215968" : "#FFFFFF", mustFg: mustKey && s.must[mustId] ? "#FFFFFF" : "#215968",
+        toggleMust: function () { var mm = Object.assign({}, s.must); if (mm[mustId]) delete mm[mustId]; else mm[mustId] = true; self.setPrefs({ must: mm }, mm[mustId] ? "We've built " + (mustId === "canoe" ? "a canoe ride" : P.name) + " into your day." : ""); self.setState({ sel: { type: "place", p: pid } }); },
         listTitle: ready ? "What's on here " + (d ? d[0] + ", " + d[1] : "") : "What's on here",
+        landsNote: lands.length ? "Canoes from the other end land here, so a ride can bring you straight to this end of the Center." : "",
         events: evs.map(function (e) {
           var inPlan = plan.filter(function (x) { return x.id === e.id; })[0];
           var slot = ready && !inPlan ? self.slotFor(e, plan, W) : null;
-          return { title: e.title, dur: (e.est ? "about " : "") + e.dur + " min",
+          return { title: e.title + (e.pEnd ? " (lands at the " + PLACES[e.pEnd].name + ")" : ""), dur: (e.est ? "about " : "") + e.dur + " min",
             times: e.times ? e.times.map(fmtS).join(" · ") : "Any time " + fmtS(e.win[0]) + "–" + fmtS(e.win[1]),
             bg: inPlan ? "#F2F7F8" : "#FFFFFF", inDay: !!inPlan, inDayLabel: inPlan ? "In your day at " + fmt(inPlan.t) + " · change it" : "",
             open: function () { if (inPlan) self.setState({ sel: { type: "stop", key: inPlan.key } }); },
@@ -875,12 +898,12 @@ class Component extends DCLogic {
 
     // ---- summary
     var villagesSeen = VILLAGE_IDS.filter(function (vv) { return plan.some(function (x) { return placeOf(x) === vv; }); });
-    var walkTotal = 0; plan.forEach(function (x, k) { if (k) walkTotal += walkMin(placeOf(plan[k - 1]), placeOf(x)); });
+    var walkTotal = 0; plan.forEach(function (x, k) { if (k) walkTotal += walkMin(endOf(plan[k - 1]), placeOf(x)); });
     var conflicts = plan.filter(function (x, k) { return conflictOf(plan, k); }).length;
     var lastIt = plan[plan.length - 1];
     var missed = VILLAGE_IDS.filter(function (vv) { return villagesSeen.indexOf(vv) < 0; }).map(function (vv) { return PLACES[vv].name; });
-    var mustMissed = MUSTS.filter(function (m) { return s.must[m[0]] && !plan.some(function (x) { return placeOf(x) === m[0]; }); }).map(function (m) { return m[1]; });
-    var leftover = missed.concat(["canoe", "iosepa", "mission"].filter(function (p) { return !plan.some(function (x) { return placeOf(x) === p; }); }).map(function (p) { return MUSTS.filter(function (m) { return m[0] === p; })[0][1]; }).slice(0, 2));
+    var mustMissed = MUSTS.filter(function (m) { return s.must[m[0]] && !plan.some(function (x) { return placeOf(x) === m[0] || mustOf(BYID[x.id]) === m[0]; }); }).map(function (m) { return m[1]; });
+    var leftover = missed.concat(["canoe", "iosepa", "mission"].filter(function (p) { return !plan.some(function (x) { return placeOf(x) === p || mustOf(BYID[x.id]) === p; }); }).map(function (p) { return MUSTS.filter(function (m) { return m[0] === p; })[0][1]; }).slice(0, 2));
     var left = []; if (!s.party) left.push("who's coming"); if (s.date === null) left.push("the date"); if (!s.hours) left.push("how long you can stay"); if (!s.stay) left.push("where you're staying"); else if (s.stay === "cruise" && !s.aboard) left.push("your all-aboard time");
     var note = "";
     if (s.stay === "cruise" && s.aboard && W) note = "All aboard at " + fmt(s.aboard) + ": your day ends by " + fmt(W[1]) + ", leaving about 75 minutes to Honolulu Harbor plus a margin.";
@@ -929,7 +952,7 @@ class Component extends DCLogic {
       mapAria: ready ? "Map of the Center with your " + stopsOnly.length + " stops numbered in order and the walking route between them." : "Illustrated map of the Center: the Marketplace and theater at the entrance, the lagoon through the middle and the six villages around it.",
       bandStyle: "height: " + b.h + "px;",
       layerStyle: "position: absolute; width: " + v.z + "%; aspect-ratio: 2601 / 704; left: " + (50 - v.cx * v.z / 100) + "%; top: 50%; transform: translateY(-" + v.cy + "%);" + (self.drag ? "" : " transition: left 0.35s ease, width 0.35s ease, transform 0.35s ease;"),
-      pins: pins, routeD: routeD,
+      pins: pins, routeD: routeD, canoeD: canoeD,
       panDown: function (e) { if (e && e.button) return; var vv = self.view(); self.drag = { type: "pan", x: e.clientX, y: e.clientY, z: vv.z, cx: vv.cx, cy: vv.cy, moved: false }; },
       stop: function (e) { if (e && e.stopPropagation) e.stopPropagation(); },
       zoomIn: function (e) { if (e && e.stopPropagation) e.stopPropagation(); var vv = self.view(), c = self.clampView(Math.min(500, Math.round(vv.z * 1.35)), vv.cx, vv.cy, s); self.setState(c); },
@@ -952,9 +975,9 @@ class Component extends DCLogic {
       daySummary: stopsOnly.length + " stops · " + villagesSeen.length + " of 6 villages · " + walkTotal + " min walking" + (conflicts ? " · " + conflicts + " to fix" : ""),
       note: note,
       steps: plan.map(function (x, k) {
-        var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", color: "#857D69" }, w = k ? walkMin(placeOf(plan[k - 1]), placeOf(x)) : 0, on = selIt && selIt.key === x.key;
+        var ev = BYID[x.id], pl = PLACES[placeOf(x)] || { name: "", color: "#857D69" }, w = k ? walkMin(endOf(plan[k - 1]), placeOf(x)) : 0, on = selIt && selIt.key === x.key;
         var tag = x.kind === "ticket" ? "On your ticket" : x.kind === "set" ? "Evening" : x.kind === "edited" ? "Your pick" : "";
-        return { time: fmt(x.t), title: ev.title, n: x.id === "break" ? "☕" : String(numOf[x.key]), sub: (pl.name ? pl.name + " · " : "") + (ev.est ? "about " : "") + ev.dur + " min", tag: tag, conflict: conflictOf(plan, k), on: on,
+        return { time: fmt(x.t), title: ev.title, n: x.id === "break" ? "☕" : String(numOf[x.key]), sub: (pl.name ? pl.name + (ev.pEnd ? " → " + PLACES[ev.pEnd].name : "") + " · " : "") + (ev.est ? "about " : "") + ev.dur + " min", tag: tag, conflict: conflictOf(plan, k), on: on,
           walk: w ? w + " min walk" : "", badge: "flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: " + (x.id === "break" ? "#E3DED4" : pl.color) + "; color: #FFFFFF; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;",
           style: "width: 100%; min-height: 52px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; cursor: pointer; color: #27201B; background: " + (on ? "#E6EFF1" : "#FFFFFF") + "; border: " + (on ? "2px solid #215968" : "1px solid #E3DED4") + ";",
           open: function () { self.selectStop(x); try { document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} } };

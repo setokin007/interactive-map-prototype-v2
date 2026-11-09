@@ -29,7 +29,15 @@ live at https://interactive-map-prototype-blush.vercel.app) is kept for referenc
    ticket items, adds Huki, then repeatedly picks the best next stop that can be reached in time,
    scoring each candidate by the guest's must-sees, interests and party, favoring villages not yet
    seen, and penalizing waiting and walking. Walking times come from the map at an easy pace.
-5. **The map is the centerpiece.** It fills the width of the page and fills its frame: drag to
+5. **The canoe ride moves you across the Center.** A ride takes about 20 minutes and runs from
+   the South Canoe Landing (near Huki) to the North Canoe Landing (near Hawaiʻi and Iosepa), or
+   the other way. The rest of the day continues from wherever the guest lands: walking times,
+   gaps, conflicts and suggestions all start from the far landing. The generator favors a ride
+   that lands the guest near villages they haven't seen yet, and adding "Canoe ride" to
+   "Don't let me miss" puts one in. On the map, walks are dotted and the ride is a solid blue
+   line along the lagoon; its stop number shows at both landings. Landing positions are
+   estimates from the gate handout.
+6. **The map is the centerpiece.** It fills the width of the page and fills its frame: drag to
    pan, + and − to zoom (− all the way shows the whole map), a button to center on the day and
    one to make the map taller. Every place is a pin; stops in the day are numbered in order with
    the walking route drawn between them. Tapping a place opens a card on the map with what's on
@@ -37,11 +45,11 @@ live at https://interactive-map-prototype-blush.vercel.app) is kept for referenc
    "Don't let me miss it". Tapping a stop opens its card with times, walk, reason, swap options
    and previous/next. A horizontal day strip under the map shows the day on a time line; drag a
    stop along it to retime it, or tap + in a gap. A step-by-step list follows below.
-6. **Editing**: select a stop to see why it's there, move it to an earlier or later showtime, remove
+7. **Editing**: select a stop to see why it's there, move it to an earlier or later showtime, remove
    it, or swap it for something that fits the same gap. Tap a free gap to add something. Drag a stop
    to another time; it snaps to the nearest real showtime. Overlaps and too-short walks are flagged.
    Hand edits are kept when the guest changes their answers; "Start fresh" clears them.
-7. **Return visits**: Islands of Polynesia tickets allow a free return to the villages within 3 days.
+8. **Return visits**: Islands of Polynesia tickets allow a free return to the villages within 3 days.
    The page says so and lists what the day leaves out; the saved day is stored as a list of days
    so a second day can be added later.
 
